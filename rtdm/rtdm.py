@@ -127,7 +127,7 @@ def RTDM(t1, t2):
 	MAPE = [[None for x in range(n)] for x in range(m)]
 	O[0][0]=["s"]
 	MAPE[0][0] = (c1[0].name,c2[0].name)
-	log.write("%d %d" % (m, n))
+	log.write("\n%d %d" % (m, n))
 
 	for i in range(1, m):
 		M[i][0] = M[i-1][0]+tree.length(c1[i])
@@ -141,7 +141,7 @@ def RTDM(t1, t2):
 	for i in range(1, m):
 		for j in range(1, n):
 			aux_mape = None
-			log.write("\tM[%d][%d](%s x %s)" % (i, j, c1[i].name, c2[j].name))
+			log.write("\n\n\tM[%d][%d](%s x %s)" % (i, j, c1[i].name, c2[j].name))
 			d = (M[i-1][j]+delete(c1[i], c2[j]))
 			d1 = delete(c1[i], c2[j])
 			a = (M[i][j-1]+insert(c1[i], c2[j]))
@@ -150,47 +150,47 @@ def RTDM(t1, t2):
 			s1 = 0
 			aux = [] 
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
-				log.write("Iguais %s %s" % ( c1[i].name, c2[j].name))
+				log.write("\nIguais %s %s" % ( c1[i].name, c2[j].name))
 				M[i][j] = s
 				O[i][j] = O[i-1][j-1]
 				MAPE[i][j] = [get_list(c1[i])]
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
 				#aux += [[(c1[i].name, c2[j].name)]]
-				log.write("Subst")
+				log.write("\nSubst")
 				s += replace(c1[i], c2[j])
 				s1 = replace(c1[i], c2[j])
 
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
-					log.write("folha")
+					log.write("\nfolha")
 					s += insert(c1[i], c2[j])
 
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
-					log.write("folha")
+					log.write("\nfolha")
 					s += delete(c1[i], c2[j])
 
 			else:
 				rtdm,_,aux_mape = RTDM(c1[i], c2[j])
 				mape.insert(0,aux_mape)
-				log.write("Recursao %f" % (rtdm))
+				log.write("\nRecursao %f" % (rtdm))
 				s += rtdm
 
-			log.write("\tM[%d][%d](%s x %s)\ti:%d,d:%d,s:%d" % (i, j, c1[i].name, c2[j].name, a1, d1, s1))
+			log.write("\n\tM[%d][%d](%s x %s)\ti:%d,d:%d,s:%d" % (i, j, c1[i].name, c2[j].name, a1, d1, s1))
 			M[i][j] = min(d, a, s)
 			O[i][j] = menor_operacao(d,a,s)
 			MAPE[i][j] = aux_mape if aux_mape != None else (c1[i].name,c2[j].name)
 
 	for x in range(0, m):
-		log.write(str(M[x]))
+		log.write("\n"+str(M[x]))
 
-	log.write("\n\n")
+	log.write("\n")
 	for x in range(0, m):
-		log.write(str(O[x]))
+		log.write("\n"+str(O[x]))
 		
-	log.write("\n\n")
+	log.write("\n")
 	for x in range(0, m):
-		log.write(str(MAPE[x]))
-	log.write("\n\n")
+		log.write("\n"+str(MAPE[x]))
+	log.write("\n")
 
 	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
 	return M[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
