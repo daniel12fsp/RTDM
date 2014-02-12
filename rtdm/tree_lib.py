@@ -32,6 +32,7 @@ def file_to_tree(file_tree1, file_tree2):
 	remove_tag(tree1)
 	remove_tag(tree2)
 	return tree1, tree2
+	#return tree1.div, tree2.div
 
 def get_children(tree):
 	return	tree.find_all(recursive=False)

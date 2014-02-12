@@ -18,7 +18,7 @@ def mapeamento_array(M,O,ci,cj):
 	fila = []
 	tmp = None
 	while(i>0 and j>0):
-		eh_lista = type(M[i][j])==type(list())
+		eh_lista = (type(M[i][j]) is list)
 		if("s" in O[i][j]):
 			if eh_lista:
 				tmp = M[i][j]
@@ -37,34 +37,53 @@ def mapeamento_array(M,O,ci,cj):
 			else:
 				tmp = ("0", cj[j].name)
 			i, j, last_i = op_i(i, j)
-		mape.insert(0, tmp)
-	return [(ci[0].name,cj[0].name)] + [mape]
+
+		mape.insert(0,tmp)
+
+	if(type(tmp) is tuple):
+		return [(ci[0].name,cj[0].name)] + [tmp]
+	else:
+		return [(ci[0].name,cj[0].name)] + mape
 		
 def head(ls):
-	return ls[0][0]
+	if(type(ls) is tuple):
+		return ls[0]
+	else:
+		return head(ls[0])
 
+def generate_list(ls):
+	if((type(ls)) is list and len(ls)== 1):
+		return generate_list(ls[0])
+	
+	if type(ls) is list and len(ls)>=2 :
+		return ls[1:]
+	
+	return []
+			
 def generate_template(ls):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
 	eh_interrogacao = False
 	eh_ponto = False
-	i = head(ls)
-	if(type(i) == type(tuple())):
-		return generate_template(ls[0])
-
-	if(type(i) is str and i != "body"):
-		tree.body.append(Tag(name=i))
-	father = tree.find_all(i)[0]
-	for i in ls[1:]:
+	h = head(ls)
+	print(h)
+	if(type(h) is str and h != "body"):
+		print("if-1")
+		tree.body.append(Tag(name=h))
+	father = tree.find_all(h)[0]
+	for i in generate_list(ls):
+		print("For")
 		last = None
 		print(i)
-		if(i is tuple ):
+		if(type(i) is tuple ):
+			print("eh tuple")
 			(x, y) = i
-			last = Tag(name=x)
+			last = Tag(name = x)
 			father.append(last)
+			print("if-2 then",last)
 			# Falta implementar para os curingas
 		else:
 			last = generate_template(i)
-			print(father,last)
+			print("if-2 else",last)
 			father.append(last.body.findChild())
 	return tree
 	
@@ -81,7 +100,8 @@ def get_list(node):
 		return ls+children
 	return None
 
+mape = [('body', 'body'), [[('div', 'div'), [('ul', 'ul'), [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]]], [('div', 'div')]]], [[('hr', 'hr')]]]
 
-mape = [[('estatua', 'estatua'), [('manaus', 'manaus')]]]
-print(generate_template(mape))
 
+#print(generate_list(mape))
+#print(generate_list(generate_list(mape)))

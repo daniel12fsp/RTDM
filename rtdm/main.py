@@ -46,6 +46,7 @@ def file_file(file1,file2):
 	print("Mapeamento",mape)
 	file_log.write("\nT1:%s \nT2:%s \nSimilaridade:\t\t\t\t>>> %d <<< " % (file1, file2, simi))
 	print("Construcao do template")
+	file_log.write("\n\n\n"+str(mape))
 	file_regex = file.create_file_dir_default(file1, file2, ".regex")
 	file_regex.write(generate_template(mape).html.prettify())
 
@@ -73,6 +74,7 @@ Replace_choice
 
 """
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links.txt"
+print(filename)
 
 get_links(filename)
 rtdm.replace_choice(3)
