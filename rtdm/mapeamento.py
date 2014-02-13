@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup, Tag
 import re
 from tree_lib import is_wildcard
+import composicao_curingas
 
 def op_s(i,j):
 	return i-1,j-1,i
@@ -65,25 +66,23 @@ def generate_template(ls):
 	eh_interrogacao = False
 	eh_ponto = False
 	h = head(ls)
-	print(h)
+	#print(h)
 	if(type(h) is str and h != "body"):
-		print("if-1")
+		#print("if-1")
 		tree.body.append(Tag(name=h))
 	father = tree.find_all(h)[0]
 	for i in generate_list(ls):
-		print("For")
+		#print("For")
 		last = None
-		print(i)
+		#print(i)
 		if(type(i) is tuple ):
-			print("eh tuple")
-			(x, y) = i
-			last = Tag(name = x)
+			#print("eh tuple")
+			last = Tag(name = i)
 			father.append(last)
-			print("if-2 then",last)
 			# Falta implementar para os curingas
 		else:
 			last = generate_template(i)
-			print("if-2 else",last)
+			#print("if-2 else",last)
 			father.append(last.body.findChild())
 	return tree
 	
@@ -100,8 +99,22 @@ def get_list(node):
 		return ls+children
 	return None
 
-mape = [('body', 'body'), [[('div', 'div'), [('ul', 'ul'), [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]], [('li', 'li'), [('a', 'a'), [('b', 'b')]]]], [('div', 'div')]]], [[('hr', 'hr')]]]
+def get_name_node(n1,n2):
+	if(not is_wildcard(n1) and not is_wildcard(n2) and n1 != n2 ):
+		return "ponto"
+	
+	if(not is_wildcard(n1) and not is_wildcard(n2) and n1 == n2 ):
+		return n1
 
-
-#print(generate_list(mape))
-#print(generate_list(generate_list(mape)))
+	if(is_wildcard(n1) and not is_wildcard(n2)):
+		return n1
+	
+		
+	return composicao_curingas.get_curinga(n1, n2)
+	
+def mapeamento_node(aux_mape, n1, n2):
+	node = get_name_node(n1,n2) 
+	if aux_mape == None :
+		return [(node,node)]
+	else: 
+		return aux_mape

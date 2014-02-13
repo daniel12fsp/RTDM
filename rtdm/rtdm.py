@@ -1,7 +1,7 @@
 from utils import get_elem, exist_elem
 import os
 import tree_lib as tree
-from mapeamento import mapeamento_array, get_list
+from mapeamento import mapeamento_array, get_list, mapeamento_node
 
 def delete(t1, t2):
 	i  = 0
@@ -177,8 +177,8 @@ def RTDM(t1, t2):
 
 			log.write("\n\tM[%d][%d](%s x %s)\ti:%d,d:%d,s:%d" % (i, j, c1[i].name, c2[j].name, a1, d1, s1))
 			M[i][j] = min(d, a, s)
-			O[i][j] = menor_operacao(d,a,s)
-			MAPE[i][j] = aux_mape if aux_mape != None else (c1[i].name,c2[j].name)
+			O[i][j] = menor_operacao(d, a, s)
+			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
 
 	for x in range(0, m):
 		log.write("\n"+str(M[x]))
@@ -194,3 +194,5 @@ def RTDM(t1, t2):
 
 	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
 	return M[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
+
+

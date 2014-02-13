@@ -49,6 +49,6 @@ def compara_lista(node1, node2):
 		return False
 	else:
 		for i in range(0, len(node1)):
-			if(node1[i].name!=node2[i].name):
+			if( not tree.equal(node1[i], node2[i])):
 				return False
 	return True

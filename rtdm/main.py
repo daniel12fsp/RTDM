@@ -33,7 +33,7 @@ def file_file(file1,file2):
 	k = get_classe_equivalencia(tree1, tree2)
 	print("[Ok]")
 
-	print("Criando arquivo de log")
+	print("Criando arquivo de log", end="")
 	file_log = file.create_file_dir_default(file1, file2, ".log")
 	print("[Ok]")
 
@@ -43,7 +43,6 @@ def file_file(file1,file2):
 	print("[Ok]")
 
 	print("\nt1 = "+file1, "\nt2 = "+file2, "\nSimilaridade\t\t->>>", simi,"<<<-")
-	print("Mapeamento",mape)
 	file_log.write("\nT1:%s \nT2:%s \nSimilaridade:\t\t\t\t>>> %d <<< " % (file1, file2, simi))
 	print("Construcao do template")
 	file_log.write("\n\n\n"+str(mape))

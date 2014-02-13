@@ -32,7 +32,6 @@ def file_to_tree(file_tree1, file_tree2):
 	remove_tag(tree1)
 	remove_tag(tree2)
 	return tree1, tree2
-	#return tree1.div, tree2.div
 
 def get_children(tree):
 	return	tree.find_all(recursive=False)
@@ -68,11 +67,11 @@ def is_leaf(node):
 	
 def equal(x,y):
 	#return (x.name == y.name)
-	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or (x.name == y.name)
+	return (is_wildcard(x)) or (is_wildcard(y)) or (x.name == y.name)
 
 def is_any_wildcard(x,y):
 	#return False
-	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x))
+	return (is_wildcard(x))  or (is_wildcard(y))
 
 def is_wildcard(x):
 	wildcards = ["ponto","interrogacao","soma"]
@@ -80,4 +79,3 @@ def is_wildcard(x):
 		return 	(x in wildcards)
 	else:
 		return 	(x.name in wildcards)
-
