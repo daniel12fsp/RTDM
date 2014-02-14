@@ -62,6 +62,11 @@ def generate_list(ls):
 	return []
 			
 def generate_template(ls):
+	tree = mape_to_tree(ls)
+	tree = promocao_curingas(tree.html.prettify())
+	return tree
+	
+def mape_to_tree(ls):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
 	eh_interrogacao = False
 	eh_ponto = False
@@ -81,7 +86,7 @@ def generate_template(ls):
 			father.append(last)
 			# Falta implementar para os curingas
 		else:
-			last = generate_template(i)
+			last = mape_to_tree(i)
 			#print("if-2 else",last)
 			father.append(last.body.findChild())
 	return tree
@@ -100,6 +105,7 @@ def get_list(node):
 	return None
 
 def get_name_node(n1,n2):
+
 	if(not is_wildcard(n1) and not is_wildcard(n2) and n1 != n2 ):
 		return "ponto"
 	
@@ -113,8 +119,29 @@ def get_name_node(n1,n2):
 	return composicao_curingas.get_curinga(n1, n2)
 	
 def mapeamento_node(aux_mape, n1, n2):
+
 	node = get_name_node(n1,n2) 
+
 	if aux_mape == None :
 		return [(node,node)]
 	else: 
 		return aux_mape
+
+def tag(string,curinga = "\W*"):
+	return "<"+string+">"+curinga+"</"+string+">"
+
+def end_pattern():
+	return "\W*"+tag("interrogacao")+"\W*"+tag("interrogacao")+"\W*"+tag("interrogacao")
+
+def promocao_curingas_substituicao(primeira_tag, promocao_tag, tree):
+	regex = tag(primeira_tag)+end_pattern()
+	return re.sub(regex, tag(promocao_tag, curinga=""), tree)
+	
+
+def promocao_curingas(tree):
+	tree = promocao_curingas_substituicao("mais","mais",tree)
+	tree = promocao_curingas_substituicao("ponto","mais",tree)
+	tree = promocao_curingas_substituicao("interrogacao","asterisco",tree)
+	tree = promocao_curingas_substituicao("asteristico","asterisco",tree)
+	return tree
+

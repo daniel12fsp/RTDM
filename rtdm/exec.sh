@@ -12,7 +12,7 @@ rm ../paginas_html/*/*.regex
 modulo=main.py
 #mapeamento.py
 
-gnome-terminal -e "bash -c 'python2 $modulo ';$SHELL" &
-#gnome-terminal -e "bash -c 'python -m pdb $modulo';$SHELL" &
-#gnome-terminal -e "bash -c 'python -m pudb.run $modulo';$SHELL" &
-#gnome-terminal -e "bash -c 'python2 $modulo';$SHELL" &
+gnome-terminal -e "bash -c 'python2 $modulo ';read " &
+#gnome-terminal -e "bash -c 'python -m pdb $modulo';read" &
+#gnome-terminal -e "bash -c 'python -m pudb.run $modulo';read" &
+#gnome-terminal -e "bash -c 'python2 $modulo';read" &

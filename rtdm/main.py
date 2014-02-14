@@ -42,13 +42,16 @@ def file_file(file1,file2):
 	simi,M,mape = rtdm.RTDM(tree1, tree2)
 	print("[Ok]")
 
-	print("\nt1 = "+file1, "\nt2 = "+file2, "\nSimilaridade\t\t->>>", simi,"<<<-")
-	file_log.write("\nT1:%s \nT2:%s \nSimilaridade:\t\t\t\t>>> %d <<< " % (file1, file2, simi))
-	print("Construcao do template")
+	print("Construcao do template", end="")
 	file_log.write("\n\n\n"+str(mape))
 	file_regex = file.create_file_dir_default(file1, file2, ".regex")
-	file_regex.write(generate_template(mape).html.prettify())
+	file_regex.write(generate_template(mape))
+	print("[Ok]")
 
+	print("\nt1 = "+file1, "\nt2 = "+file2, "\nSimilaridade\t\t->>>", simi,"<<<-")
+	file_log.write("\nT1:%s \nT2:%s \nSimilaridade:\t\t\t\t>>> %d <<< " % (file1, file2, simi))
+
+	print("Fim!")
 	file_log.close()
 	file_regex.close()
 
