@@ -66,12 +66,10 @@ def is_leaf(node):
 	return ((get_children(node))==[])
 	
 def equal(x,y):
-	#return (x.name == y.name)
-	return (is_wildcard(x)) or (is_wildcard(y)) or (x.name == y.name)
+	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or (x.name == y.name)
 
 def is_any_wildcard(x,y):
-	#return False
-	return (is_wildcard(x))  or (is_wildcard(y))
+	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x))
 
 def is_wildcard(x):
 	wildcards = ["ponto","interrogacao","soma"]

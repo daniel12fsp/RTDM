@@ -1,16 +1,15 @@
 
 composicao_curingas = {
-
-	"asterisco,asterisco ": "asterisco",
-	"asterisco,mais ": "asterisco",
-	"asterisco,interrogacao ": "asterisco",
-	"asterisco,ponto ": "asterisco",
-	"mais,mais ": "mais",
-	"mais,ponto ": "mais",
-	"mais,interrogacao ": "asterisco",
-	"ponto,ponto ": "ponto",
-	"ponto,interrogacao ": "interrogacao",
-	"interrogacao,interrogacao ": "interrogacao"
+	"asterisco,asterisco": "asterisco",
+	"asterisco,mais": "asterisco",
+	"asterisco,interrogacao": "asterisco",
+	"asterisco,ponto": "asterisco",
+	"mais,mais": "mais",
+	"mais,ponto": "mais",
+	"mais,interrogacao": "asterisco",
+	"ponto,ponto": "ponto",
+	"ponto,interrogacao": "interrogacao",
+	"interrogacao,interrogacao": "interrogacao"
 }
 
 def get_curinga(n1, n2):

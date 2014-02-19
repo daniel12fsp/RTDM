@@ -2,6 +2,7 @@ from utils import get_elem, exist_elem
 import os
 import tree_lib as tree
 from mapeamento import mapeamento_array, get_list, mapeamento_node
+import sys
 
 def delete(t1, t2):
 	i  = 0
@@ -124,7 +125,7 @@ def RTDM(t1, t2):
 	mape = []
 	M = [[0 for x in range(n)] for x in range(m)]
 	O = [[0 for x in range(n)] for x in range(m)]
-	MAPE = [[None for x in range(n)] for x in range(m)]
+	MAPE = [[ [] for x in range(n)] for x in range(m)]
 	O[0][0]=["s"]
 	MAPE[0][0] = (c1[0].name,c2[0].name)
 	log.write("\n%d %d" % (m, n))
@@ -138,28 +139,26 @@ def RTDM(t1, t2):
 		O[0][j] = ["i"]
 
 	aux = []
+	i = j = 0
 	for i in range(1, m):
 		for j in range(1, n):
+
 			aux_mape = None
 			log.write("\n\n\tM[%d][%d](%s x %s)" % (i, j, c1[i].name, c2[j].name))
 			d = (M[i-1][j]+delete(c1[i], c2[j]))
-			d1 = delete(c1[i], c2[j])
 			a = (M[i][j-1]+insert(c1[i], c2[j]))
-			a1 = insert(c1[i], c2[j])
 			s = M[i-1][j-1]
-			s1 = 0
 			aux = [] 
+
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
-				log.write("\nIguais %s %s" % ( c1[i].name, c2[j].name))
+				log.write("\nIguais %s %s %s" % ( c1[i].name, c2[j].name,  O[i-1][j-1]))
 				M[i][j] = s
 				O[i][j] = O[i-1][j-1]
 				MAPE[i][j] = [get_list(c1[i])]
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
-				#aux += [[(c1[i].name, c2[j].name)]]
 				log.write("\nSubst")
 				s += replace(c1[i], c2[j])
-				s1 = replace(c1[i], c2[j])
 
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
 					log.write("\nfolha")
@@ -173,13 +172,20 @@ def RTDM(t1, t2):
 				rtdm,_,aux_mape = RTDM(c1[i], c2[j])
 				mape.insert(0,aux_mape)
 				log.write("\nRecursao %f" % (rtdm))
-				s += rtdm
+				d = sys.maxint
+				a = sys.maxint
+				s += rtdm 
 
-			log.write("\n\tM[%d][%d](%s x %s)\ti:%d,d:%d,s:%d" % (i, j, c1[i].name, c2[j].name, a1, d1, s1))
-			M[i][j] = min(d, a, s)
+			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
+					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
+			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s)
 			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
 
+	if( n != m):
+		MAPE[i][n-1] += [("interrogacao","interrogacao")]
+		mape = [("interrogacao","interrogacao")]
+			
 	for x in range(0, m):
 		log.write("\n"+str(M[x]))
 
@@ -194,5 +200,3 @@ def RTDM(t1, t2):
 
 	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
 	return M[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
-
-

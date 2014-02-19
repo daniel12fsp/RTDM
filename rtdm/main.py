@@ -40,6 +40,7 @@ def file_file(file1,file2):
 	print("Comecando a executar o RTDM!", end="")
 	rtdm.prepareRTDM(k, file_log)
 	simi,M,mape = rtdm.RTDM(tree1, tree2)
+
 	print("[Ok]")
 
 	print("Construcao do template", end="")
@@ -48,8 +49,8 @@ def file_file(file1,file2):
 	file_regex.write(generate_template(mape))
 	print("[Ok]")
 
-	print("\nt1 = "+file1, "\nt2 = "+file2, "\nSimilaridade\t\t->>>", simi,"<<<-")
-	file_log.write("\nT1:%s \nT2:%s \nSimilaridade:\t\t\t\t>>> %d <<< " % (file1, file2, simi))
+	print("\nt1 = "+file1, "\nt2 = "+file2, "\nMinimo de operacoes necessarias para similiridade:\t->>>", simi,"<<<-")
+	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, simi))
 
 	print("Fim!")
 	file_log.close()
@@ -61,12 +62,12 @@ def file_file(file1,file2):
 			Retorna a similaridades de cada par(modelo,outra_pagina)
 """
 def file_dir():
-	for one_files in  os.listdir(path_dir):
-		if(one_files.endswith(".html") or one_files.endswith(".htm")):
-			file_log = file_tree2+"-"+one_files+".log"
-			log = open(file_log, "w")
-			file_tree1 = one_files
+	for one_file in  os.listdir(path_dir):
+		if(one_file.endswith(".html") or one_file.endswith(".htm")):
+			file_tree1 = one_file
 			file_file(path_dir+file_tree1,file_tree2)
+
+	print("Fim do file_dir")
 
 """
 Replace_choice

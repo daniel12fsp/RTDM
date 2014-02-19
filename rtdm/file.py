@@ -1,4 +1,5 @@
 import re
+
 def get_path_dir_from_files(name_file):
 	try:
 		return re.findall("(.*)/.*?$", name_file)[0]+"/"

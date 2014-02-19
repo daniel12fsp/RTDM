@@ -4,13 +4,13 @@ from tree_lib import is_wildcard
 import composicao_curingas
 
 def op_s(i,j):
-	return i-1,j-1,i
+	return i-1,j-1
 
 def op_i(i,j):
-	return i,j-1,i
+	return i,j-1
 
 def op_d(i,j):
-	return i-1,j,i
+	return i-1,j
 
 def mapeamento_array(M,O,ci,cj):
 	i = len(M)-1
@@ -25,19 +25,19 @@ def mapeamento_array(M,O,ci,cj):
 				tmp = M[i][j]
 			else:
 				tmp = (ci[i].name, cj[j].name)
-			i, j, last_i = op_s(i, j)
+			i, j = op_s(i, j)
 		elif("d" in O[i][j]):
 			if eh_lista:
 				tmp = M[i][j]
 			else:
 				tmp = (ci[i].name,"0")
-			i, j, last_i = op_d(i, j)
+			i, j = op_d(i, j)
 		elif("i" in O[i][j]):
 			if eh_lista:
 				tmp = M[i][j]
 			else:
 				tmp = ("0", cj[j].name)
-			i, j, last_i = op_i(i, j)
+			i, j = op_i(i, j)
 
 		mape.insert(0,tmp)
 
@@ -115,6 +115,8 @@ def get_name_node(n1,n2):
 	if(is_wildcard(n1) and not is_wildcard(n2)):
 		return n1
 	
+	if(is_wildcard(n2) and not is_wildcard(n1)):
+		return n2	
 		
 	return composicao_curingas.get_curinga(n1, n2)
 	
