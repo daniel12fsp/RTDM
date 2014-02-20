@@ -72,7 +72,7 @@ def is_any_wildcard(x,y):
 	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x))
 
 def is_wildcard(x):
-	wildcards = ["ponto","interrogacao","soma"]
+	wildcards = ["ponto","interrogacao","soma","asterisco"]
 	if( type(x) is str): 
 		return 	(x in wildcards)
 	else:
