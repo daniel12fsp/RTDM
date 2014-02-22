@@ -91,12 +91,12 @@ def mape_to_tree(ls):
 			father.append(last.body.findChild())
 	return tree
 	
-def get_list(node):
+def get_mape_identical_subtree(node):
 	ls = [(node.name, node.name)]
 	children = []
 	if(str(type(node)) == "<class 'bs4.element.Tag'>"):
 		for i in node.children:
-			tmp = get_list(i)
+			tmp = get_mape_identical_subtree(i)
 			if(tmp):
 				children += [tmp] 
 			else:
@@ -129,15 +129,15 @@ def mapeamento_node(aux_mape, n1, n2):
 	else: 
 		return aux_mape
 
-def tag(string,curinga = "\W*"):
+def regex_tag(string,curinga = "\W*"):
 	return "<"+string+">"+curinga+"</"+string+">"
 
 def end_pattern():
-	return "\W*"+tag("interrogacao")+"\W*"+tag("interrogacao")+"\W*"+tag("interrogacao")
+	return "\W*"+regex_tag("interrogacao")+"\W*"+regex_tag("interrogacao")+"\W*"+regex_tag("interrogacao")
 
 def promocao_curingas_substituicao(primeira_tag, promocao_tag, tree):
-	regex = tag(primeira_tag)+end_pattern()
-	return re.sub(regex, tag(promocao_tag, curinga=""), tree)
+	regex = regex_tag(primeira_tag)+end_pattern()
+	return re.sub(regex, regex_tag(promocao_tag, curinga=""), tree)
 	
 
 def promocao_curingas(tree):

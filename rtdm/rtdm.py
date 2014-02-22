@@ -1,7 +1,7 @@
 from utils import get_elem, exist_elem
 import os
 import tree_lib as tree
-from mapeamento import mapeamento_array, get_list, mapeamento_node
+from mapeamento import mapeamento_array, get_mape_identical_subtree, mapeamento_node
 import sys
 
 def delete(t1, t2):
@@ -108,16 +108,20 @@ def prepareRTDM(k_parament, log_parament):
 	log = log_parament
 
 def menor_operacao(d,i,s):
-	res = []
+	res = ""
 	if(d >= i) and (s >= i):
-		 res += ["i"]
+		res += "i"
 	if(i >= d) and (s >= d):
-		 res += ["d"]
+		res += "d"
 	if(i >= s) and (d>= s):
-		res += ["s"]
+		res += "s"
 	return res
-	
+
 def RTDM(t1, t2):
+	operacoes,_,_,mape = _RTDM(t1, t2)
+	return operacoes, mape
+	
+def _RTDM(t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
 	c2 = [t2]+t2.find_all(recursive=False)
 	m = len(c1)
@@ -126,24 +130,25 @@ def RTDM(t1, t2):
 	M = [[0 for x in range(n)] for x in range(m)]
 	O = [[0 for x in range(n)] for x in range(m)]
 	MAPE = [[ [] for x in range(n)] for x in range(m)]
-	O[0][0]=["s"]
+	O[0][0]="s"
 	MAPE[0][0] = (c1[0].name,c2[0].name)
 	log.write("\n%d %d" % (m, n))
 
 	for i in range(1, m):
 		M[i][0] = M[i-1][0]+tree.length(c1[i])
-		O[i][0] = ["d"]
+		O[i][0] = "d"
 
 	for j in range(1, n):
 		M[0][j] = M[0][j-1]+tree.length(c2[j])
-		O[0][j] = ["i"]
+		O[0][j] = "i"
 
 	aux = []
 	i = j = 0
 	for i in range(1, m):
 		for j in range(1, n):
-
+			
 			aux_mape = None
+			operacao = None
 			log.write("\n\n\tM[%d][%d](%s x %s)" % (i, j, c1[i].name, c2[j].name))
 			d = (M[i-1][j]+delete(c1[i], c2[j]))
 			a = (M[i][j-1]+insert(c1[i], c2[j]))
@@ -154,7 +159,7 @@ def RTDM(t1, t2):
 				log.write("\nIguais %s %s %s" % ( c1[i].name, c2[j].name,  O[i-1][j-1]))
 				M[i][j] = s
 				O[i][j] = O[i-1][j-1]
-				MAPE[i][j] = [get_list(c1[i])]
+				MAPE[i][j] = [get_mape_identical_subtree(c1[i])]
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
 				log.write("\nSubst")
@@ -169,22 +174,23 @@ def RTDM(t1, t2):
 					s += delete(c1[i], c2[j])
 
 			else:
-				rtdm,_,aux_mape = RTDM(c1[i], c2[j])
+				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j])
 				mape.insert(0,aux_mape)
-				log.write("\nRecursao %f" % (rtdm))
+				log.write("\nRecursao (%d,%s)" % (num_op,operacao))
 				d = sys.maxint
 				a = sys.maxint
-				s += rtdm 
+				s += num_op 
+					
 
 			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
 					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
 			M[i][j] = min(d, a, s) 
-			O[i][j] = menor_operacao(d, a, s)
+			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
 			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
 
 	if( n != m):
 		MAPE[i][n-1] += [("interrogacao","interrogacao")]
-		mape = [("interrogacao","interrogacao")]
+		mape = ["interrogacao"]
 			
 	for x in range(0, m):
 		log.write("\n"+str(M[x]))
@@ -194,9 +200,10 @@ def RTDM(t1, t2):
 		log.write("\n"+str(O[x]))
 		
 	log.write("\n")
+
 	for x in range(0, m):
 		log.write("\n"+str(MAPE[x]))
 	log.write("\n")
 
 	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
-	return M[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
+	return M[m-1][n-1], O[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)

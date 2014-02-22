@@ -2,7 +2,7 @@ from __future__ import print_function
 import rtdm
 import tree_lib as tree
 import os
-from mapeamento import generate_template,get_list
+from mapeamento import generate_template
 from identical_sub_trees import get_classe_equivalencia
 import file
 import extracao
@@ -40,7 +40,7 @@ def file_file(file1,file2):
 
 	print("Comecando a executar o RTDM!", end="")
 	rtdm.prepareRTDM(k, file_log)
-	simi,M,mape = rtdm.RTDM(tree1, tree2)
+	operacoes, mape = rtdm.RTDM(tree1, tree2)
 
 	print("[Ok]")
 
@@ -50,8 +50,8 @@ def file_file(file1,file2):
 	file_regex.write(generate_template(mape))
 	print("[Ok]")
 
-	print("\nt1 = "+file1, "\nt2 = "+file2, "\nMinimo de operacoes necessarias para similiridade:\t->>>", simi,"<<<-")
-	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, simi))
+	print("\nt1 = "+file1, "\nt2 = "+file2, "\nMinimo de operacoes necessarias para similiridade:\t->>>", operacoes,"<<<-")
+	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
 
 	print("Fim!")
 	file_log.close()
@@ -81,8 +81,7 @@ filename = os.path.dirname(os.path.realpath(__file__)) + "/../links.txt"
 print(filename)
 
 get_links(filename)
-#rtdm.replace_choice(3)
-#file_file(file_tree1, file_tree2)
-extracao.extracao(file_tree1, file_tree2)
-
+rtdm.replace_choice(3)
+file_file(file_tree1, file_tree2)
+#extracao.extracao(file_tree1, file_tree2)
 #file_dir()
