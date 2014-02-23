@@ -166,11 +166,11 @@ def _RTDM(t1, t2):
 				s += replace(c1[i], c2[j])
 
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
-					log.write("\nfolha")
+					log.write("\nfolha1")
 					s += insert(c1[i], c2[j])
 
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
-					log.write("\nfolha")
+					log.write("\nfolha2")
 					s += delete(c1[i], c2[j])
 
 			else:
@@ -179,7 +179,8 @@ def _RTDM(t1, t2):
 				log.write("\nRecursao (%d,%s)" % (num_op,operacao))
 				d = sys.maxint
 				a = sys.maxint
-				s += num_op 
+				operacao = "d"
+				s = M[i-1][j] + num_op 
 					
 
 			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
@@ -188,8 +189,8 @@ def _RTDM(t1, t2):
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
 			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
 
-	if( n != m):
-		MAPE[i][n-1] += [("interrogacao","interrogacao")]
+	if( n != m and tree.is_leaf(c1[m-1]) or tree.is_leaf(c2[n-1])):
+		MAPE[i][n-1] += [[("interrogacao","interrogacao")]]
 		mape = ["interrogacao"]
 			
 	for x in range(0, m):
