@@ -167,6 +167,7 @@ def _RTDM(t1, t2):
 
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
 					log.write("\nfolha1")
+
 					s += insert(c1[i], c2[j])
 
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
@@ -175,14 +176,13 @@ def _RTDM(t1, t2):
 
 			else:
 				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j])
+				log.write("\nRecursao (%d,%s) - \t\t\t valores reais: d:%d,a:%d" % (num_op,operacao,d,a))
 				mape.insert(0,aux_mape)
-				log.write("\nRecursao (%d,%s)" % (num_op,operacao))
 				d = sys.maxint
 				a = sys.maxint
-				operacao = "d"
-				s = M[i-1][j] + num_op 
+				s = num_op 
 					
-
+			print(c1[i])
 			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
 					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
 			M[i][j] = min(d, a, s) 
@@ -201,10 +201,12 @@ def _RTDM(t1, t2):
 		log.write("\n"+str(O[x]))
 		
 	log.write("\n")
-
+	
+	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
+	return M[m-1][n-1], O[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
+"""
 	for x in range(0, m):
 		log.write("\n"+str(MAPE[x]))
 	log.write("\n")
+"""
 
-	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
-	return M[m-1][n-1], O[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
