@@ -45,7 +45,7 @@ def file_file(file1,file2):
 	print("[Ok]")
 
 	print("Construcao do template", end="")
-	file_log.write("\n\n\n"+str(mape))
+	#file_log.write("\n\n\n"+str(mape))
 	file_regex = file.create_file_dir_default(file1, file2, ".regex")
 	file_regex.write(generate_template(mape))
 	print("[Ok]")

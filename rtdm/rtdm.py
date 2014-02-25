@@ -180,27 +180,28 @@ def _RTDM(t1, t2):
 				mape.insert(0,aux_mape)
 				d = sys.maxint
 				a = sys.maxint
-				s = num_op 
+				operacao = "s"
+
+				s += num_op 
 					
-			print(c1[i])
+			#log.write("\n\t\tc1[i]\n"+c1[i].prettify(encoding='utf-8'))
+			#log.write("\n\t\tc2[j]\n"+c2[j].prettify(encoding='utf-8'))
 			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
 					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
 			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
 
-	if( n != m and tree.is_leaf(c1[m-1]) or tree.is_leaf(c2[n-1])):
-		MAPE[i][n-1] += [[("interrogacao","interrogacao")]]
-		mape = ["interrogacao"]
+	#if( n != m and tree.is_leaf(c1[m-1]) or tree.is_leaf(c2[n-1])):
+		#MAPE[i][n-1] += [[("interrogacao","interrogacao")]]
+		#mape = ["interrogacao"]
 			
 	for x in range(0, m):
-		log.write("\n"+str(M[x]))
+		log.write("\n")
+		for y in range(0, m):
+				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
 
-	log.write("\n")
-	for x in range(0, m):
-		log.write("\n"+str(O[x]))
 		
-	log.write("\n")
 	
 	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
 	return M[m-1][n-1], O[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
