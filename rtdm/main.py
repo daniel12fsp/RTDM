@@ -50,7 +50,7 @@ def file_file(file1,file2):
 	file_regex.write(generate_template(mape))
 	print("[Ok]")
 
-	print("\nt1 = "+file1, "\nt2 = "+file2, "\nMinimo de operacoes necessarias para similiridade:\t->>>", operacoes,"<<<-")
+	print("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
 	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
 
 	print("Fim!")

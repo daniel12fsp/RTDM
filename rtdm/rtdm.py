@@ -119,20 +119,24 @@ def menor_operacao(d,i,s):
 
 def RTDM(t1, t2):
 	operacoes,_,_,mape = _RTDM(t1, t2)
+	#log.write("\n"+str(mape))
+
 	return operacoes, mape
 	
 def _RTDM(t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
 	c2 = [t2]+t2.find_all(recursive=False)
+
 	m = len(c1)
 	n = len(c2)
+
 	mape = []
 	M = [[0 for x in range(n)] for x in range(m)]
-	O = [[0 for x in range(n)] for x in range(m)]
-	MAPE = [[ [] for x in range(n)] for x in range(m)]
+	O = [["" for x in range(n)] for x in range(m)]
+
 	O[0][0]="s"
-	MAPE[0][0] = (c1[0].name,c2[0].name)
-	log.write("\n%d %d" % (m, n))
+	#MAPE[0][0] = (c1[0].name,c2[0].name)
+	#log.write("\n%d %d" % (m, n))
 
 	for i in range(1, m):
 		M[i][0] = M[i-1][0]+tree.length(c1[i])
@@ -149,65 +153,60 @@ def _RTDM(t1, t2):
 			
 			aux_mape = None
 			operacao = None
-			log.write("\n\n\tM[%d][%d](%s x %s)" % (i, j, c1[i].name, c2[j].name))
+			#log.write("\n\n\tM[%d][%d](%s x %s)" % (i, j, c1[i].name, c2[j].name))
 			d = (M[i-1][j]+delete(c1[i], c2[j]))
 			a = (M[i][j-1]+insert(c1[i], c2[j]))
 			s = M[i-1][j-1]
 			aux = [] 
 
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
-				log.write("\nIguais %s %s %s" % ( c1[i].name, c2[j].name,  O[i-1][j-1]))
+				#log.write("\nIguais %s %s %s" % ( c1[i].name, c2[j].name,  O[i-1][j-1]))
 				M[i][j] = s
-				O[i][j] = O[i-1][j-1]
-				MAPE[i][j] = [get_mape_identical_subtree(c1[i])]
+				O[i][j] = "s"#O[i-1][j-1]
+				#mape = [get_mape_identical_subtree(c1[i])]
+				#print("\t\tmape",c1[i])
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
-				log.write("\nSubst")
+				#log.write("\nSubst")
 				s += replace(c1[i], c2[j])
 
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
-					log.write("\nfolha1")
+					#log.write("\nfolha1")
 
 					s += insert(c1[i], c2[j])
 
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
-					log.write("\nfolha2")
+					#log.write("\nfolha2")
 					s += delete(c1[i], c2[j])
 
 			else:
 				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j])
-				log.write("\nRecursao (%d,%s) - \t\t\t valores reais: d:%d,a:%d" % (num_op,operacao,d,a))
+				#log.write("\nRecursao (%d,%s) - \t\t\t valores reais: d:%d,a:%d" 
+				#				% (num_op,operacao,d,a))
 				mape.insert(0,aux_mape)
-				d = sys.maxint
-				a = sys.maxint
-				operacao = "s"
-
+				#d = sys.maxint
+				#a = sys.maxint
+				operacao = operacao + "~"
 				s += num_op 
 					
-			#log.write("\n\t\tc1[i]\n"+c1[i].prettify(encoding='utf-8'))
-			#log.write("\n\t\tc2[j]\n"+c2[j].prettify(encoding='utf-8'))
-			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
-					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
+
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
-			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
+#			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
 
-	#if( n != m and tree.is_leaf(c1[m-1]) or tree.is_leaf(c2[n-1])):
-		#MAPE[i][n-1] += [[("interrogacao","interrogacao")]]
-		#mape = ["interrogacao"]
-			
 	for x in range(0, m):
 		log.write("\n")
-		for y in range(0, m):
+		for y in range(0, n):
 				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
 
 		
 	
-	mape = [(c1[0].name,c2[0].name)] + mape #+ aux
-	return M[m-1][n-1], O[m-1][n-1],M,mapeamento_array(MAPE,O,c1,c2)
-"""
-	for x in range(0, m):
-		log.write("\n"+str(MAPE[x]))
-	log.write("\n")
-"""
+	#mape = [(c1[0].name,c2[0].name)] + mape #+ aux
+
+	log.write("\n"+str(mapeamento_array(M, O, c1, c2)))
+	ls = mapeamento_array(M,O,c1,c2)
+	if mape != []:
+		ls[-1] = mape
+	return M[m-1][n-1], O[m-1][n-1],M, ls
+
 
