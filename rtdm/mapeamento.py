@@ -20,34 +20,32 @@ def mapeamento_array(M,O,ci,cj):
 	fila = []
 	tmp = None
 	while(i>=0 and j>0):
-		print(i,j)
 		eh_lista = (type(M[i][j]) is list)
 		if("s" in O[i][j] or "~" in O[i][j]):
 			if eh_lista:
 				tmp = M[i][j]
 			else:
-				tmp = (ci[i].name, cj[j].name)
+				tmp = (ci[i], cj[j])
 			i, j = op_s(i, j)
 		elif("d" in O[i][j]):
 			if eh_lista:
 				tmp = M[i][j]
 			else:
-				tmp = (ci[i].name,"0")
+				tmp = (ci[i], Tag(name = "0"))
 			i, j = op_d(i, j)
 		elif("i" in O[i][j]):
 			if eh_lista:
 				tmp = M[i][j]
 			else:
-				tmp = ("0", cj[j].name)
+				tmp = (Tag( name = "0"), cj[j])
 			i, j = op_i(i, j)
 
 		mape.insert(0,tmp)
 
-	print("Saio")
-	if(type(tmp) is tuple):
-		return [(ci[0].name,cj[0].name)] + [mape]
-	else:
-		return [(ci[0].name,cj[0].name)] + mape
+	ls = [(ci[0],cj[0])] + [mape]
+
+	return ls
+
 		
 def head(ls):
 	if(type(ls) is tuple):
@@ -65,8 +63,6 @@ def generate_list(ls):
 	return []
 			
 def generate_template(ls):
-	#print(ls)
-	#print("\nOi\n")
 	tree = mape_to_tree(ls)
 	tree = promocao_curingas(tree.html.prettify())
 	return tree
@@ -74,22 +70,18 @@ def generate_template(ls):
 def is_list_list(ls):
 	result = True
 	for i in ls:
-		result = result and isinstance(i,list)
+		result = result or type(i) is list
 
 	return result
 
 def mape_to_tree(ls):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
 	h = head(ls)
-	#print(h)
 	if(type(h) is str and h != "body"):
-		print("if-1")
 		tree.body.append(Tag(name=h))
-	father = tree.find_all(h)[0]
+	father = tree.find_all(h.name)
 	for i in generate_list(ls):
-		print("For")
 		last = None
-		print(i)
 		if(type(i) is tuple or  not is_list_list(i)):
 			if(type(i) is tuple):	
 				i = [i]
@@ -97,10 +89,8 @@ def mape_to_tree(ls):
 				node_name = get_name_node(node[0], node[1])
 				last = Tag(name = node_name)
 				father.append(last)
-				print(node_name)
 		else:
 			last = mape_to_tree(i)
-			print("if-2 else",last)
 			father.append(last.body.findChild())
 	return tree
 	

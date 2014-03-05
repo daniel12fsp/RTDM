@@ -119,8 +119,7 @@ def menor_operacao(d,i,s):
 
 def RTDM(t1, t2):
 	operacoes,_,_,mape = _RTDM(t1, t2)
-	#log.write("\n"+str(mape))
-
+	
 	return operacoes, mape
 	
 def _RTDM(t1, t2):
@@ -130,13 +129,12 @@ def _RTDM(t1, t2):
 	m = len(c1)
 	n = len(c2)
 
-	mape = []
+	mape = [list()]
+
 	M = [[0 for x in range(n)] for x in range(m)]
 	O = [["" for x in range(n)] for x in range(m)]
 
 	O[0][0]="s"
-	#MAPE[0][0] = (c1[0].name,c2[0].name)
-	#log.write("\n%d %d" % (m, n))
 
 	for i in range(1, m):
 		M[i][0] = M[i-1][0]+tree.length(c1[i])
@@ -153,60 +151,79 @@ def _RTDM(t1, t2):
 			
 			aux_mape = None
 			operacao = None
-			#log.write("\n\n\tM[%d][%d](%s x %s)" % (i, j, c1[i].name, c2[j].name))
 			d = (M[i-1][j]+delete(c1[i], c2[j]))
 			a = (M[i][j-1]+insert(c1[i], c2[j]))
 			s = M[i-1][j-1]
 			aux = [] 
 
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
-				#log.write("\nIguais %s %s %s" % ( c1[i].name, c2[j].name,  O[i-1][j-1]))
 				M[i][j] = s
 				O[i][j] = "s"#O[i-1][j-1]
-				#mape = [get_mape_identical_subtree(c1[i])]
-				#print("\t\tmape",c1[i])
+			#	mape = [get_mape_identical_subtree(c1[i])]
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
-				#log.write("\nSubst")
 				s += replace(c1[i], c2[j])
 
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
-					#log.write("\nfolha1")
-
 					s += insert(c1[i], c2[j])
 
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
-					#log.write("\nfolha2")
 					s += delete(c1[i], c2[j])
 
 			else:
 				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j])
-				#log.write("\nRecursao (%d,%s) - \t\t\t valores reais: d:%d,a:%d" 
-				#				% (num_op,operacao,d,a))
 				mape.insert(0,aux_mape)
 				#d = sys.maxint
 				#a = sys.maxint
 				operacao = operacao + "~"
 				s += num_op 
-					
 
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
-#			MAPE[i][j] = mapeamento_node(aux_mape, c1[i].name, c2[j].name) 
-
 	for x in range(0, m):
 		log.write("\n")
 		for y in range(0, n):
 				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
-
-		
-	
-	#mape = [(c1[0].name,c2[0].name)] + mape #+ aux
-
 	log.write("\n"+str(mapeamento_array(M, O, c1, c2)))
-	ls = mapeamento_array(M,O,c1,c2)
-	if mape != []:
-		ls[-1] = mape
+	log.write("\nMape:"+ print_tuple(mape))
+	ls  = mapeamento_array(M,O,c1,c2)
+	try:
+		if(mape[0][0] == last(ls)):
+			print("entori\n",mape[0])
+			last_elem_list(ls, ls[-1], mape[0])
+			log.write("\nls:"+print_tuple(ls))
+
+	except:
+		pass
 	return M[m-1][n-1], O[m-1][n-1],M, ls
 
+def print_tuple(ls):
+	res = []
+	for i in ls:
+			#print(i)
+			res += (i[0].name,i[1].name) 
+	
+	return str(res)
+
+
+def last(ls):
+	if( type(ls[-1]) is list ):
+		return last(ls[-1])
+	else:
+		return ls[-1]
+
+def last_elem_list(origin, ls, mape):
+	if( list in [ type(i) for i in ls] ):
+		last_elem_list(origin, ls[-1], mape)
+	else:
+		ls.pop()
+		origin += [mape]
+
+
+def is_list_list(ls):
+	result = True
+	for i in ls:
+		result = result or type(i) is list
+
+	return result
 

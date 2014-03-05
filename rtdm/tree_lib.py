@@ -27,8 +27,9 @@ def decodificar2utf8(arq):
 	return open(arq, mode="rb")
 
 def file_to_tree(file_tree1, file_tree2):
-	tree1 = BeautifulSoup(decodificar2utf8(file_tree1)).body.sel
-	tree2 = BeautifulSoup(decodificar2utf8(file_tree2)).body.sel
+	# Houve modificao ta retornando nao body com tem que ser, pois eh um teste!
+	tree1 = BeautifulSoup(decodificar2utf8(file_tree1)).a
+	tree2 = BeautifulSoup(decodificar2utf8(file_tree2)).a
 	remove_tag(tree1)
 	remove_tag(tree2)
 	return tree1, tree2
@@ -64,7 +65,6 @@ def is_any_wildcard(x,y):
 
 def is_wildcard(x):
 	wildcards = ["ponto","interrogacao","soma","asterisco"]
-	print(x)
 	if( type(x) is str): 
 		return 	(x in wildcards)
 	else:
