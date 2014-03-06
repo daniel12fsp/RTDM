@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup, Tag
 import re
 from tree_lib import is_wildcard
 import composicao_curingas
+import node
 
 def op_s(i,j):
 	return i-1,j-1
@@ -12,39 +13,33 @@ def op_i(i,j):
 def op_d(i,j):
 	return i-1,j
 
-def mapeamento_array(M,O,ci,cj):
+def mapeamento_matrix(M, O, father, ci, cj):
 	
 	i = len(M)-1
 	j = len(M[0])-1
 	mape = []
 	fila = []
 	tmp = None
+
 	while(i>=0 and j>0):
-		eh_lista = (type(M[i][j]) is list)
 		if("s" in O[i][j] or "~" in O[i][j]):
-			if eh_lista:
-				tmp = M[i][j]
-			else:
-				tmp = (ci[i], cj[j])
+			left = ci[i]
+			right = cj[j]
 			i, j = op_s(i, j)
 		elif("d" in O[i][j]):
-			if eh_lista:
-				tmp = M[i][j]
-			else:
-				tmp = (ci[i], Tag(name = "0"))
+			left = ci[i]
+			right = Tag(name = "0")
 			i, j = op_d(i, j)
 		elif("i" in O[i][j]):
-			if eh_lista:
-				tmp = M[i][j]
-			else:
-				tmp = (Tag( name = "0"), cj[j])
+			left = Tag( name = "0")
+			right = cj[j]
 			i, j = op_i(i, j)
 
-		mape.insert(0,tmp)
+		one = node.node(father, left, right)
+		father.add_child()
+		mape.insert(0, one)
 
-	ls = [(ci[0],cj[0])] + [mape]
-
-	return ls
+	return mape
 
 		
 def head(ls):
@@ -76,22 +71,22 @@ def is_list_list(ls):
 
 def mape_to_tree(ls):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
-	h = head(ls)
-	if(type(h) is str and h != "body"):
-		tree.body.append(Tag(name=h))
-	father = tree.find_all(h.name)
-	for i in generate_list(ls):
-		last = None
-		if(type(i) is tuple or  not is_list_list(i)):
-			if(type(i) is tuple):	
-				i = [i]
-			for node in i:
-				node_name = get_name_node(node[0], node[1])
-				last = Tag(name = node_name)
-				father.append(last)
-		else:
-			last = mape_to_tree(i)
-			father.append(last.body.findChild())
+	i = 0
+	father = ls[0].tag
+	while(i<len(ls)):
+		node = ls[i]
+		if(node.children):
+			children = ls[i + 1 : i + node.children + 1]
+			j = 1
+			while(j < len(children) + 1):
+				child = ls[i + j]
+				if(child.children):
+					subtree = mape_to_tree(ls[ i + j : i + j + child.children + 1 ])
+					child.tag = subtree.body.findChild()
+				father.append(child.tag)
+				j += 1
+		i += (node.children + 1)
+	tree.body.append(father)
 	return tree
 	
 def get_mape_identical_subtree(node):
@@ -107,25 +102,7 @@ def get_mape_identical_subtree(node):
 		return ls+children
 	return None
 
-def get_name_node(n1,n2):
 
-
-	if(n1 == "0" or n2 == "0"):
-		return "interrogacao"
-
-	if(not is_wildcard(n1) and not is_wildcard(n2) and n1 != n2 ):
-		return "ponto"
-	
-	if(not is_wildcard(n1) and not is_wildcard(n2) and n1 == n2 ):
-		return n1
-
-	if(is_wildcard(n1) and not is_wildcard(n2)):
-		return n1
-	
-	if(is_wildcard(n2) and not is_wildcard(n1)):
-		return n2	
-		
-	return composicao_curingas.get_curinga(n1, n2)
 	
 def mapeamento_node(aux_mape, n1, n2):
 	node = get_name_node(n1,n2) 

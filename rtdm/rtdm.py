@@ -1,9 +1,9 @@
 from utils import get_elem, exist_elem
 import os
 import tree_lib as tree
-from mapeamento import mapeamento_array, get_mape_identical_subtree, mapeamento_node
+from mapeamento import mapeamento_matrix, get_mape_identical_subtree, mapeamento_node
 import sys
-
+import node
 def delete(t1, t2):
 	i  = 0
 	c1 = tree.get_children(t1)
@@ -118,18 +118,18 @@ def menor_operacao(d,i,s):
 	return res
 
 def RTDM(t1, t2):
-	operacoes,_,_,mape = _RTDM(t1, t2)
-	
+	operacoes,_,_,mape = _RTDM(t1, t2, None)
+	log.write("\n"+str(mape))
 	return operacoes, mape
 	
-def _RTDM(t1, t2):
+def _RTDM(t1, t2, grandfa):
 	c1 = [t1]+t1.find_all(recursive=False)
 	c2 = [t2]+t2.find_all(recursive=False)
 
 	m = len(c1)
 	n = len(c2)
 
-	mape = [list()]
+	mape = []
 
 	M = [[0 for x in range(n)] for x in range(m)]
 	O = [["" for x in range(n)] for x in range(m)]
@@ -146,6 +146,10 @@ def _RTDM(t1, t2):
 
 	aux = []
 	i = j = 0
+
+	father = node.node(grandfa, c1[0], c2[0])
+
+
 	for i in range(1, m):
 		for j in range(1, n):
 			
@@ -171,8 +175,9 @@ def _RTDM(t1, t2):
 					s += delete(c1[i], c2[j])
 
 			else:
-				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j])
-				mape.insert(0,aux_mape)
+				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j], father)
+
+				mape = aux_mape + mape
 				#d = sys.maxint
 				#a = sys.maxint
 				operacao = operacao + "~"
@@ -180,21 +185,21 @@ def _RTDM(t1, t2):
 
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
+
 	for x in range(0, m):
 		log.write("\n")
 		for y in range(0, n):
 				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
-	log.write("\n"+str(mapeamento_array(M, O, c1, c2)))
-	log.write("\nMape:"+ print_tuple(mape))
-	ls  = mapeamento_array(M,O,c1,c2)
-	try:
-		if(mape[0][0] == last(ls)):
-			print("entori\n",mape[0])
-			last_elem_list(ls, ls[-1], mape[0])
-			log.write("\nls:"+print_tuple(ls))
 
-	except:
-		pass
+	#log.write("\nMape:"+ str(mape))
+	matrix =  mapeamento_matrix(M, O, father, c1, c2)
+
+	if( mape != [] and matrix[-1] == mape[0]):
+		ls  = [father] + matrix[:-1] + mape 
+	else:
+		ls  = [father] + matrix + mape
+
+	log.write("\n"+str(ls))
 	return M[m-1][n-1], O[m-1][n-1],M, ls
 
 def print_tuple(ls):
