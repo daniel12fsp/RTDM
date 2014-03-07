@@ -39,7 +39,7 @@ def mapeamento_matrix(M, O, father, ci, cj):
 		father.add_child()
 		mape.insert(0, one)
 
-	return mape
+	return father, mape
 
 		
 def head(ls):
@@ -76,32 +76,39 @@ def mape_to_tree(ls):
 	while(i<len(ls)):
 		node = ls[i]
 		if(node.children):
-			children = ls[i + 1 : i + node.children + 1]
-			j = 1
-			while(j < len(children) + 1):
-				child = ls[i + j]
+			children = children_node(father, ls[i+1:])
+			j = 0
+			while(j < len(children)):
+				child = children[j]
 				if(child.children):
-					subtree = mape_to_tree(ls[ i + j : i + j + child.children + 1 ])
+					subtree = mape_to_tree( [father] + children)
 					child.tag = subtree.body.findChild()
 				father.append(child.tag)
 				j += 1
-		i += (node.children + 1)
+		i += 1
 	tree.body.append(father)
 	return tree
-	
-def get_mape_identical_subtree(node):
-	ls = [(node.name, node.name)]
-	children = []
-	if(str(type(node)) == "<class 'bs4.element.Tag'>"):
-		for i in node.children:
-			tmp = get_mape_identical_subtree(i)
-			if(tmp):
-				children += [tmp] 
-			else:
-				continue
-		return ls+children
-	return None
 
+def children_node(father, ls):
+	i = father.children
+	result = []
+	for j in ls:
+		if(i != 0): break
+		if(j.father == father):
+			result += [j]
+			i -= 1
+	return result
+	
+def get_mape_identical_subtree(father, no):
+	ls = []
+	for i in no.find_all(recursive=False):
+		ls += [ node.node(father, i)]
+		father.add_child()
+		children = i.find_all(recursive=False)
+		if(children):
+			ls += get_mape_identical_subtree(ls[-1], i)[1:]
+	print("#no", father)
+	return [father] + ls
 
 	
 def mapeamento_node(aux_mape, n1, n2):

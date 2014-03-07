@@ -28,8 +28,8 @@ def decodificar2utf8(arq):
 
 def file_to_tree(file_tree1, file_tree2):
 	# Houve modificao ta retornando nao body com tem que ser, pois eh um teste!
-	tree1 = BeautifulSoup(decodificar2utf8(file_tree1)).a
-	tree2 = BeautifulSoup(decodificar2utf8(file_tree2)).a
+	tree1 = BeautifulSoup(decodificar2utf8(file_tree1)).b
+	tree2 = BeautifulSoup(decodificar2utf8(file_tree2)).b
 	remove_tag(tree1)
 	remove_tag(tree2)
 	return tree1, tree2

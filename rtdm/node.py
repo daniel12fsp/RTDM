@@ -3,22 +3,33 @@ import composicao_curingas
 from bs4 import Tag
 
 class node():
-
-	def __init__(self, parent, left, right):
-		self.parent = parent
-		self.left = left
-		self.right = right
-		self.tag = Tag(name = self.get_name_node())
-		self.children = 0
+	def __init__(self, *kargs):
+		if(len(kargs) == 2 ):
+			(parent, tag) = kargs
+			self.parent = parent
+			self.left = tag 
+			self.right = tag
+			self.tag = Tag(name = tag.name)
+			self.children = 0
+		elif(len(kargs) == 3):
+			(parent, left, right) = kargs
+			self.parent = parent
+			self.left = left
+			self.right = right
+			self.tag = Tag(name = self.get_name_node())
+			self.children = 0
 
 	def __repr__(self):
-		return str((type(self.parent),self.tag.name))
+		if(self.parent == None):
+			return str(("None",self.tag.name,self.children))
+		else:
+			return str((self.tag.name,self.children))
 	
 	def add_child(self):
 		self.children += 1
 	
 	def __eq__(self, other):
-		return self.parent == other.parent and self.left == other.left and self.right== other.right
+		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
 
 	def get_name_node(self):
 

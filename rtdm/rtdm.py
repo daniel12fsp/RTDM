@@ -147,7 +147,10 @@ def _RTDM(t1, t2, grandfa):
 	aux = []
 	i = j = 0
 
-	father = node.node(grandfa, c1[0], c2[0])
+	if(type(grandfa) is not node):
+		father = node.node(grandfa, c1[0], c2[0])
+	else:
+		father = grandfa
 
 
 	for i in range(1, m):
@@ -163,7 +166,9 @@ def _RTDM(t1, t2, grandfa):
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
 				M[i][j] = s
 				O[i][j] = "s"#O[i-1][j-1]
-			#	mape = [get_mape_identical_subtree(c1[i])]
+				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
+					new_father = node.node(father, c1[i])
+					mape += get_mape_identical_subtree(new_father, c1[i])
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
 				s += replace(c1[i], c2[j])
@@ -175,8 +180,7 @@ def _RTDM(t1, t2, grandfa):
 					s += delete(c1[i], c2[j])
 
 			else:
-				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j], father)
-
+				num_op, operacao,_, aux_mape = _RTDM(mape[-1], c2[j], c1[i])
 				mape = aux_mape + mape
 				#d = sys.maxint
 				#a = sys.maxint
@@ -192,12 +196,12 @@ def _RTDM(t1, t2, grandfa):
 				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
 
 	#log.write("\nMape:"+ str(mape))
-	matrix =  mapeamento_matrix(M, O, father, c1, c2)
+	father, matrix =  mapeamento_matrix(M, O, father, c1, c2)
 
 	if( mape != [] and matrix[-1] == mape[0]):
-		ls  = [father] + matrix[:-1] + mape 
+		ls = [father] + matrix[:-1] + mape 
 	else:
-		ls  = [father] + matrix + mape
+		ls = matrix + mape
 
 	log.write("\n"+str(ls))
 	return M[m-1][n-1], O[m-1][n-1],M, ls
@@ -231,4 +235,9 @@ def is_list_list(ls):
 		result = result or type(i) is list
 
 	return result
+
+def remove(father, ls):
+	for i in ls:
+		if(i == father):
+			del i
 
