@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup, Tag
 import re
 from tree_lib import is_wildcard
 import composicao_curingas
-import node
+from node import Node
 
 def op_s(i,j):
 	return i-1,j-1
@@ -34,12 +34,12 @@ def mapeamento_matrix(M, O, father, ci, cj):
 			left = Tag( name = "0")
 			right = cj[j]
 			i, j = op_i(i, j)
-
-		one = node.node(father, left, right)
-		father.add_child()
+		
+		one = Node(father, left, right)
+		father.add_child(one)
 		mape.insert(0, one)
 
-	return father, mape
+	return [father]+ mape
 
 		
 def head(ls):
@@ -72,21 +72,13 @@ def is_list_list(ls):
 def mape_to_tree(ls):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
 	i = 0
-	father = ls[0].tag
-	while(i<len(ls)):
-		node = ls[i]
-		if(node.children):
-			children = children_node(father, ls[i+1:])
-			j = 0
-			while(j < len(children)):
-				child = children[j]
-				if(child.children):
-					subtree = mape_to_tree( [father] + children)
-					child.tag = subtree.body.findChild()
-				father.append(child.tag)
-				j += 1
-		i += 1
-	tree.body.append(father)
+	for father in ls:
+		if(father.children):
+			for child in father.children:
+				subtree = mape_to_tree([child])
+				child.tag = subtree.body.findChild()
+				father.tag.append(child.tag)
+	tree.body.append(father.tag)
 	return tree
 
 def children_node(father, ls):
@@ -99,16 +91,17 @@ def children_node(father, ls):
 			i -= 1
 	return result
 	
-def get_mape_identical_subtree(father, no):
+def get_mape_identical_subtree(father, no1, no2):
 	ls = []
-	for i in no.find_all(recursive=False):
-		ls += [ node.node(father, i)]
-		father.add_child()
+	for i in no1.find_all(recursive=False):
+		one = Node(father, i)
+		ls += [one]
+		father.add_child(one)
 		children = i.find_all(recursive=False)
 		if(children):
-			ls += get_mape_identical_subtree(ls[-1], i)[1:]
+			ls += get_mape_identical_subtree( one, i)[1:]
 	print("#no", father)
-	return [father] + ls
+	return ls
 
 	
 def mapeamento_node(aux_mape, n1, n2):
@@ -136,3 +129,8 @@ def promocao_curingas(tree):
 	tree = promocao_curingas_substituicao("asteristico","asterisco",tree)
 	return tree
 
+
+
+
+
+		

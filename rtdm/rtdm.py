@@ -3,7 +3,7 @@ import os
 import tree_lib as tree
 from mapeamento import mapeamento_matrix, get_mape_identical_subtree, mapeamento_node
 import sys
-import node
+from node import Node
 def delete(t1, t2):
 	i  = 0
 	c1 = tree.get_children(t1)
@@ -117,7 +117,7 @@ def menor_operacao(d,i,s):
 		res += "s"
 	return res
 
-def RTDM(t1, t2):
+def RTDM(t1, t2):	
 	operacoes,_,_,mape = _RTDM(t1, t2, None)
 	log.write("\n"+str(mape))
 	return operacoes, mape
@@ -147,8 +147,8 @@ def _RTDM(t1, t2, grandfa):
 	aux = []
 	i = j = 0
 
-	if(type(grandfa) is not node):
-		father = node.node(grandfa, c1[0], c2[0])
+	if(type(grandfa) is not Node):
+		father = Node(grandfa, c1[0], c2[0])
 	else:
 		father = grandfa
 
@@ -167,8 +167,9 @@ def _RTDM(t1, t2, grandfa):
 				M[i][j] = s
 				O[i][j] = "s"#O[i-1][j-1]
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
-					new_father = node.node(father, c1[i])
-					mape += get_mape_identical_subtree(new_father, c1[i])
+					new_father = Node(father, c1[i], c2[j])
+					#new_father = index[generate_key(c1[i],c2[i])]
+					mape += get_mape_identical_subtree(new_father, c1[i], c2[j])
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
 				s += replace(c1[i], c2[j])
@@ -195,16 +196,13 @@ def _RTDM(t1, t2, grandfa):
 		for y in range(0, n):
 				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
 
-	#log.write("\nMape:"+ str(mape))
-	father, matrix =  mapeamento_matrix(M, O, father, c1, c2)
+	matrix =  mapeamento_matrix(M, O, father, c1, c2)
+	log.write("\nMape:"+ str(matrix))
 
-	if( mape != [] and matrix[-1] == mape[0]):
-		ls = [father] + matrix[:-1] + mape 
-	else:
-		ls = matrix + mape
+	ls = matrix + mape 
 
 	log.write("\n"+str(ls))
-	return M[m-1][n-1], O[m-1][n-1],M, ls
+	return M[m-1][n-1], O[m-1][n-1],M, [ls[0]]
 
 def print_tuple(ls):
 	res = []
@@ -240,4 +238,5 @@ def remove(father, ls):
 	for i in ls:
 		if(i == father):
 			del i
+
 
