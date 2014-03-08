@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+
 from __future__ import print_function
 import tree_lib as tree
 

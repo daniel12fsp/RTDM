@@ -1,6 +1,9 @@
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+
 from tree_lib import is_wildcard
-import composicao_curingas
 from bs4 import Tag
+import mapping
 
 class hash_index(dict):
 	my_hash = dict()
@@ -12,21 +15,10 @@ class hash_index(dict):
 	def generate_key(self, left, right):
 		return int(str(id(left))+str(id(right)))
 
-class Mapeamento():
+class Mapping():
 	index = hash_index()
+
 	def __init__(self, *kargs):
-
-		"""
-		if(len(kargs) == 2 ):
-			(parent, tag) = kargs
-			self.parent = parent
-			self.left = tag 
-			self.right = tag
-			self.tag = Tag(name = tag.name)
-			left = right = tag
-
-		elif(len(kargs) == 3):
-		"""
 		(parent, left, right) = kargs
 		self.parent = parent
 		self.left = left
@@ -34,11 +26,15 @@ class Mapeamento():
 		self.tag = Tag(name = self.get_name_node())
 		self.index[self.index.generate_key(left, right)] = self
 		self.children = []
+
 	def __repr__(self):
 		return str((self.tag.name,self.children))
 	
-	def add_child(self, child):
+	def push_child(self, child):
 		self.children.insert(0,child)
+
+	def append_child(self, child):
+		self.children += [child]
 	
 	def __eq__(self, other):
 		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
@@ -63,13 +59,13 @@ class Mapeamento():
 		if(is_wildcard(right) and not is_wildcard(left)):
 			return right.name	
 			
-		return composicao_curingas.get_curinga(left, right)
+		return mapping.get_curinga(left, right)
 	
 	def __hash__(self):
 		return int(str(id(self.left))+str(id(self.right)))
 
 
-class Node(Mapeamento):
+class NodeMapping(Mapping):
 	def __new__(cls, *kargs):
 		if(len(kargs) == 2 ):
 			(parent,left) = kargs
@@ -79,4 +75,4 @@ class Node(Mapeamento):
 		try:
 			return cls.index[cls.index.generate_key(left, right)] 
 		except:
-		    return Mapeamento(parent, left, right)
+		    return Mapping(parent, left, right)

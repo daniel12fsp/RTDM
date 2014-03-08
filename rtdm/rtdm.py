@@ -1,9 +1,11 @@
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+
 from utils import get_elem, exist_elem
-import os
 import tree_lib as tree
-from mapeamento import mapeamento_matrix, get_mape_identical_subtree, mapeamento_node
-import sys
-from node import Node
+from mapping import mapping_matrix, get_map_identical_subtree
+from mapping_class import NodeMapping
+
 def delete(t1, t2):
 	i  = 0
 	c1 = tree.get_children(t1)
@@ -147,7 +149,7 @@ def _RTDM(t1, t2):
 	aux = []
 	i = j = 0
 
-	father = Node(None, c1[0], c2[0])
+	father = NodeMapping(None, c1[0], c2[0])
 
 	for i in range(1, m):
 		for j in range(1, n):
@@ -163,9 +165,9 @@ def _RTDM(t1, t2):
 				M[i][j] = s
 				O[i][j] = "s"#O[i-1][j-1]
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
-					new_father = Node(father, c1[i], c2[j])
+					new_father = NodeMapping(father, c1[i], c2[j])
 					#new_father = index[generate_key(c1[i],c2[i])]
-					mape += get_mape_identical_subtree(new_father, c1[i])
+					mape += get_map_identical_subtree(new_father, c1[i])
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
 				s += replace(c1[i], c2[j])
@@ -192,48 +194,10 @@ def _RTDM(t1, t2):
 		for y in range(0, n):
 				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
 
-	matrix =  mapeamento_matrix(M, O, father, c1, c2)
+	matrix =  mapping_matrix(M, O, father, c1, c2)
 	log.write("\nMape:"+ str(matrix))
 
 	ls = matrix + mape 
 
 	log.write("\n"+str(ls))
 	return M[m-1][n-1], O[m-1][n-1],M, [ls[0]]
-
-"""
-def print_tuple(ls):
-	res = []
-	for i in ls:
-			#print(i)
-			res += (i[0].name,i[1].name) 
-	
-	return str(res)
-
-
-def last(ls):
-	if( type(ls[-1]) is list ):
-		return last(ls[-1])
-	else:
-		return ls[-1]
-
-def last_elem_list(origin, ls, mape):
-	if( list in [ type(i) for i in ls] ):
-		last_elem_list(origin, ls[-1], mape)
-	else:
-		ls.pop()
-		origin += [mape]
-
-
-def is_list_list(ls):
-	result = True
-	for i in ls:
-		result = result or type(i) is list
-
-	return result
-
-def remove(father, ls):
-	for i in ls:
-		if(i == father):
-			del i
-
-"""

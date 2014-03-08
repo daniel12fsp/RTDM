@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+
 """
 Modulo onde contem todas as funcoes relacionadas com o Algoritmo de Classe de Equivalencia
 

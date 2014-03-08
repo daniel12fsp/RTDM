@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+
 import re
 
 def get_path_dir_from_files(name_file):
@@ -26,6 +29,8 @@ def create_file_dir_mod(path_dir, file1, file2, extension):
 	return open(name_file, "w")
 
 def create_file_dir_default(file1, file2, extension):
-	
+	"""
+		O diretorio default eh o diretorio do primeiro arquivo
+	"""
 	return create_file_dir_mod(get_path_dir_from_files(file1), file1, file2, extension)
 

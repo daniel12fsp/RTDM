@@ -1,8 +1,11 @@
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+
 from __future__ import print_function
 import rtdm
 import tree_lib as tree
 import os
-from mapeamento import generate_template
+from mapping import generate_template
 from identical_sub_trees import get_classe_equivalencia
 import file
 import extracao

@@ -1,8 +1,23 @@
-from bs4 import BeautifulSoup, Tag
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+
+from bs4 import BeautifulSoup
 import re
 from tree_lib import is_wildcard
-import composicao_curingas
-from node import Node
+from mapping_class import NodeMapping
+
+composicao_curingas = {
+	"asterisco,asterisco": "asterisco",
+	"asterisco,mais": "asterisco",
+	"asterisco,interrogacao": "asterisco",
+	"asterisco,ponto": "asterisco",
+	"mais,mais": "mais",
+	"mais,ponto": "mais",
+	"mais,interrogacao": "asterisco",
+	"ponto,ponto": "ponto",
+	"ponto,interrogacao": "interrogacao",
+	"interrogacao,interrogacao": "interrogacao"
+}
 
 def op_s(i,j):
 	return i-1,j-1
@@ -13,7 +28,7 @@ def op_i(i,j):
 def op_d(i,j):
 	return i-1,j
 
-def mapeamento_matrix(M, O, father, ci, cj):
+def mapping_matrix(M, O, father, ci, cj):
 	
 	i = len(M)-1
 	j = len(M[0])-1
@@ -35,86 +50,41 @@ def mapeamento_matrix(M, O, father, ci, cj):
 			right = cj[j]
 			i, j = op_i(i, j)
 		
-		one = Node(father, left, right)
-		father.add_child(one)
+		one = NodeMapping(father, left, right)
+		father.push_child(one)
 		mape.insert(0, one)
 
 	return [father]+ mape
 
-"""		
-def head(ls):
-	if(type(ls) is tuple):
-		return ls[0]
-	else:
-		return head(ls[0])
-
-def generate_list(ls):
-	if((type(ls)) is list and len(ls)== 1):
-		return generate_list(ls[0])
-	
-	if type(ls) is list and len(ls)>=2 :
-		return ls[1:]
-	
-	return []
-"""
-			
 def generate_template(ls):
-	tree = mape_to_tree(ls)
+	tree = mapping_to_tree(ls)
 	tree = promocao_curingas(tree.html.prettify())
 	return tree
 
-"""
-def is_list_list(ls):
-	result = True
-	for i in ls:
-		result = result or type(i) is list
-
-	return result
-
-"""
-
-def mape_to_tree(ls):
+def mapping_to_tree(ls):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
 	i = 0
 	for father in ls:
 		if(father.children):
 			for child in father.children:
-				subtree = mape_to_tree([child])
+				subtree = mapping_to_tree([child])
 				child.tag = subtree.body.findChild()
 				father.tag.append(child.tag)
 	tree.body.append(father.tag)
 	return tree
 
-"""
-def children_node(father, ls):
-	i = father.children
-	result = []
-	for j in ls:
-		if(i != 0): break
-		if(j.father == father):
-			result += [j]
-			i -= 1
-	return result
-"""	
-def get_mape_identical_subtree(father, no1):
+def get_map_identical_subtree(father, no1):
 	ls = []
 	for i in no1.find_all(recursive=False):
-		one = Node(father, i)
+		one = NodeMapping(father, i)
 		ls += [one]
-		father.add_child(one)
+		father.append_child(one)
 		children = i.find_all(recursive=False)
 		if(children):
-			ls += get_mape_identical_subtree( one, i)[1:]
-	print("#no", father)
+			ls += get_map_identical_subtree( one, i)[1:]
 	return ls
 
-	
-def mapeamento_node(aux_mape, n1, n2):
-	node = get_name_node(n1,n2) 
-	if aux_mape == None :
-		return [(node,node)]
-	else: 
-		return aux_mape
+"""  ############################################################## Preciso Rever  essa parte #####################################################"""
 
 def regex_tag(string,curinga = "\W*"):
 	return "<"+string+">"+curinga+"</"+string+">"
@@ -135,7 +105,11 @@ def promocao_curingas(tree):
 	return tree
 
 
+def get_curinga(n1, n2):
+	if(type(n1) is str):
+		return composicao_curingas[n1+","+n2]
+	else:
+		return composicao_curingas[n1.name+","+n2.name]
 
-
-
-		
+"""  ############################################################## Preciso Rever  essa parte #####################################################"""
+	
