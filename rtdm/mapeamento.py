@@ -41,7 +41,7 @@ def mapeamento_matrix(M, O, father, ci, cj):
 
 	return [father]+ mape
 
-		
+"""		
 def head(ls):
 	if(type(ls) is tuple):
 		return ls[0]
@@ -56,18 +56,22 @@ def generate_list(ls):
 		return ls[1:]
 	
 	return []
+"""
 			
 def generate_template(ls):
 	tree = mape_to_tree(ls)
 	tree = promocao_curingas(tree.html.prettify())
 	return tree
-	
+
+"""
 def is_list_list(ls):
 	result = True
 	for i in ls:
 		result = result or type(i) is list
 
 	return result
+
+"""
 
 def mape_to_tree(ls):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
@@ -81,6 +85,7 @@ def mape_to_tree(ls):
 	tree.body.append(father.tag)
 	return tree
 
+"""
 def children_node(father, ls):
 	i = father.children
 	result = []
@@ -90,7 +95,7 @@ def children_node(father, ls):
 			result += [j]
 			i -= 1
 	return result
-	
+"""	
 def get_mape_identical_subtree(father, no1):
 	ls = []
 	for i in no1.find_all(recursive=False):

@@ -200,6 +200,7 @@ def _RTDM(t1, t2):
 	log.write("\n"+str(ls))
 	return M[m-1][n-1], O[m-1][n-1],M, [ls[0]]
 
+"""
 def print_tuple(ls):
 	res = []
 	for i in ls:
@@ -235,4 +236,4 @@ def remove(father, ls):
 		if(i == father):
 			del i
 
-
+"""
