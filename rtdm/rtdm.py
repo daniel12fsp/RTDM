@@ -118,11 +118,11 @@ def menor_operacao(d,i,s):
 	return res
 
 def RTDM(t1, t2):	
-	operacoes,_,_,mape = _RTDM(t1, t2, None)
+	operacoes,_,_,mape = _RTDM(t1, t2)
 	log.write("\n"+str(mape))
 	return operacoes, mape
 	
-def _RTDM(t1, t2, grandfa):
+def _RTDM(t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
 	c2 = [t2]+t2.find_all(recursive=False)
 
@@ -147,11 +147,7 @@ def _RTDM(t1, t2, grandfa):
 	aux = []
 	i = j = 0
 
-	if(type(grandfa) is not Node):
-		father = Node(grandfa, c1[0], c2[0])
-	else:
-		father = grandfa
-
+	father = Node(None, c1[0], c2[0])
 
 	for i in range(1, m):
 		for j in range(1, n):
@@ -169,7 +165,7 @@ def _RTDM(t1, t2, grandfa):
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
 					new_father = Node(father, c1[i], c2[j])
 					#new_father = index[generate_key(c1[i],c2[i])]
-					mape += get_mape_identical_subtree(new_father, c1[i], c2[j])
+					mape += get_mape_identical_subtree(new_father, c1[i])
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
 				s += replace(c1[i], c2[j])
@@ -181,7 +177,7 @@ def _RTDM(t1, t2, grandfa):
 					s += delete(c1[i], c2[j])
 
 			else:
-				num_op, operacao,_, aux_mape = _RTDM(mape[-1], c2[j], c1[i])
+				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j])
 				mape = aux_mape + mape
 				#d = sys.maxint
 				#a = sys.maxint

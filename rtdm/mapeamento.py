@@ -28,10 +28,10 @@ def mapeamento_matrix(M, O, father, ci, cj):
 			i, j = op_s(i, j)
 		elif("d" in O[i][j]):
 			left = ci[i]
-			right = Tag(name = "0")
+			right = "0"
 			i, j = op_d(i, j)
 		elif("i" in O[i][j]):
-			left = Tag( name = "0")
+			left = "0"
 			right = cj[j]
 			i, j = op_i(i, j)
 		
@@ -91,7 +91,7 @@ def children_node(father, ls):
 			i -= 1
 	return result
 	
-def get_mape_identical_subtree(father, no1, no2):
+def get_mape_identical_subtree(father, no1):
 	ls = []
 	for i in no1.find_all(recursive=False):
 		one = Node(father, i)

@@ -16,6 +16,7 @@ class Mapeamento():
 	index = hash_index()
 	def __init__(self, *kargs):
 
+		"""
 		if(len(kargs) == 2 ):
 			(parent, tag) = kargs
 			self.parent = parent
@@ -25,22 +26,19 @@ class Mapeamento():
 			left = right = tag
 
 		elif(len(kargs) == 3):
-			(parent, left, right) = kargs
-			self.parent = parent
-			self.left = left
-			self.right = right
-			self.tag = Tag(name = self.get_name_node())
-			self.index[self.index.generate_key(left, right)] = self
-
+		"""
+		(parent, left, right) = kargs
+		self.parent = parent
+		self.left = left
+		self.right = right
+		self.tag = Tag(name = self.get_name_node())
+		self.index[self.index.generate_key(left, right)] = self
 		self.children = []
 	def __repr__(self):
-	#	if(self.parent == None):
-	#		return str(("None",self.tag.name,self.children))
-	#	else:
-			return str((self.tag.name,self.children))
+		return str((self.tag.name,self.children))
 	
 	def add_child(self, child):
-		self.children += [child]
+		self.children.insert(0,child)
 	
 	def __eq__(self, other):
 		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
@@ -50,7 +48,7 @@ class Mapeamento():
 		left = self.left
 		right = self.right
 
-		if(left.name == "0" or right.name == "0"):
+		if(left == "0" or right == "0"):
 			return "interrogacao"
 
 		if(not is_wildcard(left) and not is_wildcard(right) and left.name != right.name ):
