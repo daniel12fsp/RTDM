@@ -1,14 +1,16 @@
 #!/usr/bin/python2
 # -*- coding: utf8 -*-
 
-from tree_lib import is_wildcard
+from tree_lib import is_wildcard, is_leaf
 from bs4 import Tag
 import mapping
 
 class hash_index(dict):
 	my_hash = dict()
+
 	def __add__(self, obj, index):
 		self.my_hash[obj] = index
+
 	def get(self, left,right):	
 		return self.my_hash[self.generate_key(left, right)]	
 
@@ -18,6 +20,7 @@ class hash_index(dict):
 class Mapping():
 
 	index = hash_index()
+	extration_value = []
 
 	def search_tuple_diff(parent, left, right):
 		try:
@@ -47,21 +50,31 @@ class NodeMapping(Mapping):
 		self.left = left
 		self.right = right
 		self.tag = Tag(name = self.get_name_node())
-		NodeMapping.index[self.index.generate_key(left, right)] = self
+		NodeMapping.index[self.__hash__()] = self
 		self.children = []
+		self.extration()
 
 	def __repr__(self):
 		return str((self.tag.name,self.children))
 	
+	def __eq__(self, other):
+		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
+
+	def __hash__(self):
+		return int(str(id(self.left))+str(id(self.right)))
+
 	def push_child(self, child):
 		self.children.insert(0,child)
 
 	def append_child(self, child):
 		self.children += [child]
+		
+	def extration(self):
+		left = self.left
+		right = self.right
+		if( right != "0" and left != "0" and is_wildcard(right) and is_leaf(right) and is_leaf(left)):
+			 NodeMapping.extration_value += [self.left.string]
 	
-	def __eq__(self, other):
-		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
-
 	def get_name_node(self):
 
 		left = self.left
@@ -84,5 +97,3 @@ class NodeMapping(Mapping):
 			
 		return mapping.get_curinga(left, right)
 	
-	def __hash__(self):
-		return int(str(id(self.left))+str(id(self.right)))

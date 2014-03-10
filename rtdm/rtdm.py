@@ -131,8 +131,6 @@ def _RTDM(t1, t2):
 	m = len(c1)
 	n = len(c2)
 
-	mape = []
-
 	M = [[0 for x in range(n)] for x in range(m)]
 	O = [["" for x in range(n)] for x in range(m)]
 
@@ -166,8 +164,7 @@ def _RTDM(t1, t2):
 				O[i][j] = "s"#O[i-1][j-1]
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
 					new_father = Mapping.search_tuple(father, c1[i], c2[j])
-					#new_father = index[generate_key(c1[i],c2[i])]
-					mape += get_map_identical_subtree(new_father, c1[i])
+					get_map_identical_subtree(new_father, c1[i], c2[j])
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
 				s += replace(c1[i], c2[j])
@@ -179,8 +176,7 @@ def _RTDM(t1, t2):
 					s += delete(c1[i], c2[j])
 
 			else:
-				num_op, operacao,_, aux_mape = _RTDM(c1[i], c2[j])
-				mape = aux_mape + mape
+				num_op, operacao, _, _ = _RTDM(c1[i], c2[j])
 				#d = sys.maxint
 				#a = sys.maxint
 				operacao = operacao + "~"
@@ -197,7 +193,4 @@ def _RTDM(t1, t2):
 	matrix =  mapping_matrix(M, O, father, c1, c2)
 	log.write("\nMape:"+ str(matrix))
 
-	ls = matrix + mape 
-
-	log.write("\n"+str(ls))
-	return M[m-1][n-1], O[m-1][n-1],M, [ls[0]]
+	return M[m-1][n-1], O[m-1][n-1],M, matrix

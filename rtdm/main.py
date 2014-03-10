@@ -57,6 +57,7 @@ def file_file(file1,file2):
 	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
 
 	print("Fim!")
+	print(mape.extration_value)
 	file_log.close()
 	file_regex.close()
 

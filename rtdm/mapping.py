@@ -54,35 +54,37 @@ def mapping_matrix(M, O, father, ci, cj):
 		father.push_child(one)
 		mape.insert(0, one)
 
-	return [father]+ mape
+	return father
 
 def generate_template(ls):
 	tree = mapping_to_tree(ls)
 	tree = promocao_curingas(tree.html.prettify())
 	return tree
 
-def mapping_to_tree(ls):
+def mapping_to_tree(father):
 	tree = BeautifulSoup("<html><head></head><body></body></html>")
 	i = 0
-	for father in ls:
-		if(father.children):
-			for child in father.children:
-				subtree = mapping_to_tree([child])
-				child.tag = subtree.body.findChild()
-				father.tag.append(child.tag)
+	if(father.children):
+		for child in father.children:
+			subtree = mapping_to_tree(child)
+			child.tag = subtree.body.findChild()
+			father.tag.append(child.tag)
 	tree.body.append(father.tag)
 	return tree
 
-def get_map_identical_subtree(father, no1):
-	ls = []
-	for i in no1.find_all(recursive=False):
-		one = Mapping.search_tuple(father, i)
-		ls += [one]
+def get_map_identical_subtree(father, node1, node2):
+	children1 = node1.find_all(recursive=False)
+	children2 = node2.find_all(recursive=False)
+
+	for i in range(0, len(children1)):
+		child1 = children1[i]
+		child2 = children2[i]
+		one = Mapping.search_tuple(father, child1, child2)
 		father.append_child(one)
-		children = i.find_all(recursive=False)
-		if(children):
-			ls += get_map_identical_subtree( one, i)[1:]
-	return ls
+		c1 = child1.find_all(recursive=False)
+		c2 = child2.find_all(recursive=False)
+		if(c1):
+			get_map_identical_subtree( one, child1, child2)
 
 """  ############################################################## Preciso Rever  essa parte #####################################################"""
 
