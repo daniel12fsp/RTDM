@@ -34,6 +34,9 @@ class Mapping():
 			return Mapping.search_tuple_diff(parent, left, right)
 
 
+	search_tuple = staticmethod(search_tuple)
+	search_tuple_diff = staticmethod(search_tuple_diff)
+
 
 
 class NodeMapping(Mapping):

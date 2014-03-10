@@ -16,5 +16,5 @@ modulo=main.py
 
 #gnome-terminal -e "bash -c 'python2 $modulo > /dev/pts/1'; exit;"		
 #gnome-terminal -e "bash -c 'python -m pdb $modulo';read" &
-gnome-terminal -e "bash -c 'python -m pudb.run $modulo'" &
+gnome-terminal -e "bash -c 'python2 -m pudb.run $modulo'" &
 #gnome-terminal -e "bash -c 'python2 $modulo';read" &
