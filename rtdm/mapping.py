@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 # -*- coding: utf8 -*-
 
 from bs4 import BeautifulSoup
 import re
 from tree_lib import is_wildcard
-from mapping_class import NodeMapping
+from mapping_class import Mapping
 
 composicao_curingas = {
 	"asterisco,asterisco": "asterisco",
@@ -50,7 +50,7 @@ def mapping_matrix(M, O, father, ci, cj):
 			right = cj[j]
 			i, j = op_i(i, j)
 		
-		one = NodeMapping(father, left, right)
+		one = Mapping.search_tuple(father, left, right)
 		father.push_child(one)
 		mape.insert(0, one)
 
@@ -76,7 +76,7 @@ def mapping_to_tree(ls):
 def get_map_identical_subtree(father, no1):
 	ls = []
 	for i in no1.find_all(recursive=False):
-		one = NodeMapping(father, i)
+		one = Mapping.search_tuple(father, i)
 		ls += [one]
 		father.append_child(one)
 		children = i.find_all(recursive=False)

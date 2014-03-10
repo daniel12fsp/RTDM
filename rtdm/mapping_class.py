@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 # -*- coding: utf8 -*-
 
 from tree_lib import is_wildcard
@@ -16,7 +16,27 @@ class hash_index(dict):
 		return int(str(id(left))+str(id(right)))
 
 class Mapping():
+
 	index = hash_index()
+
+	def search_tuple_diff(parent, left, right):
+		try:
+			return Mapping.index[Mapping.index.generate_key(left, right)] 
+		except:
+		    return NodeMapping(parent, left, right)
+
+	def search_tuple(*kargs):
+		if(len(kargs) == 2 ):
+			(parent, node) = kargs
+			return Mapping.search_tuple_diff(parent, node, node)
+		elif(len(kargs) == 3):
+			(parent, left, right) = kargs
+			return Mapping.search_tuple_diff(parent, left, right)
+
+
+
+
+class NodeMapping(Mapping):
 
 	def __init__(self, *kargs):
 		(parent, left, right) = kargs
@@ -24,7 +44,7 @@ class Mapping():
 		self.left = left
 		self.right = right
 		self.tag = Tag(name = self.get_name_node())
-		self.index[self.index.generate_key(left, right)] = self
+		NodeMapping.index[self.index.generate_key(left, right)] = self
 		self.children = []
 
 	def __repr__(self):
@@ -63,16 +83,3 @@ class Mapping():
 	
 	def __hash__(self):
 		return int(str(id(self.left))+str(id(self.right)))
-
-
-class NodeMapping(Mapping):
-	def __new__(cls, *kargs):
-		if(len(kargs) == 2 ):
-			(parent,left) = kargs
-			right = left
-		elif(len(kargs) == 3):
-			(parent, left, right) = kargs
-		try:
-			return cls.index[cls.index.generate_key(left, right)] 
-		except:
-		    return Mapping(parent, left, right)

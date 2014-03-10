@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 # -*- coding: utf8 -*-
 
 from utils import get_elem, exist_elem
 import tree_lib as tree
 from mapping import mapping_matrix, get_map_identical_subtree
-from mapping_class import NodeMapping
+from mapping_class import Mapping
 
 def delete(t1, t2):
 	i  = 0
@@ -149,7 +149,7 @@ def _RTDM(t1, t2):
 	aux = []
 	i = j = 0
 
-	father = NodeMapping(None, c1[0], c2[0])
+	father = Mapping.search_tuple(None, c1[0], c2[0])
 
 	for i in range(1, m):
 		for j in range(1, n):
@@ -165,7 +165,7 @@ def _RTDM(t1, t2):
 				M[i][j] = s
 				O[i][j] = "s"#O[i-1][j-1]
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
-					new_father = NodeMapping(father, c1[i], c2[j])
+					new_father = Mapping.search_tuple(father, c1[i], c2[j])
 					#new_father = index[generate_key(c1[i],c2[i])]
 					mape += get_map_identical_subtree(new_father, c1[i])
 				continue
