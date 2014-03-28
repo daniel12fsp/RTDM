@@ -5,6 +5,7 @@ from utils import get_elem, exist_elem
 import tree_lib as tree
 from mapping import mapping_matrix, get_map_identical_subtree
 from mapping_class import Mapping
+import concurrent.futures
 
 def delete(t1, t2):
 	i  = 0
@@ -154,9 +155,15 @@ def _RTDM(t1, t2):
 			
 			aux_mape = None
 			operacao = None
-			d = (M[i-1][j]+delete(c1[i], c2[j]))
-			a = (M[i][j-1]+insert(c1[i], c2[j]))
-			s = M[i-1][j-1]
+
+			with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+				funcs =  [delete, insert, replace]
+				futures = [ executor.submit(func, c1[i], c2[j]) for func in funcs] 
+				results = concurrent.futures.wait( futures )
+				d = M[i-1][j] + futures[0].result()
+				a = M[i][j-1] + futures[1].result()
+				s = M[i-1][j-1] + futures[2].result()
+
 			aux = [] 
 
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
