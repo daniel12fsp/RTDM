@@ -3,7 +3,7 @@
 
 from tree_lib import is_wildcard, is_leaf
 from bs4 import Tag
-import mapping
+#import mapping
 
 class hash_index(dict):
 	my_hash = dict()
