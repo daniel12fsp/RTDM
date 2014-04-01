@@ -43,16 +43,20 @@ def mapping_matrix(M, O, father, ci, cj):
 			left = ci[i]
 			right = cj[j]
 			i, j = op_s(i, j)
+			aux = j
 		elif("d" in O[i][j]):
 			left = ci[i]
 			right = "0"
 			i, j = op_d(i, j)
+			aux = j
 		elif("i" in O[i][j]):
 			left = "0"
 			right = cj[j]
 			i, j = op_i(i, j)
+			aux = i
 		
 		one = Mapping.search_tuple(father, left, right)
+		one.index = aux
 		father.push_child(one)
 		mape.insert(0, one)
 
@@ -77,11 +81,12 @@ def mapping_to_tree(father):
 def get_map_identical_subtree(father, node1, node2):
 	children1 = node1.find_all(recursive=False)
 	children2 = node2.find_all(recursive=False)
-
+	
 	for i in range(0, len(children1)):
 		child1 = children1[i]
 		child2 = children2[i]
 		one = Mapping.search_tuple(father, child1, child2)
+		one.index = i
 		father.append_child(one)
 		c1 = child1.find_all(recursive=False)
 		c2 = child2.find_all(recursive=False)

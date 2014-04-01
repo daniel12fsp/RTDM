@@ -19,13 +19,13 @@ class hash_index(dict):
 
 class Mapping():
 
-	index = hash_index()
+	mape_hash = hash_index()
 	extration_value = []
 	wildcard = []
 
 	def search_tuple_diff(parent, left, right):
 		try:
-			return Mapping.index[Mapping.index.generate_key(left, right)] 
+			return Mapping.mape_hash[Mapping.mape_hash.generate_key(left, right)] 
 		except:
 		    return NodeMapping(parent, left, right)
 
@@ -51,18 +51,16 @@ class NodeMapping(Mapping):
 		self.left = left
 		self.right = right
 		self.tag = Tag(name = self.get_name_node())
-		NodeMapping.index[self.__hash__()] = self
+		NodeMapping.mape_hash[self.__hash__()] = self
 		self.children = []
-		self.extration()
-		if(parent != None):
-			self.index = len(self.parent.children)
-			self.parent.append_child(self)
-			self.path = parent.path +' '+ self.tag.name + '['+ str(self.index) +']'
+		if(self.parent != None):
+			self.path = '%s %s ' % (self.parent.path, self.tag.name)
 		else:
-			self.path = self.tag.name 
+			self.path = ''
+		self.index = -1
 
 	def __repr__(self):
-		return str((self.tag.name, self.children, self.path))
+		return str(self.path)
 	
 	def __eq__(self, other):
 		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
@@ -71,17 +69,15 @@ class NodeMapping(Mapping):
 		return int(str(id(self.left))+str(id(self.right)))
 
 	def push_child(self, child):
+		if(self != None):
+			child.path = '%s %s[%d] ' % (child.parent.path, child.tag.name, child.index)
 		self.children.insert(0,child)
 
 	def append_child(self, child):
+		if(self != None):
+			child.path = '%s %s [%d] ' % (child.parent.path, child.tag.name, child.index)
 		self.children += [child]
 		
-	def extration(self):
-		left = self.left
-		right = self.right
-		if( right != "0" and left != "0" and is_wildcard(right) and is_leaf(right) and is_leaf(left)):
-			 NodeMapping.extration_value += [self.left.string]
-	
 	def get_name_node(self):
 
 		left = self.left
@@ -97,6 +93,8 @@ class NodeMapping(Mapping):
 		
 		if(not is_wildcard(left) and not is_wildcard(right) and left.name == right.name ):
 			return left.name
+
+		NodeMapping.wildcard.append(self)
 
 		if(is_wildcard(left) and not is_wildcard(right)):
 			return left.name
