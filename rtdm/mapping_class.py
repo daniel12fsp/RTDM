@@ -21,6 +21,7 @@ class Mapping():
 
 	index = hash_index()
 	extration_value = []
+	wildcard = []
 
 	def search_tuple_diff(parent, left, right):
 		try:
@@ -53,9 +54,15 @@ class NodeMapping(Mapping):
 		NodeMapping.index[self.__hash__()] = self
 		self.children = []
 		self.extration()
+		if(parent != None):
+			self.index = len(self.parent.children)
+			self.parent.append_child(self)
+			self.path = parent.path +' '+ self.tag.name + '['+ str(self.index) +']'
+		else:
+			self.path = self.tag.name 
 
 	def __repr__(self):
-		return str((self.tag.name,self.children))
+		return str((self.tag.name, self.children, self.path))
 	
 	def __eq__(self, other):
 		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
@@ -81,9 +88,11 @@ class NodeMapping(Mapping):
 		right = self.right
 
 		if(left == "0" or right == "0"):
+			NodeMapping.wildcard.append(self)
 			return "interrogacao"
 
 		if(not is_wildcard(left) and not is_wildcard(right) and left.name != right.name ):
+			NodeMapping.wildcard.append(self)
 			return "ponto"
 		
 		if(not is_wildcard(left) and not is_wildcard(right) and left.name == right.name ):

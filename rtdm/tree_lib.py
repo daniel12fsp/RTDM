@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 import identical_sub_trees
 
 def remove_tag(tree):
+	print(type(tree))
 	[x.extract() for x in tree.findAll('script')]
 	[x.extract() for x in tree.findAll('style')]
 	[x.extract() for x in tree.findAll('link')]

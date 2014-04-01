@@ -120,11 +120,11 @@ def menor_operacao(d,i,s):
 	return res
 
 def RTDM(t1, t2):	
-	operacoes,_,_,mape = _RTDM(t1, t2)
+	operacoes,_,_,mape = _RTDM(None, t1, t2)
 	log.write("\n"+str(mape))
 	return operacoes, mape
 	
-def _RTDM(t1, t2):
+def _RTDM(father, t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
 	c2 = [t2]+t2.find_all(recursive=False)
 
@@ -146,8 +146,9 @@ def _RTDM(t1, t2):
 
 	aux = []
 	i = j = 0
+	
 
-	father = Mapping.search_tuple(None, c1[0], c2[0])
+	father = Mapping.search_tuple(father, c1[0], c2[0])
 
 	for i in range(1, m):
 		for j in range(1, n):
@@ -176,7 +177,7 @@ def _RTDM(t1, t2):
 					s += delete(c1[i], c2[j])
 
 			else:
-				num_op, operacao, _, _ = _RTDM(c1[i], c2[j])
+				num_op, operacao, _, _ = _RTDM(father, c1[i], c2[j])
 				#d = sys.maxint
 				#a = sys.maxint
 				operacao = operacao + "~"
