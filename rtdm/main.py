@@ -10,15 +10,7 @@ from identical_sub_trees import get_classe_equivalencia
 import file
 import extracao
 
-def get_links(file_name):
-	myfile = open(file_name, "r")
-	files_names = myfile.readlines()
-	global file_tree1
-	file_tree1 = files_names[0][:-1]
-	global file_tree2
-	file_tree2 = files_names[1][:-1]
-	global path_dir
-	path_dir = files_names[2][:-1]
+
 
 """
 		Function: file_file
@@ -81,11 +73,10 @@ Replace_choice
 	3 - replace_mesma_quantidade_elementos 
 
 """
-filename = os.path.dirname(os.path.realpath(__file__)) + "/../links.txt"
-print(filename)
 
-get_links(filename)
+filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
+file_tree1, file_tree2, path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
 file_file(file_tree1, file_tree2)
-#extracao.extracao(file_tree1, file_tree2)
+
 #file_dir()
