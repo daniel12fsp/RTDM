@@ -68,15 +68,20 @@ class NodeMapping(Mapping):
 	def __hash__(self):
 		return int(str(id(self.left))+str(id(self.right)))
 
-	def push_child(self, child):
+	def _change_children(self, child):
+		#print(self.tag.name, child.tag.name, self.children)
 		if(self != None):
-			child.path = '%s %s[%d] ' % (child.parent.path, child.tag.name, child.index)
+			child.path = '%s[%d] %s' % (child.parent.path, child.parent.index, child.tag.name)
+		if(is_wildcard(child.tag)):
+			NodeMapping.wildcard.append(self)
+
+	def push_child(self, child):
 		self.children.insert(0,child)
+		self._change_children(child)
 
 	def append_child(self, child):
-		if(self != None):
-			child.path = '%s %s [%d] ' % (child.parent.path, child.tag.name, child.index)
 		self.children += [child]
+		self._change_children(child)
 		
 	def get_name_node(self):
 
@@ -84,23 +89,19 @@ class NodeMapping(Mapping):
 		right = self.right
 
 		if(left == "0" or right == "0"):
-			NodeMapping.wildcard.append(self)
 			return "interrogacao"
 
-		if(not is_wildcard(left) and not is_wildcard(right) and left.name != right.name ):
-			NodeMapping.wildcard.append(self)
+		elif(not is_wildcard(left) and not is_wildcard(right) and left.name != right.name ):
 			return "ponto"
 		
-		if(not is_wildcard(left) and not is_wildcard(right) and left.name == right.name ):
+		elif(not is_wildcard(left) and not is_wildcard(right) and left.name == right.name ):
 			return left.name
 
-		NodeMapping.wildcard.append(self)
-
-		if(is_wildcard(left) and not is_wildcard(right)):
+		elif(is_wildcard(left) and not is_wildcard(right)):
 			return left.name
 		
-		if(is_wildcard(right) and not is_wildcard(left)):
+		elif(is_wildcard(right) and not is_wildcard(left)):
 			return right.name	
-			
-		return mapping.get_curinga(left, right)
+		else:
+			return mapping.get_curinga(left, right)
 	

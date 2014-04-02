@@ -58,6 +58,7 @@ def mapping_matrix(M, O, father, ci, cj):
 		one = Mapping.search_tuple(father, left, right)
 		one.index = aux
 		father.push_child(one)
+		print(left.name, right.name, one.tag.name, one.)
 		mape.insert(0, one)
 
 	return father
