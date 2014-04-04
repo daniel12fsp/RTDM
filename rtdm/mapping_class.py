@@ -37,7 +37,6 @@ class Mapping():
 			(parent, left, right) = kargs
 			return Mapping.search_tuple_diff(parent, left, right)
 
-
 	search_tuple = staticmethod(search_tuple)
 	search_tuple_diff = staticmethod(search_tuple_diff)
 
@@ -54,14 +53,18 @@ class NodeMapping(Mapping):
 		NodeMapping.mape_hash[self.__hash__()] = self
 		self.children = []
 		if(self.parent != None):
-			self.path = '%s %s ' % (self.parent.path, self.tag.name)
+			self.path = '%s/%s' % (self.parent, self.tag.name)
 		else:
 			self.path = ''
-		self.index = -1
+		self.index = 0
+		self.valid = False
 
 	def __repr__(self):
-		return str(self.path)
-	
+		if(self.parent != None):
+			return "%s/%s[%d]" % (self.parent.path, self.tag.name, self.index)
+		else:
+			return self.tag.name
+
 	def __eq__(self, other):
 		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
 
@@ -70,8 +73,9 @@ class NodeMapping(Mapping):
 
 	def _change_children(self, child):
 		#print(self.tag.name, child.tag.name, self.children)
+		#self.
 		if(self != None):
-			child.path = '%s[%d] %s' % (child.parent.path, child.parent.index, child.tag.name)
+			child.path = '%s%s' % (child.parent, child)
 		if(is_wildcard(child.tag)):
 			NodeMapping.wildcard.append(self)
 

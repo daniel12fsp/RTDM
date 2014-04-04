@@ -3,6 +3,16 @@
 
 import re
 
+def get_links(file_name):
+	
+	myfile = open(file_name, "r")
+	files_names = myfile.readlines()
+	file_tree1 = files_names[0][:-1]
+	file_tree2 = files_names[1][:-1]
+	path_dir = files_names[2][:-1]
+	return file_tree1, file_tree2, path_dir
+
+
 def get_path_dir_from_files(name_file):
 	try:
 		return re.findall("(.*)/.*?$", name_file)[0]+"/"

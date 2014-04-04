@@ -19,8 +19,6 @@ composicao_curingas = {
 	"interrogacao,interrogacao" : "interrogacao"
 }
 
-
-
 def op_s(i,j):
 	return i-1,j-1
 
@@ -56,9 +54,8 @@ def mapping_matrix(M, O, father, ci, cj):
 			aux = i
 		
 		one = Mapping.search_tuple(father, left, right)
-		one.index = aux
+		one.index = 4 # aux + 1
 		father.push_child(one)
-		print(left.name, right.name, one.tag.name, one.)
 		mape.insert(0, one)
 
 	return father
@@ -87,7 +84,7 @@ def get_map_identical_subtree(father, node1, node2):
 		child1 = children1[i]
 		child2 = children2[i]
 		one = Mapping.search_tuple(father, child1, child2)
-		one.index = i
+		one.index = 5 # i + 1
 		father.append_child(one)
 		c1 = child1.find_all(recursive=False)
 		c2 = child2.find_all(recursive=False)

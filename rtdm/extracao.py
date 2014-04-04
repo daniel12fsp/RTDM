@@ -3,6 +3,8 @@
 
 from __future__ import print_function
 import tree_lib as tree
+import os
+import file
 
 def extracao(page,templete):
 	print(templete,page)
@@ -22,3 +24,6 @@ def extracao(page,templete):
 			#file_datas.write(t1[i])
 			print(t1[i],file=file_datas)
 
+filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_extration.txt"
+file_tree1, file_tree2, path_dir = file.get_links(filename)
+extracao(file_tree1, file_tree2)
