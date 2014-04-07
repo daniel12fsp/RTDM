@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 import identical_sub_trees
 
 def remove_tag(tree):
+	print(type(tree))
 	[x.extract() for x in tree.findAll('script')]
 	[x.extract() for x in tree.findAll('style')]
 	[x.extract() for x in tree.findAll('link')]
@@ -61,7 +62,7 @@ def is_leaf(node):
 	return ((get_children(node))==[])
 	
 def equal(x,y):
-	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or (x.name == y.name)
+	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or ((x.name == y.name) and (x.string == y.string))
 
 def is_any_wildcard(x,y):
 	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x))

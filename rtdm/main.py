@@ -8,8 +8,6 @@ import os
 from mapping import generate_template
 from identical_sub_trees import get_classe_equivalencia
 import file
-import extracao
-
 
 
 """
@@ -62,6 +60,7 @@ def file_dir():
 	for one_file in  os.listdir(path_dir):
 		if(one_file.endswith(".html") or one_file.endswith(".htm")):
 			file_tree1 = one_file
+			print(file_tree2)
 			file_file(path_dir+file_tree1,file_tree2)
 
 	print("Fim do file_dir")
@@ -77,6 +76,6 @@ Replace_choice
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
 file_tree1, file_tree2, path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
-file_file(file_tree1, file_tree2)
+#file_file(file_tree1, file_tree2)
 
-#file_dir()
+file_dir()
