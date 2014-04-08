@@ -19,13 +19,12 @@ class hash_index(dict):
 
 class Mapping():
 
-	mape_hash = hash_index()
+	index = hash_index()
 	extration_value = []
-	wildcard = []
 
 	def search_tuple_diff(parent, left, right):
 		try:
-			return Mapping.mape_hash[Mapping.mape_hash.generate_key(left, right)] 
+			return Mapping.index[Mapping.index.generate_key(left, right)] 
 		except:
 		    return NodeMapping(parent, left, right)
 
@@ -36,6 +35,7 @@ class Mapping():
 		elif(len(kargs) == 3):
 			(parent, left, right) = kargs
 			return Mapping.search_tuple_diff(parent, left, right)
+
 
 	search_tuple = staticmethod(search_tuple)
 	search_tuple_diff = staticmethod(search_tuple_diff)
@@ -50,43 +50,31 @@ class NodeMapping(Mapping):
 		self.left = left
 		self.right = right
 		self.tag = Tag(name = self.get_name_node())
-		NodeMapping.mape_hash[self.__hash__()] = self
+		NodeMapping.index[self.__hash__()] = self
 		self.children = []
-		if(self.parent != None):
-			self.path = '%s/%s' % (self.parent, self.tag.name)
-		else:
-			self.path = ''
-		self.index = 0
-		self.valid = False
+		self.extration()
 
 	def __repr__(self):
-		if(self.parent != None):
-			return "%s/%s[%d]" % (self.parent.path, self.tag.name, self.index)
-		else:
-			return self.tag.name
-
+		return str((self.tag.name,self.children))
+	
 	def __eq__(self, other):
 		return other != None and self.parent == other.parent and self.left == other.left and self.right== other.right
 
 	def __hash__(self):
 		return int(str(id(self.left))+str(id(self.right)))
 
-	def _change_children(self, child):
-		#print(self.tag.name, child.tag.name, self.children)
-		#self.
-		if(self != None):
-			child.path = '%s%s' % (child.parent, child)
-		if(is_wildcard(child.tag)):
-			NodeMapping.wildcard.append(self)
-
 	def push_child(self, child):
 		self.children.insert(0,child)
-		self._change_children(child)
 
 	def append_child(self, child):
 		self.children += [child]
-		self._change_children(child)
 		
+	def extration(self):
+		left = self.left
+		right = self.right
+		if( right != "0" and left != "0" and is_wildcard(right) and is_leaf(right) and is_leaf(left)):
+			 NodeMapping.extration_value += [self.left.string]
+	
 	def get_name_node(self):
 
 		left = self.left
@@ -95,17 +83,17 @@ class NodeMapping(Mapping):
 		if(left == "0" or right == "0"):
 			return "interrogacao"
 
-		elif(not is_wildcard(left) and not is_wildcard(right) and left.name != right.name ):
+		if(not is_wildcard(left) and not is_wildcard(right) and left.name != right.name ):
 			return "ponto"
 		
-		elif(not is_wildcard(left) and not is_wildcard(right) and left.name == right.name ):
+		if(not is_wildcard(left) and not is_wildcard(right) and left.name == right.name ):
 			return left.name
 
-		elif(is_wildcard(left) and not is_wildcard(right)):
+		if(is_wildcard(left) and not is_wildcard(right)):
 			return left.name
 		
-		elif(is_wildcard(right) and not is_wildcard(left)):
+		if(is_wildcard(right) and not is_wildcard(left)):
 			return right.name	
-		else:
-			return mapping.get_curinga(left, right)
+			
+		return mapping.get_curinga(left, right)
 	

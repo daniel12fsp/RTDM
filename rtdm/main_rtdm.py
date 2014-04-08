@@ -8,6 +8,7 @@ import os
 from mapping import generate_template
 from identical_sub_trees import get_classe_equivalencia
 import file
+import xpath
 
 
 """
@@ -47,22 +48,19 @@ def file_file(file1,file2):
 	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
 
 	print("Fim!")
-
-	file_xpath = file.create_file_dir_default(file1, file2, ".xpath")
-	for tag in mape.wildcard:
-		if(tag.index != 0):
-			file_xpath.write(str(tag)+"/*[1]\n")
-
 	file_log.close()
 	file_regex.close()
-	file_xpath.close()
+
+	file_regex = file.get_path_file(file1, file2, ".regex")
+	file_xpath = file.get_path_file(file1, file2, ".xpath")
+	xpath.create( file_regex, file_xpath)
 
 """
 		Function: file_dir
 			Compara um arquivo especifico com os demais de determinado diretorio
 			Retorna a similaridades de cada par(modelo,outra_pagina)
 """
-def file_dir(path_dir):
+def file_dir():
 	for one_file in  os.listdir(path_dir):
 		if(one_file.endswith(".html") or one_file.endswith(".htm")):
 			file_tree1 = one_file
@@ -77,8 +75,10 @@ Replace_choice
 	3 - replace_mesma_quantidade_elementos 
 
 """
+
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
 file_tree1, file_tree2, path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
 file_file(file_tree1, file_tree2)
-#file_dir(path_dir)
+
+#file_dir()

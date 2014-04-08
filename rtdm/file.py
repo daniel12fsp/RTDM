@@ -30,7 +30,7 @@ def get_name_file(name_file):
 		return re.findall(".*/(.*)\..*$",name_file)[0]
 	except:
 		print("Provavelmente a variavel 'name_file' nao esta no formato unix de path(/)")
-		return None
+		return ''
 
 
 
@@ -43,4 +43,7 @@ def create_file_dir_default(file1, file2, extension):
 		O diretorio default eh o diretorio do primeiro arquivo
 	"""
 	return create_file_dir_mod(get_path_dir_from_files(file1), file1, file2, extension)
+
+def get_path_file(file1, file2, extension):
+	return get_path_dir_from_files(file1) + get_name_from_files(file1, file2, extension)
 

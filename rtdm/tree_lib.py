@@ -32,8 +32,8 @@ def decodificar2utf8(arq):
 
 def file_to_tree(file_tree1, file_tree2):
 	# Houve modificao ta retornando nao body com tem que ser, pois eh um teste!
-	tree1 = BeautifulSoup(decodificar2utf8(file_tree1)).body
-	tree2 = BeautifulSoup(decodificar2utf8(file_tree2)).body
+	tree1 = BeautifulSoup(decodificar2utf8(file_tree1), "lxml").body
+	tree2 = BeautifulSoup(decodificar2utf8(file_tree2), "lxml").body
 	remove_tag(tree1)
 	remove_tag(tree2)
 	return tree1, tree2
@@ -62,7 +62,7 @@ def is_leaf(node):
 	return ((get_children(node))==[])
 	
 def equal(x,y):
-	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or (x.name == y.name)
+	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or ((x.name == y.name) and (x.string == y.string))
 
 def is_any_wildcard(x,y):
 	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x))
