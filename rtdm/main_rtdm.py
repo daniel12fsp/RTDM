@@ -9,15 +9,14 @@ from mapping import generate_template
 from identical_sub_trees import get_classe_equivalencia
 import file
 import xpath
-
-
-"""
-		Function: file_file
-			Compara dois arquivos html
-			retorna a similaridades dentre eles
-"""
+import pick
 
 def file_file(file1,file2):
+	"""
+			Function: file_file
+				Compara dois arquivos html
+				retorna a similaridades dentre eles
+	"""
 
 	print("Carregando as arvores(arquivos para arvores)", end="")
 	#Lembrado que tree1 e tree2 jah comeca do body!
@@ -39,7 +38,6 @@ def file_file(file1,file2):
 	print("[Ok]")
 
 	print("Construcao do template", end="")
-	#file_log.write("\n\n\n"+str(mape))
 	file_regex = file.create_file_dir_default(file1, file2, ".regex")
 	file_regex.write(generate_template(mape))
 	print("[Ok]")
@@ -51,9 +49,9 @@ def file_file(file1,file2):
 	file_log.close()
 	file_regex.close()
 
-	file_regex = file.get_path_file(file1, file2, ".regex")
-	file_xpath = file.get_path_file(file1, file2, ".xpath")
-	xpath.create( file_regex, file_xpath)
+	return file.get_path_file(file1, file2, ".regex")
+
+
 
 """
 		Function: file_dir
@@ -68,6 +66,22 @@ def file_dir():
 
 	print("Fim do file_dir")
 
+def generate_xpath_file_pick(path_dir, quant_elem):
+	picks = pick.pick_elems(path_dir, quant_elem)
+	print(picks)
+	i = 0
+	page2 = path_dir + picks[i]
+	while(i+1 < len(picks)):
+		print(i)
+		page1 = path_dir + picks[i+1]
+		page2 = file_file(page1, page2)
+		i += 1
+	
+	file_xpath = path_dir + "extraction.xpath"
+	xpath.create( page2, file_xpath)
+
+	print("Fim do file_pick")
+
 """
 Replace_choice
 	1 - replace_no_no
@@ -77,8 +91,7 @@ Replace_choice
 """
 
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
-file_tree1, file_tree2, path_dir = file.get_links(filename)
+path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
-file_file(file_tree1, file_tree2)
-
+generate_xpath_file_pick(path_dir, 10)
 #file_dir()

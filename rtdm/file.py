@@ -28,13 +28,7 @@ def get_links(file_name):
 	"""
 		Pega as informações de um arquivo que sarve de entrada
 	"""
-	
-	myfile = open(file_name, "r")
-	files_names = myfile.readlines()
-	file_tree1 = files_names[0][:-1]
-	file_tree2 = files_names[1][:-1]
-	path_dir = files_names[2][:-1]
-	return file_tree1, file_tree2, path_dir
+	return open(file_name, "r").read()[:-1]
 
 
 def get_path_dir_from_file(name_file):
@@ -89,7 +83,7 @@ def create_file_dir_default(file1, file2, extension):
 	"""	
 		Cria um arquivo conforme o diretorio default(eh o diretorio do primeiro arquivo)
 	"""
-	return create_file_dir_mod(get_path_dir_from_files(file1), file1, file2, extension)
+	return create_file_dir_mod(get_path_dir_from_file(file1), file1, file2, extension)
 
 def get_path_file(file1, file2, extension):
 	"""
