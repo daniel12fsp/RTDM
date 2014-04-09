@@ -15,6 +15,8 @@ import file
 			Compara dois arquivos html
 			retorna a similaridades dentre eles
 """
+global file_regex
+
 
 def file_file(file1,file2):
 
@@ -39,8 +41,10 @@ def file_file(file1,file2):
 
 	print("Construcao do template", end="")
 	#file_log.write("\n\n\n"+str(mape))
-	file_regex = file.create_file_dir_default(file1, file2, ".regex")
-	file_regex.write(generate_template(mape))
+	name_file_regex = path_dir+"templete.regex"
+	file_regex = open(name_file_regex, "w")
+	print(generate_template(mape),file=file_regex)
+	#file_regex.write(generate_template(mape))
 	print("[Ok]")
 
 	print("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
@@ -58,10 +62,16 @@ def file_file(file1,file2):
 """
 def file_dir():
 	for one_file in  os.listdir(path_dir):
+		firstPages = True;
 		if(one_file.endswith(".html") or one_file.endswith(".htm")):
 			file_tree1 = one_file
-			print(file_tree2)
-			file_file(path_dir+file_tree1,file_tree2)
+			print(file_tree1)
+			if(firstPages):
+				"""file_regex = file.create_file_dir_default(file1, file2, ".regex")"""
+				file_file(path_dir+file_tree1,file_tree2)
+				firstPages = False
+			else:
+				file_file(file_regex,path_dir+file_tree1)
 
 	print("Fim do file_dir")
 

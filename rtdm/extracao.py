@@ -25,12 +25,16 @@ def extracao(page,templete):
 	t2 = [tree2] + tree2.find_all()
 	print("Tree1 -- [OK]")
 	print("Tree2 -- [OK]")
-	print(len(t2))
-	print(len(t1))
+	print("Num. de Nos de Tree1: " + str(len(t1)))
+	print("Num. de Nos de Tree2: " + str(len(t2)))
+	print("Status de Extracao do Arquivo: " + str(page))
+	j=0
 	for i in range(0, len(t2)):
 		if tree.is_wildcard(t2[i]):
 			try:
-				print(t1[i],file=file_datas)			
+				j=j+1
+				print(t1[i],file=file_datas)	
+				print("Curinga " + str(j))		
 			except:
 				print("Nao Existe")			
 
