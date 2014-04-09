@@ -20,7 +20,6 @@ from bs4 import BeautifulSoup
 import identical_sub_trees
 
 def remove_tag(tree):
-	print(type(tree))
 	[x.extract() for x in tree.findAll('script')]
 	[x.extract() for x in tree.findAll('style')]
 	[x.extract() for x in tree.findAll('link')]
@@ -29,6 +28,15 @@ def remove_tag(tree):
 
 def decodificar2utf8(arq):
 	return open(arq, mode="rb")
+
+
+def str_to_tree(str_tree1, str_tree2):
+	# Houve modificao ta retornando nao body com tem que ser, pois eh um teste!
+	tree1 = BeautifulSoup(str_tree1).body
+	tree2 = BeautifulSoup(str_tree2).body
+	remove_tag(tree1)
+	remove_tag(tree2)
+	return tree1, tree2
 
 def file_to_tree(file_tree1, file_tree2):
 	# Houve modificao ta retornando nao body com tem que ser, pois eh um teste!

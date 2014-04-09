@@ -28,20 +28,21 @@ def create(file_regex, file_xpath):
 	file_regex.close()
 
 def extraction(file_xpath, page_target, file_data):
-	print(file_data)
+	file_xpath = open(file_xpath)
+	page_target = open(page_target)
+	tree = lxml_parser(page_target)
+	file_data = open(file_data,"w")
+	for xpath in file_xpath.readlines():
+		tags = tree.xpath(xpath[:-1])
+		if(tags != []):
+			for tag in tags:
+				if(tag.text and re.search("\w",tag.text)):
+					file_data.write(str((tag.tag,tag.text))+"\n")
 	try:
-		file_xpath = open(file_xpath)
-		page_target = open(page_target)
-		tree = lxml_parser(page_target)
-		file_data = open(file_data,"w")
-		for xpath in file_xpath.readlines():
-			tags = tree.xpath(xpath[:-1])
-			if(tags != []):
-				for tag in tags:
-					if(tag.text and re.search("\w",tag.text)):
-						file_data.write(str((tag.tag,tag.text))+"\n")
+
+		file_xpath.close()
+		page_target.close()
+		file_data.close()
 	except:
 		print("Erro", page_target)
-	file_xpath.close()
-	page_target.close()
-	file_data.close()
+

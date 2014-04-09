@@ -9,7 +9,7 @@ def execute_bash(command):
 	return output
 
 def generate_list_from_cmd(path_dir):
-	command = "ls " + path_dir +" -lS"
+	command = "ls " + path_dir +"*.html -lS"
 	tmp = execute_bash(command).splitlines()
 	tmp.pop(0)
 	files = []
@@ -30,12 +30,12 @@ def generate_list_from_cmd(path_dir):
 	return result
 
 def pick_elems(path_dir, quant_elem):	
-	
 	files_all = generate_list_from_cmd(path_dir)
-	files = [str(files_all[0]), str(files_all[-1])]
+	return files_all[:quant_elem]
+	#files = [str(files_all[0]), str(files_all[-1])]
 	random.shuffle(files_all)
-	del files_all[0]
-	del files_all[-1]
+	#del files_all[0]
+	#del files_all[-1]
 	if(quant_elem != 2):
 		files.extend(files_all[:quant_elem - 2])
 	return files

@@ -37,7 +37,6 @@ def mapping_matrix(M, O, father, ci, cj):
 			left = "0"
 			right = cj[j]
 			i, j = op_i(i, j)
-		
 		one = Mapping.search_tuple(father, left, right)
 		father.push_child(one)
 		mape.insert(0, one)

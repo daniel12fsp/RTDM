@@ -5,6 +5,7 @@ from utils import get_elem, exist_elem
 import tree_lib as tree
 from mapping import mapping_matrix, get_map_identical_subtree
 from mapping_class import Mapping
+from identical_sub_trees import get_classe_equivalencia
 
 def delete(t1, t2):
 	i  = 0
@@ -94,7 +95,7 @@ def replace_mesma_quantidade_elementos(t1, t2):
 			3 - replace_mesma_quantidade_elementos 
 """
 def replace_choice(option):
-	print("A opcao de replace foi: %s" % (option))
+	#print("A opcao de replace foi: %s" % (option))
 	global replace
 	if(option==1):
 		replace = replace_no_no
@@ -121,8 +122,16 @@ def menor_operacao(d,i,s):
 
 def RTDM(t1, t2):	
 	operacoes,_,_,mape = _RTDM(None, t1, t2)
-	log.write("\n"+str(mape))
+	#log.write("\n"+str(mape))
 	return operacoes, mape
+
+def calc_similaridade(page_fixa, page2):
+	tree1, tree2 = tree.str_to_tree(page_fixa, page2)
+	k = get_classe_equivalencia(tree1, tree2)
+	replace_choice(3)
+	prepareRTDM(k, None)
+	operacoes, _ = RTDM(tree1, tree2)
+	return operacoes
 	
 def _RTDM(father, t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
@@ -186,12 +195,6 @@ def _RTDM(father, t1, t2):
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
 
-	for x in range(0, m):
-		log.write("\n")
-		for y in range(0, n):
-				log.write("{m:4d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
 
 	matrix =  mapping_matrix(M, O, father, c1, c2)
-	log.write("\nMape:"+ str(matrix))
-
 	return M[m-1][n-1], O[m-1][n-1],M, matrix
