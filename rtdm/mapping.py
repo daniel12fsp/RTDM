@@ -6,20 +6,6 @@ import re
 from tree_lib import is_wildcard
 from mapping_class import Mapping
 
-composicao_curingas = {
-	"asterisco,asterisco" : "asterisco",
-	"asterisco,mais" : "asterisco",
-	"asterisco,interrogacao" : "asterisco",
-	"asterisco,ponto" : "asterisco",
-	"mais,mais" : "mais",
-	"mais,ponto" : "mais",
-	"mais,interrogacao" : "asterisco",
-	"ponto,ponto" : "ponto",
-	"ponto,interrogacao" : "interrogacao",
-	"interrogacao,interrogacao" : "interrogacao"
-}
-
-
 
 def op_s(i,j):
 	return i-1,j-1
@@ -105,12 +91,3 @@ def promocao_curingas(tree):
 	tree = promocao_curingas_substituicao("interrogacao","asterisco",tree)
 	tree = promocao_curingas_substituicao("asterisco","asterisco",tree)
 	return tree
-
-
-def get_curinga(n1, n2):
-	if(type(n1) is str):
-		return composicao_curingas[n1+","+n2]
-	else:
-		return composicao_curingas[n1.name+","+n2.name]
-
-	

@@ -36,7 +36,8 @@ def extraction(file_xpath, page_target, file_data):
 		tags = tree.xpath(xpath[:-1])
 		if(tags != []):
 			for tag in tags:
-				file_data.write(str((tag.tag,tag.text))+"\n")
+				if(tag.text and re.search("\w",tag.text)):
+					file_data.write(str((tag.tag,tag.text))+"\n")
 	file_xpath.close()
 	page_target.close()
 	file_data.close()
