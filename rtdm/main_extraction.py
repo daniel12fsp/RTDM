@@ -12,6 +12,7 @@ def extraction_xpath_dir(folder):
 		print("page", page)
 		file_data = file.create_file(folder + page, ".data")
 		xpath.extraction(file_xpath, folder + page,  file_data)
+		exit()
 
 
 
