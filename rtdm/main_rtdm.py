@@ -11,13 +11,15 @@ import file
 import xpath
 import pick
 
+max_operation = 800
+
 def file_file(file1,file2):
 	"""
 			Function: file_file
 				Compara dois arquivos html
 				retorna a similaridades dentre eles
 	"""
-
+	print("\nT1:%s \nT2:%s" % (file1,file2))
 	print("Carregando as arvores(arquivos para arvores)", end="")
 	#Lembrado que tree1 e tree2 jah comeca do body!
 	tree1, tree2 = tree.file_to_tree(file1, file2)
@@ -37,7 +39,7 @@ def file_file(file1,file2):
 
 	print("[Ok]")
 
-	if(operacoes <= 500):
+	if(operacoes <= max_operation):
 		print("Construcao do template", end="")
 		file_regex = file.create_file_dir_default(file1, file2, ".regex")
 		file_regex.write(generate_template(mape))
@@ -46,8 +48,8 @@ def file_file(file1,file2):
 	else:
 		print("Paginas nao similares! ")
 
-	print("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
-	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2, operacoes))
+	print("\nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (operacoes))
+	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2,operacoes))
 
 	print("Fim!")
 	file_log.close()
@@ -78,12 +80,11 @@ def generate_xpath_file_pick(path_dir, quant_elem):
 		page1 = picks[i+1]
 		aux = page2
 		operacao, page2 = file_file(page1, page2)
-		if(operacao <= 500 ):
+		if(operacao <= max_operation ):
 			file_xpath = file.create_file(page2, ".xpath")
 			xpath.create( page2, file_xpath)
 		else:
 			page2 = picks[i]
-			
 		i += 1
 	
 	file_xpath = path_dir + "extraction.xpath"

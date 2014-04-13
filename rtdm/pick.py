@@ -30,6 +30,7 @@ def generate_list_from_cmd(path_dir):
 	return result
 
 def pick_elems(path_dir, quant_elem):	
+	return ["/media/doc/home/doc/2013/academico/project/Implementacao/Yang-Algoritmos/novo/rtdm-git/paginas_html/page_erro/112043970.html", "/media/doc/home/doc/2013/academico/project/Implementacao/Yang-Algoritmos/novo/rtdm-git/paginas_html/page_erro/112043996_115401269.regex.html"]
 	files_all = generate_list_from_cmd(path_dir)
 	return files_all[:quant_elem]
 	#files = [str(files_all[0]), str(files_all[-1])]

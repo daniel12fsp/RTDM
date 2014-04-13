@@ -2,16 +2,19 @@
 from lxml import etree
 import file
 import re
+import mapping
 
 def lxml_parser(file_tree):
 	return etree.parse(file_tree, parser=etree.HTMLParser())
 
-def create(file_regex, file_xpath):
-	file_regex = open(file_regex)
+def create(filename_regex, file_xpath):
+	file_regex = open(filename_regex)
+	page_regex = open(filename_regex).read()
+	page_regex = mapping.promocao_curingas(page_regex)
 	file_xpath = open(file_xpath, "w")
 	tree = lxml_parser(file_regex)
 	xpaths = {}
-	def _create_single(file_regex, wildcard):
+	def _create_single(page_regex, wildcard):
 		for elem in tree.xpath("//"+wildcard):
 			xpath = tree.getpath(elem.getparent()) + "//*"
 			xpath = re.sub("\[\d+\]","",xpath)
@@ -20,17 +23,16 @@ def create(file_regex, file_xpath):
 			xpaths[xpath] = xpaths[xpath] + 1
 			
 
-
-	_create_single(file_regex, "ponto")
-	_create_single(file_regex, "interrogacao")
-	_create_single(file_regex, "asterisco")
-	_create_single(file_regex, "mais")
-
+	_create_single(page_regex, "ponto")
+	_create_single(page_regex, "interrogacao")
+	_create_single(page_regex, "asterisco")
+	_create_single(page_regex, "mais")
 
 	for key in xpaths:
 			print(key, xpaths[key])
-#			file_xpath.write(xpath+"\n")
-
+			if(xpaths[key] > 5):
+				file_xpath.write(key + "\n")
+	print(len(xpaths))
 	file_xpath.close()
 	file_regex.close()
 
@@ -51,5 +53,5 @@ def extraction(file_xpath, page_target, file_data):
 		page_target.close()
 		file_data.close()
 	except:
-		print("Erro", page_target)
+		print("Erro", page_target, "Error")
 
