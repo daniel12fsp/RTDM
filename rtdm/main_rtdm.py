@@ -72,7 +72,7 @@ def file_dir(page_comp, path_dir):
 	print("Fim do file_dir")
 
 def generate_xpath_file_pick(path_dir, quant_elem):
-	picks = pick.pick_elems(path_dir, quant_elem)
+	picks = pick.list_random_files(path_dir, quant_elem)
 	print(picks)
 	i = 0
 	page2 = picks[i]
@@ -81,6 +81,8 @@ def generate_xpath_file_pick(path_dir, quant_elem):
 		aux = page2
 		operacao, page2 = file_file(page1, page2)
 		if(operacao <= max_operation ):
+			last_regex = page2
+			pass
 			file_xpath = file.create_file(page2, ".xpath")
 			xpath.create( page2, file_xpath)
 		else:
@@ -88,7 +90,7 @@ def generate_xpath_file_pick(path_dir, quant_elem):
 		i += 1
 	
 	file_xpath = path_dir + "extraction.xpath"
-	xpath.create( page2, file_xpath)
+	xpath.create( last_regex, file_xpath)
 
 	print("Fim do file_pick")
 

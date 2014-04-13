@@ -29,11 +29,11 @@ def create(filename_regex, file_xpath):
 	_create_single(page_regex, "mais")
 
 	xpaths = fusion_xpath(xpaths)
-
+	print("O xpath escolhido pra extracao")
 	for key in xpaths:
-		print(key, xpaths[key])
-		if(xpaths[key] > 5):
-			file_xpath.write(key + "\n")
+		#print(key, xpaths[key])
+		print(key)
+		file_xpath.write(key + "\n")
 	file_xpath.close()
 	file_regex.close()
 
@@ -46,29 +46,43 @@ def fusion_xpath(xpaths):
 			if(key1 != key2 and re.match(key1[:-2],key2 )):
 				xpaths[key1] = xpaths[key1] + xpaths[key2]
 				keys_repeated.add(key2)
-
+		print(key1, xpaths[key1])
+	print(keys_repeated)
+	order = xpaths.items()
+	order.sort(key = lambda x : x[1], reverse = True)
+	last_div = order.pop(0)[0]
+	xpaths = []
+	for (key,freq) in order:
+		if(not re.search("div/$",key[:-2])):
+			return [last_div]
+		last_div = key
+	"""
 	for key in keys_repeated:
 		del xpaths[key]
-
-	return xpaths	
+	"""
+	return [last_div]	
 			
 
 def extraction(file_xpath, page_target, file_data):
-	file_xpath = open(file_xpath)
-	page_target = open(page_target)
-	tree = lxml_parser(page_target)
-	file_data = open(file_data,"w")
-	for xpath in file_xpath.readlines():
-		tags = tree.xpath(xpath[:-1])
-		if(tags != []):
-			for tag in tags:
-				if(tag.text and re.search("\w",tag.text)):
-					file_data.write(str((tag.tag,tag.text))+"\n")
 	try:
-
-		file_xpath.close()
-		page_target.close()
-		file_data.close()
+		file_xpath = open(file_xpath)
+		page_target = open(page_target)
+		tree = lxml_parser(page_target)
+		file_data = open(file_data,"w")
+		for xpath in file_xpath.readlines():
+			tags = tree.xpath(xpath[:-1])
+			if(tags != []):
+				for tag in tags:
+					if(tag.text  and re.search("\w",tag.text) and  tag.tag not in ["script", "a", "li", "lo", "option", "em","b","strong","label","fieldset","ul", "select","small"]):
+						file_data.write(str((tag.tag,tag.text))+"\n")
+						#file_data.write(str((tree.getpath(tag),tag.tag,tag.text))+"\n")
+			file_xpath.close()
+			page_target.close()
+			file_data.close()
 	except:
 		print("Erro", page_target, "Error")
+
+#ponto ["script", "a", "p", "li", "lo", "option", "em", "div", "span","b","strong","label","fieldset","ul", "select"])
+#luiza == americanas ["script", "a", "li", "lo", "option", "em","b","strong","label","fieldset","ul", "select","small"]
+
 

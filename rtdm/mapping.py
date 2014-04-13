@@ -71,7 +71,7 @@ def get_map_identical_subtree(father, node1, node2):
 		if(len(children2)>i):
 			child2 = children2[i]
 		else:
-			children2 = "0"
+			child2 = "0"
 		one = Mapping.search_tuple(father, child1, child2)
 		father.append_child(one)
 		c1 = child1.find_all(recursive=False)
