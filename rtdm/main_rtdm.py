@@ -108,5 +108,5 @@ Replace_choice
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
 path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
-generate_xpath_file_pick(path_dir, 5)
+generate_xpath_file_pick(path_dir, 2)
 #file_dir()
