@@ -59,7 +59,7 @@ def fusion_xpath(xpaths):
 			elems.sort(reverse = True)
 			break
 		last_div = key
-		del order[i]
+#		del order[i]
 
 	result = []
 	print(elems)
@@ -73,12 +73,7 @@ def fusion_xpath(xpaths):
 	if(len(result) <= 1):
 		return [last_div]
 	else:
-		xpath = last_div + "[" + "self::"+re.findall("/(\w+)//\*$",result[0])[0]
-		for i in result[1:]	:
-			xpath += _generate_or(re.findall("/(\w+)//\*$", i)[0])
-		xpath +="]//*"
-		print(xpath)
-		return [xpath]
+		return result
 
 
 def _add_xpath_unique(one, elems):
@@ -95,21 +90,22 @@ def _generate_or(elem):
 			
 
 def extraction(file_xpath, page_target, file_data):
+	file_xpath = open(file_xpath)
+	page_target = open(page_target)
+	tree = lxml_parser(page_target)
+	file_data = open(file_data,"w")
+	for xpath in file_xpath.readlines():
+		tags = tree.xpath(xpath[:-1])
+		if(tags != []):
+			for tag in tags:
+				if(tag.text  and re.search("\w",tag.text)):
+					file_data.write(str((tag.tag,tag.text))+"\n")
+					#file_data.write(str((tree.getpath(tag),tag.tag,tag.text))+"\n")
+	file_xpath.close()
+	page_target.close()
+	file_data.close()
 	try:
-		file_xpath = open(file_xpath)
-		page_target = open(page_target)
-		tree = lxml_parser(page_target)
-		file_data = open(file_data,"w")
-		for xpath in file_xpath.readlines():
-			tags = tree.xpath(xpath[:-1])
-			if(tags != []):
-				for tag in tags:
-					if(tag.text  and re.search("\w",tag.text) and (True or tag.tag not in ["script", "a", "li", "lo", "option", "em","b","strong","label","fieldset","ul", "select","small"])):
-						file_data.write(str((tag.tag,tag.text))+"\n")
-						#file_data.write(str((tree.getpath(tag),tag.tag,tag.text))+"\n")
-			file_xpath.close()
-			page_target.close()
-			file_data.close()
+		pass
 	except:
 		print("Erro", page_target, "Error")
 
