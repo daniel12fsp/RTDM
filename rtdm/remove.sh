@@ -7,5 +7,4 @@ rm $folder*.regex
 rm $folder*.data
 rm $folder*.xpath
 rm $folder*.log
-
-
+clear

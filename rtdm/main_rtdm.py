@@ -12,6 +12,7 @@ import xpath
 import pick
 
 max_operation = 800
+min_operation = 100
 
 def file_file(file1,file2):
 	"""
@@ -39,7 +40,7 @@ def file_file(file1,file2):
 
 	print("[Ok]")
 
-	if(operacoes <= max_operation):
+	if(operacoes > min_operation and operacoes <= max_operation):
 		print("Construcao do template", end="")
 		file_regex = file.create_file_dir_default(file1, file2, ".regex")
 		file_regex.write(generate_template(mape))
@@ -79,8 +80,8 @@ def generate_xpath_file_pick(path_dir, quant_elem):
 	while(i+1 < len(picks)):
 		page1 = picks[i+1]
 		aux = page2
-		operacao, page2 = file_file(page1, page2)
-		if(operacao <= max_operation ):
+		operacoes, page2 = file_file(page1, page2)
+		if(operacoes > min_operation and operacoes <= max_operation ):
 			last_regex = page2
 			pass
 			file_xpath = file.create_file(page2, ".xpath")
@@ -106,6 +107,7 @@ Replace_choice
 """
 
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
+pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
 path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
 generate_xpath_file_pick(path_dir, 5)

@@ -28,57 +28,95 @@ def create(filename_regex, file_xpath):
 	_create_single(page_regex, "asterisco")
 	_create_single(page_regex, "mais")
 
-	xpaths = fusion_xpath(xpaths)
+	xpath, tags = fusion_xpath(xpaths)
 	print("O xpath escolhido pra extracao")
-	for key in xpaths:
-		#print(key, xpaths[key])
-		print(key)
-		file_xpath.write(key + "\n")
+	print(xpath)
+	print("tags", tags)
+	file_xpath.write(xpath + "\n")
+	buf = ""
+	for tag in tags:
+		buf += re.findall("/(\w+)//\*$", tag)[0]+"|"
+	print(buf)
+	file_xpath.write("*"*7+"\n")
+	file_xpath.write(buf[:-1] + "\n")
+		
+		
 	file_xpath.close()
 	file_regex.close()
 
 
-
 def fusion_xpath(xpaths):
-	keys_repeated = set()
+
+	descendents = {k: [] for k in xpaths.keys()}
 	for key1 in xpaths:
 		for key2 in xpaths:
 			if(key1 != key2 and re.match(key1[:-2],key2 )):
 				xpaths[key1] = xpaths[key1] + xpaths[key2]
-				keys_repeated.add(key2)
-		print(key1, xpaths[key1])
-	print(keys_repeated)
-	order = xpaths.items()
+				descendents[key1].append(key2)
+		#print(key1, xpaths[key1])
+
+	order = list(xpaths.items())
 	order.sort(key = lambda x : x[1], reverse = True)
 	last_div = order.pop(0)[0]
-	xpaths = []
-	for (key,freq) in order:
+	elems = []
+	for i in range(len(order)):
+		(key,freq) = order[i]
 		if(not re.search("div/$",key[:-2])):
-			return [last_div]
+			elems =  [(xpaths[key], key) for key in descendents[last_div]]
+			elems.sort(reverse = True)
+			break
 		last_div = key
-	"""
-	for key in keys_repeated:
-		del xpaths[key]
-	"""
-	return [last_div]	
+#		del order[i]
+
+	result = []
+	print(elems)
+
+	for _,k1 in elems:
+
+		if(re.search("div/$", k1[:-2]) ):
+			continue
+		_add_xpath_unique(k1, result)
+
+	print("result", result)
+
+	return (last_div,result)
+
+
+def _add_xpath_unique(one, elems):
+	found = 0
+	for i in elems:	
+		if(re.match(i[:-2], one)):
+			found = 1
+			break
+	if(found == 0):
+		elems.append(one)
+
+def _generate_or(elem):
+	return " | self::"+elem+" "
 			
 
 def extraction(file_xpath, page_target, file_data):
+
 	try:
 		file_xpath = open(file_xpath)
 		page_target = open(page_target)
 		tree = lxml_parser(page_target)
 		file_data = open(file_data,"w")
-		for xpath in file_xpath.readlines():
-			tags = tree.xpath(xpath[:-1])
-			if(tags != []):
-				for tag in tags:
-					if(tag.text  and re.search("\w",tag.text) and  tag.tag not in ["script", "a", "li", "lo", "option", "em","b","strong","label","fieldset","ul", "select","small"]):
-						file_data.write(str((tag.tag,tag.text))+"\n")
-						#file_data.write(str((tree.getpath(tag),tag.tag,tag.text))+"\n")
-			file_xpath.close()
-			page_target.close()
-			file_data.close()
+		txt = file_xpath.readlines()
+		xpath = txt[0]
+		restrict_tags = txt[2][:-1]
+		tags = tree.xpath(xpath[:-1])
+		if(tags != []):
+			for tag in tags:
+				if(tag.text  and re.search("\w",tag.text) and re.search(restrict_tags,tree.getpath(tag))):
+					value = tag.text
+					value = re.sub("\s{2,}", "", value)
+					file_data.write(str((tag.tag,value))+"\n")
+					#file_data.write(str((tree.getpath(tag),tag.text[:10]))+"\n")
+		file_xpath.close()
+		page_target.close()
+		file_data.close()
+
 	except:
 		print("Erro", page_target, "Error")
 
