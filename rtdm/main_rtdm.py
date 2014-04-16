@@ -12,7 +12,7 @@ import xpath
 import pick
 
 max_operation = 800
-min_operation = 100
+min_operation = 150
 
 def file_file(file1,file2):
 	"""
@@ -73,27 +73,28 @@ def file_dir(page_comp, path_dir):
 	print("Fim do file_dir")
 
 def generate_xpath_file_pick(path_dir, quant_elem):
-	picks = pick.list_random_files(path_dir, quant_elem)
-	print(picks)
-	i = 0
-	page2 = picks[i]
-	while(i+1 < len(picks)):
-		page1 = picks[i+1]
-		aux = page2
-		operacoes, page2 = file_file(page1, page2)
-		if(operacoes > min_operation and operacoes <= max_operation ):
-			last_regex = page2
-			pass
-			file_xpath = file.create_file(page2, ".xpath")
-			xpath.create( page2, file_xpath)
-		else:
-			page2 = picks[i]
-		i += 1
-	
-	file_xpath = path_dir + "extraction.xpath"
-	xpath.create( last_regex, file_xpath)
-
-	print("Fim do file_pick")
+	last_regex = None
+	while(last_regex == None):
+		picks = pick.list_random_files(path_dir, quant_elem)
+		print(picks)
+		i = 0
+		page2 = picks[i]
+		while(i+1 < len(picks)):
+			page1 = picks[i+1]
+			aux = page2
+			operacoes, page2 = file_file(page1, page2)
+			if(operacoes > min_operation and operacoes <= max_operation ):
+				last_regex = page2
+				pass
+				file_xpath = file.create_file(page2, ".xpath")
+				xpath.create( page2, file_xpath)
+			else:
+				page2 = picks[i]
+			i += 1
+		if(last_regex != None):
+			file_xpath = path_dir + "extraction.xpath"
+			xpath.create( last_regex, file_xpath)
+			print("Fim do file_pick")
 
 
 
@@ -110,5 +111,5 @@ filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
 pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
 path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
-generate_xpath_file_pick(path_dir, 5)
+generate_xpath_file_pick(path_dir, 2)
 #file_dir()
