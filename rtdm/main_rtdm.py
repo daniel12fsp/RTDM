@@ -12,7 +12,7 @@ import xpath
 import pick
 
 max_operation = 800
-min_operation = 0
+min_operation = 150
 
 def file_file(file1,file2):
 	"""
@@ -33,6 +33,7 @@ def file_file(file1,file2):
 	print("Criando arquivo de log", end="")
 	file_log = file.create_file_dir_default(file1, file2, ".log")
 	print("[Ok]")
+
 
 	print("Comecando a executar o RTDM!", end="")
 	rtdm.prepareRTDM(k, file_log)
@@ -94,6 +95,7 @@ def generate_xpath_file_pick(path_dir, quant_elem):
 		if(last_regex != None):
 			file_xpath = path_dir + "extraction.xpath"
 			xpath.create( last_regex, file_xpath)
+	print("xpath - final")
 	print("Fim do file_pick")
 
 
@@ -108,8 +110,11 @@ Replace_choice
 """
 
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
-pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
 path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
-generate_xpath_file_pick(path_dir, 5)
+for i in range(0,15):
+	print("*"*10+"-",i)
+	pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
+	generate_xpath_file_pick(path_dir, 5)
+	print("*"*10+"-",i)
 #file_dir()
