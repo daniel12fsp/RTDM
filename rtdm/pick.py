@@ -3,6 +3,7 @@ import os
 import random
 
 def list_random_files(path_dir, size):
+	return ['/media/doc/home/doc/2013/academico/project/Implementacao/Yang-Algoritmos/novo/rtdm-git/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/115401269.html', '/media/doc/home/doc/2013/academico/project/Implementacao/Yang-Algoritmos/novo/rtdm-git/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/111235494.html']
 	command = "ls " + path_dir +"*.html |shuf -n "+str(size)
 	return execute_bash(command).splitlines()
 

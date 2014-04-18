@@ -25,8 +25,6 @@ def create(filename_regex, file_xpath):
 
 	_create_single(page_regex, "ponto")
 	_create_single(page_regex, "interrogacao")
-	_create_single(page_regex, "asterisco")
-	_create_single(page_regex, "mais")
 
 	xpath, tags = fusion_xpath(xpaths)
 	print("O xpath escolhido pra extracao")
@@ -37,7 +35,7 @@ def create(filename_regex, file_xpath):
 	for tag in tags:
 		buf += re.findall("/(\w+)//\*$", tag)[0]+"|"
 	print(buf)
-	file_xpath.write("*"*7+"\n")
+	file_xpath.write("*"*16+"\n")
 	file_xpath.write(buf[:-1] + "\n")
 		
 		
@@ -48,6 +46,7 @@ def create(filename_regex, file_xpath):
 def fusion_xpath(xpaths):
 
 	descendents = {k: [] for k in xpaths.keys()}
+	print("xpaths", xpaths)
 	for key1 in xpaths:
 		for key2 in xpaths:
 			if(key1 != key2 and re.match(key1[:-2],key2 )):
@@ -58,6 +57,7 @@ def fusion_xpath(xpaths):
 	order = list(xpaths.items())
 	order.sort(key = lambda x : x[1], reverse = True)
 	last_div = order.pop(0)[0]
+	#print("elems ordenados",order)
 	elems = []
 	for i in range(len(order)):
 		(key,freq) = order[i]
@@ -69,7 +69,7 @@ def fusion_xpath(xpaths):
 #		del order[i]
 
 	result = []
-	print(elems)
+	print("elems filhos frequentes",elems)
 
 	for _,k1 in elems:
 

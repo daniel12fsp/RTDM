@@ -12,7 +12,7 @@ import xpath
 import pick
 
 max_operation = 800
-min_operation = 150
+min_operation = 0
 
 def file_file(file1,file2):
 	"""
@@ -23,7 +23,7 @@ def file_file(file1,file2):
 	print("\nT1:%s \nT2:%s" % (file1,file2))
 	print("Carregando as arvores(arquivos para arvores)", end="")
 	#Lembrado que tree1 e tree2 jah comeca do body!
-	tree1, tree2 = tree.file_to_tree(file1, file2)
+	tree1, tree2 = tree.files_to_trees(file1, file2)
 	print("[Ok]")
 
 	print("Calculando a classe de equivalencia", end="")
@@ -94,7 +94,7 @@ def generate_xpath_file_pick(path_dir, quant_elem):
 		if(last_regex != None):
 			file_xpath = path_dir + "extraction.xpath"
 			xpath.create( last_regex, file_xpath)
-			print("Fim do file_pick")
+	print("Fim do file_pick")
 
 
 
@@ -111,5 +111,5 @@ filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
 pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
 path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
-generate_xpath_file_pick(path_dir, 2)
+generate_xpath_file_pick(path_dir, 5)
 #file_dir()
