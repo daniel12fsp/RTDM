@@ -3,6 +3,7 @@ from lxml import etree
 import file
 import re
 import mapping
+from unidecode import unidecode
 
 def lxml_parser(file_tree):
 	return etree.parse(file_tree, parser=etree.HTMLParser())
@@ -97,25 +98,48 @@ def _generate_or(elem):
 
 def extraction(file_xpath, page_target, file_data):
 
+	file_xpath = open(file_xpath)
+	page_target = open(page_target)
+	tree = lxml_parser(page_target)
+	file_data = open(file_data,"w")
+	txt = file_xpath.readlines()
+	xpath = txt[0]
+	restrict_tags = txt[2][:-1]
+	tags = tree.xpath(xpath[:-1])
+	result = []
+	if(tags != []):
+		freq = {}
+		for tag in tags:
+			if(tag.text  and re.search("\w",tag.text) and re.search(restrict_tags,tree.getpath(tag))):
+				xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
+				result.append(tag)
+				if(freq.get(xpath_tag)):
+					freq[xpath_tag] = freq[xpath_tag] + 1
+				else:
+					freq[xpath_tag] = 1
+				#result.append(str((tree.getpath(tag),value[:10])))
+		"""		
+		for key1 in freq:
+			for key2 in freq:
+				if(key1 != key2 and re.match(key1[:-2],key2 )):
+					freq[key1] = freq[key1] + freq[key2]
+		"""
+		order = list(freq.items())
+		order.sort(key = lambda x : x[1], reverse = True)
+		lca = order.pop(0)[0]
+
+		for tag in result:
+			xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
+			if(re.match(lca, xpath_tag)):
+				value = tag.text
+				value = re.sub("\s{2,}", "", value)
+				value = unidecode(str(value)).lower()
+				file_data.write(str((tag.tag,value))+"\n")
+	file_xpath.close()
+	page_target.close()
+	file_data.close()
 	try:
-		file_xpath = open(file_xpath)
-		page_target = open(page_target)
-		tree = lxml_parser(page_target)
-		file_data = open(file_data,"w")
-		txt = file_xpath.readlines()
-		xpath = txt[0]
-		restrict_tags = txt[2][:-1]
-		tags = tree.xpath(xpath[:-1])
-		if(tags != []):
-			for tag in tags:
-				if(tag.text  and re.search("\w",tag.text) and re.search(restrict_tags,tree.getpath(tag))):
-					value = tag.text
-					value = re.sub("\s{2,}", "", value)
-					file_data.write(str((tag.tag,value))+"\n")
-					#file_data.write(str((tree.getpath(tag),tag.text[:10]))+"\n")
-		file_xpath.close()
-		page_target.close()
-		file_data.close()
+		pass
 
 	except:
 		print("Erro", page_target, "Error")
