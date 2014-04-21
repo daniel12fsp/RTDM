@@ -4,9 +4,13 @@ import file
 import re
 import mapping
 from unidecode import unidecode
+import json
+import html.parser
+
+
 
 def lxml_parser(file_tree):
-	return etree.parse(file_tree, parser=etree.HTMLParser())
+	return etree.parse(file_tree, parser=etree.HTMLParser(encoding="UTF-8"))
 
 def create(filename_regex, file_xpath):
 	file_regex = open(filename_regex)
@@ -96,12 +100,11 @@ def _generate_or(elem):
 	return " | self::"+elem+" "
 			
 
-def extraction(file_xpath, page_target, file_data):
+def extraction(file_xpath, page_target, id_file, file_json):
 
 	file_xpath = open(file_xpath)
 	page_target = open(page_target)
 	tree = lxml_parser(page_target)
-	file_data = open(file_data,"w")
 	txt = file_xpath.readlines()
 	xpath = txt[0]
 	restrict_tags = txt[2][:-1]
@@ -127,24 +130,32 @@ def extraction(file_xpath, page_target, file_data):
 		order = list(freq.items())
 		order.sort(key = lambda x : x[1], reverse = True)
 		lca = order.pop(0)[0]
-
+		attrs = {}
 		for tag in result:
 			xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
 			if(re.match(lca, xpath_tag)):
-				value = tag.text
-				value = re.sub("\s{2,}", "", value)
+				parser = html.parser.HTMLParser()
+				value = re.sub("\s{2,}", "", tag.text)
 				value = unidecode(str(value)).lower()
-				file_data.write(str((tag.tag,value))+"\n")
+				value = parser.unescape(value)
+				if(tag.getprevious() == None):
+
+					key = value
+				else:
+					"""
+					if(attrs.get(key)):
+						attrs[key][-1] = attrs[key][-1] + value
+					else:
+					"""
+					attrs[key] = [value]
+						
+		file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
+
 	file_xpath.close()
 	page_target.close()
-	file_data.close()
+	
 	try:
 		pass
 
 	except:
 		print("Erro", page_target, "Error")
-
-#ponto ["script", "a", "p", "li", "lo", "option", "em", "div", "span","b","strong","label","fieldset","ul", "select"])
-#luiza == americanas ["script", "a", "li", "lo", "option", "em","b","strong","label","fieldset","ul", "select","small"]
-
-
