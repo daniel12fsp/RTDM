@@ -1,0 +1,458 @@
+id:109395077, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109395093, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109549216, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:109549232, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:109553215, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:109553258, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109715211, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:109772258, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109831211, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:109831238, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109831254, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:109831271, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:109831297, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:109842210, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109842236, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109852493, acertos:33, precisao:0.970588, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:109852514, acertos:36, precisao:0.947368, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109867821, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109867863, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109867880, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109867901, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109874705, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109874781, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109874801, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109874828, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109881999, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:109893797, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109893818, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:109908477, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:109920222, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:109939548, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110010234, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:110010251, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:110040492, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:110072574, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110072591, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110072611, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:110072638, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110093210, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110121719, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110134464, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110134481, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110134501, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110134528, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110194521, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110194547, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110208953, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:110235855, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110235871, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110235898, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110235919, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110235935, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110454943, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:110469395, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:110469416, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:110474291, acertos:33, precisao:1.000000, revocacao:1.060606, len attr1(xpath):33, len attr2(gab):35
+id:110543217, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110553642, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:110571277, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110571293, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110571314, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:110571331, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:110571357, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110571373, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110571390, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110571411, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:110582216, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:110582259, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:110583235, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110583251, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110583278, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110589215, acertos:35, precisao:0.972222, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:110595578, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110595594, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110595615, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110595631, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110595658, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110595674, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:110595691, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:110617351, acertos:36, precisao:1.000000, revocacao:1.027778, len attr1(xpath):36, len attr2(gab):37
+id:110703903, acertos:41, precisao:1.000000, revocacao:1.000000, len attr1(xpath):41, len attr2(gab):41
+id:110703920, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:110703946, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:110739252, acertos:42, precisao:1.000000, revocacao:1.000000, len attr1(xpath):42, len attr2(gab):42
+id:110739295, acertos:42, precisao:1.000000, revocacao:1.000000, len attr1(xpath):42, len attr2(gab):42
+id:110776707, acertos:34, precisao:0.944444, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:110778260, acertos:33, precisao:0.916667, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:110785216, acertos:34, precisao:0.944444, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:110822646, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:110830515, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:110830531, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:110830558, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:110919211, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111042879, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:111172251, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:111183452, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:111235494, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111244358, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:111304779, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111307128, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:111307144, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:111307161, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:111343612, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:111350257, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111350273, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111350290, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:111367235, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:111367286, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:111367307, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:111371971, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:111375243, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111411953, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:111411970, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:111411996, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:111412016, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:111453336, acertos:33, precisao:0.916667, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111453352, acertos:33, precisao:0.916667, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111453379, acertos:33, precisao:0.916667, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111453416, acertos:33, precisao:0.916667, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111498260, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111557670, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111585312, acertos:33, precisao:0.916667, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111597874, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:111597891, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:111642778, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111645151, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111645178, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111645194, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111645215, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111734779, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:111734795, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:111737419, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111737451, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111737478, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111794712, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111816820, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111848899, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111857955, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:111889359, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:111942834, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:111993076, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112043890, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:112043911, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:112043937, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112043953, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112043970, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:112043996, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112051321, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112051347, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112069328, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112069344, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112069361, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112069387, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:112069408, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112069424, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112069441, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112069467, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112069483, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112069580, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:112069601, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:112095454, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112095471, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112095497, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112095518, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112095534, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112095551, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112095577, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112095593, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112095614, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112095673, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112099113, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112099130, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:112128922, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:112128949, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112128965, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112128981, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112129001, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112129028, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112161861, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112161888, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:112163875, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112163891, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112183876, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112194680, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112194743, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112194786, acertos:35, precisao:0.972222, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112194807, acertos:35, precisao:0.972222, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112194840, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112194866, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112194882, acertos:35, precisao:0.972222, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112194903, acertos:34, precisao:0.971429, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112194920, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:112194946, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112194962, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112214062, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112214089, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112214100, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112253854, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:112253871, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:112253918, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:112253993, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112350865, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112369689, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112424684, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:112565719, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:112569867, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:112763707, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112763803, acertos:37, precisao:0.948718, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112768436, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112768452, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112774001, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112837972, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112858829, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112858909, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112886969, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:112910009, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112962327, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112962343, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:112974740, acertos:35, precisao:0.972222, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:112996105, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:113056828, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:113059156, acertos:26, precisao:1.000000, revocacao:1.000000, len attr1(xpath):26, len attr2(gab):26
+id:113059172, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:113099924, acertos:36, precisao:0.972973, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:113099967, acertos:35, precisao:0.972222, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:113103006, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:113103065, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:113103081, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:113103188, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:113243375, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:113243391, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:113243412, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:113243439, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:113289251, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:113289277, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:113289293, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:113289331, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:113322209, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:113357014, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:113357031, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:113396371, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:113396419, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:113467002, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:113501848, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:113544477, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:113851936, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:113851952, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:113851979, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:113851995, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:113852015, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:113852058, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:113852074, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:113916912, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:113916939, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:113994937, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114018410, acertos:31, precisao:0.968750, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114027720, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:114057321, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:114057347, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114057363, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114057380, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114057401, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:114057427, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114057443, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114057460, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:114553308, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:114553324, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:114553341, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:114742011, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:114742037, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:114742070, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:114937512, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115153154, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:115153171, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115153197, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115153218, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:115153234, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115153314, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115153357, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115153373, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115153390, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:115233058, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:115401269, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:115401285, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:115414289, acertos:49, precisao:1.000000, revocacao:1.000000, len attr1(xpath):49, len attr2(gab):49
+id:115603426, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:115645263, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:115645280, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:115803487, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116031546, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:116107758, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:116162669, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116162685, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116162706, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:116162722, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116162749, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116162765, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:116162781, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:116162802, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116163291, acertos:28, precisao:1.000000, revocacao:1.000000, len attr1(xpath):28, len attr2(gab):28
+id:116163362, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116163371, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:116163389, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:116163397, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:116163400, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:116174213, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:116188295, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:116222887, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116222908, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116222924, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116356439, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:116356455, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:116376801, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:116588803, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116599254, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:116599271, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:116605837, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116605853, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116661572, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:116779749, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116779765, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116779968, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:116779984, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116807594, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:116813038, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:116813046, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:116813062, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:116813071, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:116813089, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:116813097, acertos:35, precisao:1.000000, revocacao:1.000000, len attr1(xpath):35, len attr2(gab):35
+id:116989041, acertos:28, precisao:0.933333, revocacao:0.933333, len attr1(xpath):30, len attr2(gab):28
+id:116989068, acertos:28, precisao:0.933333, revocacao:0.933333, len attr1(xpath):30, len attr2(gab):28
+id:117111581, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:117111628, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:117124074, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:117124091, acertos:32, precisao:0.969697, revocacao:0.969697, len attr1(xpath):33, len attr2(gab):32
+id:117124111, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117339681, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:117423736, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117479828, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117479844, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117479861, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:117594295, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:117594703, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:117595052, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:117595394, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:117596098, acertos:28, precisao:1.000000, revocacao:1.000000, len attr1(xpath):28, len attr2(gab):28
+id:117596127, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:117596143, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:117596160, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:117655254, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:117655271, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:117655297, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:117656732, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:117722509, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:117725398, acertos:28, precisao:1.000000, revocacao:1.000000, len attr1(xpath):28, len attr2(gab):28
+id:117733929, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:117783918, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117783934, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117819482, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:117966239, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117966247, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:117982221, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:117994141, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:118004437, acertos:31, precisao:1.000000, revocacao:1.000000, len attr1(xpath):31, len attr2(gab):31
+id:118004525, acertos:28, precisao:1.000000, revocacao:1.000000, len attr1(xpath):28, len attr2(gab):28
+id:118030184, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:118030205, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:118030221, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:118038178, acertos:33, precisao:1.000000, revocacao:1.000000, len attr1(xpath):33, len attr2(gab):33
+id:118213669, acertos:29, precisao:1.000000, revocacao:1.000000, len attr1(xpath):29, len attr2(gab):29
+id:118213693, acertos:30, precisao:1.000000, revocacao:1.000000, len attr1(xpath):30, len attr2(gab):30
+id:118213714, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:118240536, acertos:32, precisao:1.000000, revocacao:1.000000, len attr1(xpath):32, len attr2(gab):32
+id:  6726121, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7118157, acertos: 1, precisao:1.000000, revocacao:1.000000, len attr1(xpath): 1, len attr2(gab):1
+id:  7257480, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7258161, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7258163, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7274507, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7274509, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7307033, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7318998, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7345543, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7345545, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7345547, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7357949, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7359563, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7374572, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7374574, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7374576, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7374578, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7374915, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7374917, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7374919, acertos:38, precisao:0.974359, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7374921, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7374923, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7376691, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7392028, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7393131, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7394093, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7394095, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7394097, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7394099, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7394101, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7394103, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7398142, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7398144, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7415504, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:  7415506, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:  7415508, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:  7415510, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:  7415512, acertos:36, precisao:1.000000, revocacao:1.000000, len attr1(xpath):36, len attr2(gab):36
+id:  7429181, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7429183, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7432672, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:  7432674, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:  7432676, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:  7438111, acertos:34, precisao:1.000000, revocacao:1.000000, len attr1(xpath):34, len attr2(gab):34
+id:  7438113, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7440528, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7444695, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7444699, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7444701, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7444705, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7444707, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:  7448757, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7448759, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7448763, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7457877, acertos:40, precisao:1.000000, revocacao:1.000000, len attr1(xpath):40, len attr2(gab):40
+id:  7471069, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7474771, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7474992, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7475000, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7475002, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7478667, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7478671, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7478673, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7478675, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7480258, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7484376, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7484378, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7484380, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7484382, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7484384, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7484386, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7508748, acertos:37, precisao:0.973684, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7514223, acertos:37, precisao:1.000000, revocacao:1.000000, len attr1(xpath):37, len attr2(gab):37
+id:  7526684, acertos:39, precisao:1.000000, revocacao:1.000000, len attr1(xpath):39, len attr2(gab):39
+id:  7534169, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7534171, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7534179, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7534183, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7534185, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+id:  7552408, acertos:38, precisao:1.000000, revocacao:1.000000, len attr1(xpath):38, len attr2(gab):38
+Informações Gerais
+Precisao 0.9946514820804189
+Revocacao 0.9998346098346099
