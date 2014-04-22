@@ -5,7 +5,10 @@ import re
 import mapping
 from unidecode import unidecode
 import json
-import html.parser
+try:
+	import html.parser
+except:
+	import HTMLParser 
 
 
 

@@ -1,20 +1,17 @@
 #!/bin/sh
 
-clear
-echo "python works";
-path=$(pwd);
-     
-rm ../paginas_html/*.log
-rm ../paginas_html/*/*.log
-rm ../paginas_html/*.regex
-rm ../paginas_html/*/*.regex
-#rm *.pyc
-rm -R __pycache__/
 
-modulo=main.py
-#mapeamento.py
-
-#gnome-terminal -e "bash -c 'python2 $modulo > /dev/pts/1'; exit;"		
-#gnome-terminal -e "bash -c 'python -m pdb $modulo';read" &
-gnome-terminal -e "bash -c 'python2 -m pudb.run $modulo'" &
-#gnome-terminal -e "bash -c 'python2 $modulo';read" &
+for((k=0; k < 30; k++));
+do
+	echo $k
+	output_file=../testes/"output$k.txt"
+	echo "RTDM"
+	pypy main_rtdm.py > $output_file
+	echo "OK"
+	echo "Extraction"
+	python3 main_extraction.py
+	echo "OK"
+	#gedit $(cat ../links_rtdm.txt)data.json
+	cat $(cat ../links_rtdm.txt)extraction.xpath >> $output_file
+	diff tester/data1.json $(cat ../links_rtdm.txt)data.json >> $output_file
+done

@@ -11,8 +11,7 @@ import file
 import xpath
 import pick
 
-max_operation = 800
-min_operation = 150
+max_operation = 500
 
 def file_file(file1,file2):
 	"""
@@ -41,14 +40,11 @@ def file_file(file1,file2):
 
 	print("[Ok]")
 
-	if(operacoes > min_operation and operacoes <= max_operation):
+	if(operacoes <= max_operation):
 		print("Construcao do template", end="")
 		file_regex = file.create_file_dir_default(file1, file2, ".regex")
 		file_regex.write(generate_template(mape))
 		file_regex.close()
-		print("[Ok]")
-	else:
-		print("Paginas nao similares! ")
 
 	print("\nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (operacoes))
 	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2,operacoes))
@@ -84,11 +80,8 @@ def generate_xpath_file_pick(path_dir, quant_elem):
 			page1 = picks[i+1]
 			aux = page2
 			operacoes, page2 = file_file(page1, page2)
-			if(operacoes > min_operation and operacoes <= max_operation ):
+			if(operacoes <= max_operation ):
 				last_regex = page2
-				pass
-				file_xpath = file.create_file(page2, ".xpath")
-				xpath.create( page2, file_xpath)
 			else:
 				page2 = picks[i]
 			i += 1
@@ -112,9 +105,6 @@ Replace_choice
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
 path_dir = file.get_links(filename)
 rtdm.replace_choice(3)
-for i in range(0,15):
-	print("*"*10+"-",i)
-	pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
-	generate_xpath_file_pick(path_dir, 5)
-	print("*"*10+"-",i)
+pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
+generate_xpath_file_pick(path_dir, 5)
 #file_dir()

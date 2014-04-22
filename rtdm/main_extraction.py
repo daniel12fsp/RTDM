@@ -9,10 +9,8 @@ import glob
 
 def extraction_xpath_dir(folder):
 	file_xpath = folder + "extraction.xpath"
-	print("file_xpath", file_xpath)
 	file_json = open(folder + "data.json","w")
 	for page in sorted(glob.glob(folder + '*.html')):
-		print("page", page)
 		id_file =	re.findall("(\d+)\.html", page)[0]
 		xpath.extraction(file_xpath, page, id_file, file_json)
 	file_json.close()
