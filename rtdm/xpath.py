@@ -105,60 +105,59 @@ def _generate_or(elem):
 
 def extraction(file_xpath, page_target, id_file, file_json):
 
-	file_xpath = open(file_xpath)
-	page_target = open(page_target)
-	tree = lxml_parser(page_target)
-	txt = file_xpath.readlines()
-	xpath = txt[0]
-	restrict_tags = txt[2][:-1]
-	tags = tree.xpath(xpath[:-1])
-	result = []
-	if(tags != []):
-		freq = {}
-		for tag in tags:
-			if(tag.text  and re.search("\w",tag.text) and re.search(restrict_tags,tree.getpath(tag))):
-				xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
-				result.append(tag)
-				if(freq.get(xpath_tag)):
-					freq[xpath_tag] = freq[xpath_tag] + 1
-				else:
-					freq[xpath_tag] = 1
-				#result.append(str((tree.getpath(tag),value[:10])))
-		"""		
-		for key1 in freq:
-			for key2 in freq:
-				if(key1 != key2 and re.match(key1[:-2],key2 )):
-					freq[key1] = freq[key1] + freq[key2]
-		"""
-		order = list(freq.items())
-		order.sort(key = lambda x : x[1], reverse = True)
-		lca = order.pop(0)[0]
-		attrs = {}
-		for tag in result:
-			xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
-			if(re.match(lca, xpath_tag)):
-				parser = html.parser.HTMLParser()
-				value = re.sub("\s{2,}", "", tag.text)
-				value = unidecode(str(value)).lower()
-				value = parser.unescape(value)
-				if(tag.getprevious() == None):
 
-					key = value
-				else:
-					"""
-					if(attrs.get(key)):
-						attrs[key][-1] = attrs[key][-1] + value
-					else:
-					"""
-					attrs[key] = [value]
-						
-		file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
-
-	file_xpath.close()
-	page_target.close()
-	
 	try:
-		pass
+		file_xpath = open(file_xpath)
+		page_target = open(page_target)
+		tree = lxml_parser(page_target)
+		txt = file_xpath.readlines()
+		xpath = txt[0]
+		restrict_tags = txt[2][:-1]
+		tags = tree.xpath(xpath[:-1])
+		result = []
+		if(tags != []):
+			freq = {}
+			for tag in tags:
+				if(tag.text  and re.search("\w",tag.text) and re.search(restrict_tags,tree.getpath(tag))):
+					xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
+					result.append(tag)
+					if(freq.get(xpath_tag)):
+						freq[xpath_tag] = freq[xpath_tag] + 1
+					else:
+						freq[xpath_tag] = 1
+					#result.append(str((tree.getpath(tag),value[:10])))
+			"""		
+			for key1 in freq:
+				for key2 in freq:
+					if(key1 != key2 and re.match(key1[:-2],key2 )):
+						freq[key1] = freq[key1] + freq[key2]
+			"""
+			order = list(freq.items())
+			order.sort(key = lambda x : x[1], reverse = True)
+			lca = order.pop(0)[0]
+			attrs = {}
+			for tag in result:
+				xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
+				if(re.match(lca, xpath_tag)):
+					parser = html.parser.HTMLParser()
+					value = re.sub("\s{2,}", "", tag.text)
+					value = unidecode(str(value)).lower()
+					value = parser.unescape(value)
+					if(tag.getprevious() == None):
 
+						key = value
+					else:
+						"""
+						if(attrs.get(key)):
+							attrs[key][-1] = attrs[key][-1] + value
+						else:
+						"""
+						attrs[key] = [value]
+						
+			file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
+
+		file_xpath.close()
+		page_target.close()
+	
 	except:
 		print("Erro", page_target, "Error")
