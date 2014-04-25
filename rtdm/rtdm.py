@@ -168,7 +168,6 @@ def _RTDM(father, t1, t2):
 			a = (M[i][j-1]+insert(c1[i], c2[j]))
 			s = M[i-1][j-1]
 			aux = [] 
-
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
 				M[i][j] = s
 				O[i][j] = "s"#O[i-1][j-1]
@@ -194,6 +193,20 @@ def _RTDM(father, t1, t2):
 
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
+			"""
+			Caso queira ver a operacao escolhido entre dois elementos
+
+ 			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
+
+ 					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
+			"""
+	"""
+	Caso queira ver a matriz construida
+	for x in range(0, m):
+		log.write("\n")
+		for y in range(0, m):
+				log.write("{m:d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
+	"""
 
 
 	matrix =  mapping_matrix(M, O, father, c1, c2)
