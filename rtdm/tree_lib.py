@@ -46,7 +46,7 @@ def preprare_tree(arq):
 			2 - Retira os elementos indesejados veja a funcao remove_tags
 			3 - A arvore eh inicializada no campo body
 	"""
-	tree = BeautifulSoup(open(arq, mode="rb"), "lxml")
+	tree = BeautifulSoup(open(arq, mode="rb"),from_encoding="utf8")
 	return remove_tags(tree).body
 	
 def files_to_trees(file_tree1, file_tree2):
@@ -95,7 +95,7 @@ def is_leaf(node):
 	return ((get_children(node))==[])
 	
 def equal(x,y):
-	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or ((x.name == y.name))
+	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x)) or ((x.name == y.name) and (x.string == y.string))
 
 def is_any_wildcard(x,y):
 	return (is_wildcard(x) and is_leaf(y))  or (is_wildcard(y) and is_leaf(x))

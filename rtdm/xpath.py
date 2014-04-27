@@ -6,9 +6,9 @@ import mapping
 from unidecode import unidecode
 import json
 try:
-	import html.parser
+       import html.parser
 except:
-	import HTMLParser 
+       import HTMLParser
 
 
 
@@ -18,146 +18,89 @@ def lxml_parser(file_tree):
 def create(filename_regex, file_xpath):
 	file_regex = open(filename_regex)
 	page_regex = open(filename_regex).read()
-	#page_regex = mapping.promocao_curingas(page_regex)
 	file_xpath = open(file_xpath, "w")
 	tree = lxml_parser(file_regex)
 	xpaths = {}
-	def _create_single(page_regex, wildcard):
+	def _create_single(page_regex, wildcard, peso):
 		for elem in tree.xpath("//"+wildcard):
-			xpath = tree.getpath(elem.getparent()) + "//*"
-			xpath = re.sub("\[\d+\]","",xpath)
+			xpath = tree.getpath(elem.getparent())
+			#xpath = tree.getpath(elem.getparent()) + "//*"
+			xpath = re.sub("\[\d+\]$","",xpath)
 			if(xpaths.__contains__(xpath) == False):
 				xpaths[xpath] = 0
-			xpaths[xpath] = xpaths[xpath] + 1
+			xpaths[xpath] = xpaths[xpath] + 1*peso
 			
 
-	_create_single(page_regex, "ponto")
-	_create_single(page_regex, "interrogacao")
+	_create_single(page_regex, "ponto", 1)
+	#_create_single(page_regex, "interrogacao", 2)
 
-	xpath, tags = fusion_xpath(xpaths)
+	lca = fusion_xpath(xpaths)
 	print("O xpath escolhido pra extracao")
-	print(xpath)
-	print("tags", tags)
-	file_xpath.write(xpath + "\n")
-	buf = ""
-	for tag in tags:
-		buf += re.findall("/(\w+)//\*$", tag)[0]+"|"
-	print(buf)
-	file_xpath.write("*"*16+"\n")
-	file_xpath.write(buf[:-1] + "\n")
-		
-		
+	print(lca)
+	file_xpath.write(lca + "\n")
 	file_xpath.close()
 	file_regex.close()
+	return lca
 
 
 def fusion_xpath(xpaths):
-
-	descendents = {k: [] for k in xpaths.keys()}
-	print("xpaths", xpaths)
-	for key1 in xpaths:
-		for key2 in xpaths:
-			if(key1 != key2 and re.match(key1[:-2],key2 )):
-				xpaths[key1] = xpaths[key1] + xpaths[key2]
-				descendents[key1].append(key2)
-		#print(key1, xpaths[key1])
-
-	order = list(xpaths.items())
-	order.sort(key = lambda x : x[1], reverse = True)
-	last_div = order.pop(0)[0]
-	#print("elems ordenados",order)
-	elems = []
-	for i in range(len(order)):
-		(key,freq) = order[i]
-		if(not re.search("div/$",key[:-2])):
-			elems =  [(xpaths[key], key) for key in descendents[last_div]]
-			elems.sort(reverse = True)
-			break
-		last_div = key
-#		del order[i]
-
+	print(xpaths)
+	xpaths = xpaths.items()
+	xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
+	xpath_max_0 = max(xpaths, key = lambda x : x[0])
+	xpath_max_1 = max(xpaths, key = lambda x : x[1])
+	lca = xpath_max_1[0]
+	lca = xpath = re.sub("\[\d+\]","",lca)
+	print("xpath_max_len", xpath_max_len)
+	print("xpath_max_0(Key)", xpath_max_0)
+	print("xpath_max_1(Valor)", xpath_max_1)
+	return lca + "//*"
+"""
+def define_lca(file_xpath, page_target):
+	file_xpath = open(file_xpath)
+	page_target = open(page_target)
+	tree = lxml_parser(page_target)
+	txt = file_xpath.readlines()
+	xpath = txt[0]
+	tags = tree.xpath(xpath[:-1])
 	result = []
-	print("elems filhos frequentes",elems)
-
-	for _,k1 in elems:
-
-		if(re.search("div/$", k1[:-2]) ):
-			continue
-		_add_xpath_unique(k1, result)
-
-	print("result", result)
-
-	return (last_div,result)
-
-
-def _add_xpath_unique(one, elems):
-	found = 0
-	for i in elems:	
-		if(re.match(i[:-2], one)):
-			found = 1
-			break
-	if(found == 0):
-		elems.append(one)
-
-def _generate_or(elem):
-	return " | self::"+elem+" "
-			
-
-def extraction(file_xpath, page_target, id_file, file_json):
-
-
-	try:
-		file_xpath = open(file_xpath)
-		page_target = open(page_target)
-		tree = lxml_parser(page_target)
-		txt = file_xpath.readlines()
-		xpath = txt[0]
-		restrict_tags = txt[2][:-1]
-		tags = tree.xpath(xpath[:-1])
-		result = []
-		if(tags != []):
-			freq = {}
-			for tag in tags:
-				if(tag.text  and re.search("\w",tag.text) and re.search(restrict_tags,tree.getpath(tag))):
-					xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
-					result.append(tag)
-					if(freq.get(xpath_tag)):
-						freq[xpath_tag] = freq[xpath_tag] + 1
-					else:
-						freq[xpath_tag] = 1
-					#result.append(str((tree.getpath(tag),value[:10])))
-			"""		
-			for key1 in freq:
-				for key2 in freq:
-					if(key1 != key2 and re.match(key1[:-2],key2 )):
-						freq[key1] = freq[key1] + freq[key2]
-			"""
-			order = list(freq.items())
-			order.sort(key = lambda x : x[1], reverse = True)
-			lca = order.pop(0)[0]
-			attrs = {}
-			for tag in result:
+	if(tags != []):
+		freq = {}
+		for tag in tags:
+			if(tag.text  and re.search("\w",tag.text)):
 				xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
-				if(re.match(lca, xpath_tag)):
-					parser = html.parser.HTMLParser()
-					value = re.sub("\s{2,}", "", tag.text)
-					value = unidecode(str(value)).lower()
-					value = parser.unescape(value)
-					if(tag.getprevious() == None):
+				result.append(tag)
+				if(freq.get(xpath_tag)):
+					freq[xpath_tag] = freq[xpath_tag] + 1
+				else:
+					freq[xpath_tag] = 1
 
-						key = value
-					else:
-						"""
-						if(attrs.get(key)):
-							attrs[key][-1] = attrs[key][-1] + value
-						else:
-						"""
-						attrs[key] = [value]
-						
-			file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
+	lca = max(freq.items(), key = lambda x : x[1])[0]
+	file_xpath.close()
+	page_target.close()
+	return lca + "//*"
+"""
 
-		file_xpath.close()
-		page_target.close()
-	
+def extraction(lca, page_target, id_file, file_json):
+	page_target = open(page_target)
+	tree = lxml_parser(page_target)
+	page_target.close()
+	attrs = {}
+	#lca_path = lca[:-4]
+	try:
+		for tag in tree.xpath(lca):
+			xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
+			if(tag.text):
+				parser = html.parser.HTMLParser()	
+				value = re.sub("\s{2,}", "", tag.text)
+				value = unidecode(str(value)).lower()
+				value = parser.unescape(value)
+				if(tag.getprevious() == None):
+					key = value
+				else:
+					attrs[key] = [value]
+		
+		file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
 	except:
+		print(lca)
 		print("Erro", page_target, "Error")

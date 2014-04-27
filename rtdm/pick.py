@@ -1,10 +1,12 @@
 import subprocess
 import os
 import random
+import glob
 
-def list_random_files(path_dir, size):
-	command = "ls " + path_dir +"*.html |shuf -n "+str(size)
-	return execute_bash(command).splitlines()
+def list_random_pages(path_dir):
+	pages = glob.glob(path_dir + "*.html")
+	random.shuffle(pages)
+	return pages
 
 def list_size_order_files():
 	#errado

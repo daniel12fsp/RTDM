@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf8 -*-
 
-from tree_lib import is_wildcard, is_leaf
+from tree_lib import is_wildcard, is_leaf, equal
 from bs4 import Tag
 #import mapping
 
@@ -71,7 +71,7 @@ class NodeMapping(Mapping):
 		self.parent = parent
 		self.left = left
 		self.right = right
-		self.tag = Tag(name = self.get_name_node())
+		self.tag = self.get_node()
 		NodeMapping.index[self.__hash__()] = self
 		self.children = []
 
@@ -99,7 +99,7 @@ class NodeMapping(Mapping):
 		"""
 		self.children.append(child)
 		
-	def get_name_node(self):
+	def get_node(self):
 		def get_curinga(n1, n2):
 			if(type(n1) is str):
 				return Mapping.composicao_curingas[n1+","+n2]
@@ -112,7 +112,7 @@ class NodeMapping(Mapping):
 			Se algum tiver "0", eh interrogacao
 			Se os nós forem diferentes, eh ponto
 			obs.: o uso de curingas é só usado quando são árvores
-			Se caso algum dos dois sejam coringas então retorna o mesmo
+			Se caso algum dos dois sejam coringas então retorna o mais abrangente
 			Se caso contrario usa tabela, ver definição na tese do Davi. pag...
 			
 			
@@ -120,20 +120,31 @@ class NodeMapping(Mapping):
 
 		left = self.left
 		right = self.right
+		"""
+		try:
+			print(is_wildcard(left),is_leaf(left), left.name)
+			print(is_wildcard(right), is_leaf(right), right.name)
+			print(right.string == left.string, right.name == left.name)
+		except:
+			pass
+
+		"""
+
 
 		if(left == "0" or right == "0"):
-			return "interrogacao"
+			tag_name = "interrogacao"
 
-		if(not is_wildcard(left) and not is_wildcard(right) and left.name != right.name ):
-			return "ponto"
+		elif(not is_wildcard(left) and not is_wildcard(right)):
+			if(is_leaf(left) and is_leaf(right) and not equal(left, right)):
+				tag_name = "ponto"
+			else:
+				tag_name = left.name
+		elif(is_wildcard(left) and not is_wildcard(right)):
+			return left
 		
-		if(not is_wildcard(left) and not is_wildcard(right) and left.name == right.name ):
-			return left.name
+		elif(is_wildcard(right) and not is_wildcard(left)):
+			return right
+		else:
+			tag_name = get_curinga(left, right)
 
-		if(is_wildcard(left) and not is_wildcard(right)):
-			return left.name
-		
-		if(is_wildcard(right) and not is_wildcard(left)):
-			return right.name	
-			
-		return self.get_curinga(left, right)
+		return Tag(name = tag_name)

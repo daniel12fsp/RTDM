@@ -7,15 +7,18 @@ import file
 import re
 import glob
 
-def extraction_xpath_dir(folder):
-	file_xpath = folder + "extraction.xpath"
-	file_json = open(folder + "data.json","w")
-	for page in sorted(glob.glob(folder + '*.html')):
+def extraction_xpath_dir(path_dir):
+	file_json = open(path_dir + "data.json","w")
+	file_xpath = open(path_dir + "extraction.xpath")
+	lca = file_xpath.read()
+	file_xpath.close()
+
+	for page in sorted(glob.glob(path_dir + '*.html')):
 		id_file =	re.findall("(\d+)\.html", page)[0]
-		xpath.extraction(file_xpath, page, id_file, file_json)
+		xpath.extraction(lca, page, id_file, file_json)
 	file_json.close()
 
 
 filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
-folder = file.get_links(filename)
-extraction_xpath_dir(folder)
+path_dir = file.get_links(filename)
+extraction_xpath_dir(path_dir)
