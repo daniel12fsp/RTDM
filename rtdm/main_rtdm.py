@@ -12,7 +12,7 @@ import xpath
 import pick
 
 max_operation = 800
-min_operation = 0
+min_operation = 100
 
 def file_file(file1,file2):
 	"""

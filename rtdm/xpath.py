@@ -46,15 +46,19 @@ def create(filename_regex, file_xpath):
 def fusion_xpath(xpaths):
 	print(xpaths)
 	xpaths = xpaths.items()
-	xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
-	xpath_max_0 = max(xpaths, key = lambda x : x[0])
-	xpath_max_1 = max(xpaths, key = lambda x : x[1])
-	lca = xpath_max_1[0]
-	lca = xpath = re.sub("\[\d+\]","",lca)
-	print("xpath_max_len", xpath_max_len)
-	print("xpath_max_0(Key)", xpath_max_0)
-	print("xpath_max_1(Valor)", xpath_max_1)
-	return lca + "//*"
+	try:
+		xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
+		xpath_max_0 = max(xpaths, key = lambda x : x[0])
+		xpath_max_1 = max(xpaths, key = lambda x : x[1])
+		lca = xpath_max_1[0]
+		lca = xpath = re.sub("\[\d+\]","",lca)
+		print("xpath_max_len", xpath_max_len)
+		print("xpath_max_0(Key)", xpath_max_0)
+		print("xpath_max_1(Valor)", xpath_max_1)
+		return lca + "//*"
+	except:
+		print("Com as paginas informadas não foi possivel gerar o xpath")
+		return ""
 """
 def define_lca(file_xpath, page_target):
 	file_xpath = open(file_xpath)
