@@ -2,8 +2,10 @@
 import itertools
 import json
 
-page = open("/media/doc/home/doc/2013/academico/project/Implementacao/Yang-Algoritmos/novo/rtdm-git/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/data.json").read().splitlines()
-gabarito = open("/media/doc/home/doc/2013/academico/project/Implementacao/Yang-Algoritmos/novo/wrapper_manual/submarino/jsao.json").read().splitlines()
+
+
+page = open("/media/doc/home/doc/2013/academico/project/Implementacao/rtdm-git/estatistica/submarino-notebooks/json_rtdm.json").read().splitlines()
+gabarito = open("/media/doc/home/doc/2013/academico/project/Implementacao/rtdm-git/estatistica/submarino-notebooks/json_wrapper.json").read().splitlines()
 
 erro = 0
 def float_division(a, b):
@@ -37,9 +39,12 @@ for line1, line2 in zip(page, gabarito):
 	print("id:%9s, acertos:%2d, precisao:%3f, revocacao:%3f, len attr_pag(page):%2d, len attr_gab(gab):%d" 
 		% (pag['id'], acertos, precisao, revocacao, len(attr_pag), len(attr_gab)))
 
+precisao_final = float_division(precisao_geral, len(gabarito))
+revocacao_final = float_division(revocacao_geral, len(gabarito))
 print("Informações Gerais")
-print("Precisao", float_division(precisao_geral, len(gabarito)))
-print("Revocacao", float_division(revocacao_geral, len(gabarito)))
-
+print("Precisao", precisao_final )
+print("Revocacao", revocacao_final)
+f1=(2*revocacao_final*precisao_final)/(precisao_final + revocacao_final)
+print("f1",f1)
 
 

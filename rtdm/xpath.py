@@ -5,10 +5,7 @@ import re
 import mapping
 from unidecode import unidecode
 import json
-try:
-       import html.parser
-except:
-       import HTMLParser
+import xml.sax.saxutils as saxutils
 
 
 
@@ -85,6 +82,12 @@ def define_lca(file_xpath, page_target):
 	return lca + "//*"
 """
 
+def remove_space(data):
+	data = re.sub("^ ","",data)
+	data = re.sub(" $","",data)
+	return data
+	
+
 def extraction(lca, page_target, id_file, file_json):
 	page_target = open(page_target)
 	tree = lxml_parser(page_target)
@@ -95,14 +98,13 @@ def extraction(lca, page_target, id_file, file_json):
 		for tag in tree.xpath(lca):
 			xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
 			if(tag.text):
-				parser = html.parser.HTMLParser()	
 				value = re.sub("\s{2,}", "", tag.text)
 				value = unidecode(str(value)).lower()
-				value = parser.unescape(value)
+				value = saxutils.unescape(value)
 				if(tag.getprevious() == None):
-					key = value
+					key = remove_space(value)
 				else:
-					attrs[key] = [value]
+					attrs[key] = [remove_space(value)]
 		
 		file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
 	except:

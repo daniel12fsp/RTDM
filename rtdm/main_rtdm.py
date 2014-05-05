@@ -10,9 +10,11 @@ from identical_sub_trees import get_classe_equivalencia
 import file
 import xpath
 import pick
+import sys
+import os
 
 max_operation = 800
-min_operation = 100
+min_operation = 000
 
 def file_file(file1,file2):
 	"""
@@ -44,7 +46,7 @@ def file_file(file1,file2):
 	if(min_operation <= operacoes and operacoes <= max_operation):
 		print("Construcao do template", end="")
 		file_regex = file.create_file_dir_default(file1, file2, ".regex")
-		file_regex.write(generate_template(mape).encode('ascii', 'ignore'))
+		file_regex.write(generate_template(mape))
 		file_regex.close()
 
 	print("\nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (operacoes))
@@ -73,14 +75,19 @@ def file_dir(page_comp, path_dir):
 def generate_xpath_file_random(path_dir, quant_elem):
 
 	picks = pick.list_random_pages(path_dir)
+	if(len(picks) < 2):
+		print("Entrada insuficiente")
+		exit()
 	page2 = picks.pop(0)
 	valid_page = 1
 	pages_cmp_valid = [page2]
 	xpaths = {}
+	select_pages = [page2]
 	file_xpath = path_dir + "extraction.xpath"
 	for page1 in picks:
 		aux = page2
 		operacoes, page2 = file_file(page1, page2)
+		print(operacoes, page2)
 		if(min_operation <= operacoes and operacoes <= max_operation ):
 
 			lca = xpath.create(page2, file_xpath)
@@ -93,8 +100,11 @@ def generate_xpath_file_random(path_dir, quant_elem):
 			valid_page += 1
 		else:
 			page2 = aux
+		new_file = file.get_path_dir_from_file(page1)+"../"+file.get_name_file(page1)+".html"
+		os.renames(page1,new_file)
 		if(valid_page > quant_elem):
 			break
+
 	print("Paginas selecionadas")
 	print(pages_cmp_valid)
 	xpath_max = max(xpaths.items(), lambda x: x[1])[0][0]
@@ -102,7 +112,6 @@ def generate_xpath_file_random(path_dir, quant_elem):
 	file_xpath.write(xpath_max)
 	file_xpath.close()
 	print("Fim do file_pick")
-
 
 
 """
@@ -113,9 +122,8 @@ Replace_choice
 
 """
 
-filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
-path_dir = file.get_links(filename)
+path_dir = file.get_link("terminal") # Pega o diretorio digitado no terminal
+print(path_dir)
 rtdm.replace_choice(3)
-#pick.execute_bash(open( os.path.dirname(os.path.realpath(__file__))+"/remove.sh").read())
 generate_xpath_file_random(path_dir, 5)
 #file_dir()

@@ -4,7 +4,7 @@
 import fnmatch
 import os
 import re
-
+import sys
 def take_one_file(diretory, extension):
 	"""
 		Retorna uma string com nome de algum arquivo da extensão de parametro no mesmo diretorio	
@@ -24,11 +24,19 @@ def take_files_same_extension(diretory, extension):
 	except:
 		return None
 
-def get_links(file_name):
+
+
+
+def get_link(modo):
 	"""
-		Pega as informações de um arquivo que sarve de entrada
+		Pega as informações de um arquivo que serve de entrada ou do terminal
 	"""
-	return open(file_name, "r").read()[:-1]
+	try:
+		if(modo == "terminal"):
+			return sys.argv[1]
+	except:
+		filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
+		return open(filename, "r").read()[:-1]
 
 
 def get_path_dir_from_file(name_file):

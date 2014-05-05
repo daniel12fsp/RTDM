@@ -19,6 +19,5 @@ def extraction_xpath_dir(path_dir):
 	file_json.close()
 
 
-filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
-path_dir = file.get_links(filename)
+path_dir = file.get_link("arquivo")
 extraction_xpath_dir(path_dir)
