@@ -7,9 +7,9 @@ COMMENT
 
 if [[ -z "$3" ]]
 	then
-		$bateria=$3
+		bateria=$3
 	else
-		$bateria="teste"
+		bateria="teste"
 	fi
 
 

@@ -9,7 +9,6 @@ from mapping import generate_template
 from identical_sub_trees import get_classe_equivalencia
 import file
 import xpath
-import pick
 import sys
 import os
 
@@ -74,7 +73,7 @@ def file_dir(page_comp, path_dir):
 
 def generate_xpath_file_random(path_dir, quant_elem):
 
-	picks = pick.list_random_pages(path_dir)
+	picks = file.list_random_pages(path_dir)
 	if(len(picks) < 2):
 		print("Entrada insuficiente")
 		exit()
