@@ -7,32 +7,39 @@ import os
 import glob
 import html
 import sys
+import html.parser 
 def wrapper(filename):
 	page =  open(filename, "r").read()
-	result = re.search('<u>.*?Specifications:.*?</u>(.*?)Begin accessories', page, re.S)
-	ficha = result.group(0)
-
-	ficha = unidecode(html.unescape(ficha)).lower()
-
-	ficha = re.sub("\s{2,}|\n","", ficha)
-
-	dados = re.findall("<li>.*?<b>(.*?)</b>(.*?)</li>", ficha, re.S)
-	dados += re.findall("<dt.*?>(.*?)</dt>.*?<dd.*?>(.*?)</dd>", ficha, re.S)
+	try:
+		result = re.search('Specifications:(.*?)Begin accessories', page, re.S)
+		ficha = result.group(0)
+		ficha = html.parser.HTMLParser().unescape(ficha)
+		ficha = unidecode(ficha).lower()
+		ficha = re.sub("\s{2,}|\n","", ficha)
+		dados = []
+		dados += re.findall("<li>.*?<b>(.*?)</b>(.*?)</li>", ficha, re.S)
+		dados += re.findall("<dt.*?>(.*?)</dt>.*?<dd.*?>(.*?)</dd>", ficha, re.S)
+	except:
+		return None
 	return dados
 
-def remove_space(data):
-	data = re.sub("^ ","",data)
-	data = re.sub(" $","",data)
+def format_data(data):
 	data = re.sub(r"<.*?>","", data)
+	data = re.sub("^\W*","",data)
+	data = re.sub("\W*$","",data)
 	return data
 
 def out_json(filename):
 	
 	dados = wrapper(filename)
 	attrs = {}
-	for attr,value in dados:
-		attrs[remove_space(attr)] = [remove_space(value)]
-	
+	if(dados):
+		for attr,value in dados:
+			attr = format_data(attr)
+			value = format_data(value)
+			if(attr!=""):
+				attrs[attr] = [value]
+		
 	id_file =	re.findall("/(\d+)\.html",filename)[0]
 	return """{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True))
 
