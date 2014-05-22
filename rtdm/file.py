@@ -10,7 +10,6 @@ import glob
 
 
 def list_random_pages(path_dir):
-	return ['/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/117655271.html', '/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/117725398.html', '/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/7374574.html', '/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/118213669.html', '/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/118030221.html', '/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/notebooks/submarino_notebook/116813071.html']
 	pages = glob.glob(path_dir + "*.html")
 	random.shuffle(pages)
 	return pages

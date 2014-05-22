@@ -1,4 +1,5 @@
 #!/bin/python
+from __future__ import print_function
 from lxml import etree
 import file
 import re
@@ -12,7 +13,7 @@ import xml.sax.saxutils as saxutils
 def lxml_parser(file_tree):
 	return etree.parse(file_tree, parser=etree.HTMLParser(encoding="UTF-8"))
 
-def create(filename_regex, file_xpath):
+def create(file_log, filename_regex, file_xpath):
 	file_regex = open(filename_regex)
 	page_regex = open(filename_regex).read()
 	file_xpath = open(file_xpath, "w")
@@ -31,16 +32,15 @@ def create(filename_regex, file_xpath):
 	_create_single(page_regex, "ponto", 1)
 	#_create_single(page_regex, "interrogacao", 2)
 
-	lca = fusion_xpath(xpaths)
-	print("O xpath escolhido pra extracao")
-	print(lca)
+	lca = fusion_xpath(file_log, xpaths)
+	print("O xpath escolhido pra extracao\n" + str(lca), file = file_log)
 	file_xpath.write(lca + "\n")
 	file_xpath.close()
 	file_regex.close()
 	return lca
 
 
-def fusion_xpath(xpaths):
+def fusion_xpath(file_log, xpaths):
 	print(xpaths)
 	xpaths = xpaths.items()
 	try:
@@ -49,12 +49,12 @@ def fusion_xpath(xpaths):
 		xpath_max_1 = max(xpaths, key = lambda x : x[1])
 		lca = xpath_max_1[0]
 		lca = xpath = re.sub("\[\d+\]","",lca)
-		print("xpath_max_len", xpath_max_len)
-		print("xpath_max_0(Key)", xpath_max_0)
-		print("xpath_max_1(Valor)", xpath_max_1)
+		print("xpath_max_len", xpath_max_len, file = file_log)
+		print("xpath_max_0(Key)", xpath_max_0, file = file_log)
+		print("xpath_max_1(Valor)", xpath_max_1, file = file_log)
 		return lca + "//*"
 	except:
-		print("Com as paginas informadas nao foi possivel gerar o xpath")
+		#print("Com as paginas informadas nao foi possivel gerar o xpath", file = file_log)
 		return ""
 """
 def define_lca(file_xpath, page_target):
@@ -88,7 +88,7 @@ def remove_space(data):
 	return data
 	
 
-def extraction(lca, page_target, id_file, file_json):
+def extraction(file_log, lca, page_target, id_file, file_json):
 	page_target = open(page_target)
 	tree = lxml_parser(page_target)
 	page_target.close()
