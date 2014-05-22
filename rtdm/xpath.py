@@ -54,7 +54,7 @@ def fusion_xpath(xpaths):
 		print("xpath_max_1(Valor)", xpath_max_1)
 		return lca + "//*"
 	except:
-		print("Com as paginas informadas não foi possivel gerar o xpath")
+		print("Com as paginas informadas nao foi possivel gerar o xpath")
 		return ""
 """
 def define_lca(file_xpath, page_target):

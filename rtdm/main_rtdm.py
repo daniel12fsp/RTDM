@@ -12,106 +12,109 @@ import xpath
 import sys
 import os
 
-max_operation = 800
+global path_dir 
+max_operation = float("inf") # +infinito
 min_operation = 000
 
-def file_file(file1,file2):
+def file_file(path_log, file1,file2):
 	"""
 			Function: file_file
 				Compara dois arquivos html
 				retorna a similaridades dentre eles
 	"""
-	print("\nT1:%s \nT2:%s" % (file1,file2))
-	print("Carregando as arvores(arquivos para arvores)", end="")
+	file_log = file.create_file_dir_mod(, file1, file2, ".log")
+	print("Criando arquivo de log - [Ok]", end="", file = file_log )
+
+	print("\nT1:%s \nT2:%s" % (file1,file2), file = file_log )
+	print("Carregando as arvores(arquivos para arvores)", end="", file = file_log )
 	#Lembrado que tree1 e tree2 jah comeca do body!
 	tree1, tree2 = tree.files_to_trees(file1, file2)
 	print("[Ok]")
 
-	print("Calculando a classe de equivalencia", end="")
+	print("Calculando a classe de equivalencia", end="", file = file_log )
 	k = get_classe_equivalencia(tree1, tree2)
-	print("[Ok]")
+	print("[Ok]", file = file_log )
 
-	print("Criando arquivo de log", end="")
-	file_log = file.create_file_dir_default(file1, file2, ".log")
-	print("[Ok]")
-
-
-	print("Comecando a executar o RTDM!", end="")
+	print("Comecando a executar o RTDM!", end="", file = file_log )
 	rtdm.prepareRTDM(k, file_log)
 	operacoes, mape = rtdm.RTDM(tree1, tree2)
 
-	print("[Ok]")
+	print("[Ok]", file = file_log )
 
 	if(min_operation <= operacoes and operacoes <= max_operation):
-		print("Construcao do template", end="")
-		file_regex = file.create_file_dir_default(file1, file2, ".regex")
+		print("Construcao do template", end="", file = file_log )
+		file_regex = file.create_file_dir_default(file1, file2, ".regex", file = file_log )
 		file_regex.write(generate_template(mape))
 		file_regex.close()
 
-	print("\nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (operacoes))
-	file_log.write("\nT1:%s \nT2:%s \nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (file1, file2,operacoes))
+	print("\nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (operacoes), file = file_log )
 
-	print("Fim!")
+	print("Fim!", file = file_log)
 	file_log.close()
 
 	return operacoes, file.get_path_file(file1, file2, ".regex")
 
-
-
-def file_dir(page_comp, path_dir):
-	"""
-			Function: file_dir
-				Compara um arquivo especifico com os demais de determinado diretorio
-				Retorna a similaridades de cada par(modelo,outra_pagina)
-	"""
-	for one_file in os.listdir(path_dir):
-		if(one_file.endswith(".html") or one_file.endswith(".htm")):
-			file_tree1 = one_file
-			file_file(path_dir+file_tree1,file_tree2)
-
-	print("Fim do file_dir")
-
 def generate_xpath_file_random(path_dir, quant_elem):
 
 	picks = file.list_random_pages(path_dir)
-	if(len(picks) < 2):
-		print("Entrada insuficiente")
-		exit()
-	page2 = picks.pop(0)
-	valid_page = 1
-	pages_cmp_valid = [page2]
-	xpaths = {}
-	select_pages = [page2]
-	file_xpath = path_dir + "extraction.xpath"
-	for page1 in picks:
-		aux = page2
-		operacoes, page2 = file_file(page1, page2)
-		print(operacoes, page2)
-		if(min_operation <= operacoes and operacoes <= max_operation ):
-
-			lca = xpath.create(page2, file_xpath)
-			if(xpaths.get(lca)== None):
-				xpaths[lca] = 0
+	group = 0
+	path_general_xpath = path_test + "general_xpath.txt" 
+	file_general_xpath = file(path_general_xpath, "w")
+	while(len(picks) >= 2):
+		page2 = picks.pop(0)
+		valid_page = 1
+		pages_cmp_valid = [page2]
+		#xpaths = {}
+		select_pages = [page2]
+		file_xpath = path_dir + "extraction.xpath"
+		group += 1
+		lca = ""
+		while(len(picks) > 0):
+			page1 = picks.pop(0)
+			aux = page2
+			operacoes, page2 = file_file(page1, page2)
+			print(operacoes, page2)
+			if(min_operation <= operacoes and operacoes <= max_operation ):
+				lca = xpath.create(page2, file_xpath)
+				"""
+				if(xpaths.get(lca)== None):
+					xpaths[lca] = 0
+				else:
+					xpaths[lca] = xpaths[lca] + 1
+				"""
+				pages_cmp_valid.append(page1)
+				valid_page += 1
 			else:
-				xpaths[lca] = xpaths[lca] + 1
+				page2 = aux
+			os.renames(page1, page1 + ".lido")
+			if(valid_page > quant_elem):
+				break
 
-			pages_cmp_valid.append(page1)
-			valid_page += 1
-		else:
-			page2 = aux
-		new_file = file.get_path_dir_from_file(page1)+"../"+file.get_name_file(page1)+".html"
-		os.renames(page1,new_file)
-		if(valid_page > quant_elem):
-			break
+		print(pages_cmp_valid, file = file_general_xpath)
+		print(lca, file = file_general_xpath)
 
-	print("Paginas selecionadas")
-	print(pages_cmp_valid)
-	xpath_max = max(xpaths.items(), lambda x: x[1])[0][0]
-	file_xpath = open(path_dir + "extraction.xpath", "w")
-	file_xpath.write(xpath_max)
-	file_xpath.close()
-	print("Fim do file_pick")
 
+		print("Paginas selecionadas", file = file_log)
+		print(pages_cmp_valid, file = file_log)
+		xpath_max = max(xpaths.items(), lambda x: x[1])[0][0]
+		file_xpath = open(path_dir + "extraction.xpath", "w")
+		file_xpath.write(xpath_max)
+		file_xpath.close()
+		print("Fim do file_pick", file = file_log)
+
+	file_general_xpath.close()
+
+def exec_rtdm():
+	global path_dir
+	print(path_dir)
+	rtdm.replace_choice(3)
+	generate_xpath_file_random(path_dir, 5)
+
+def prepare_url(_path_dir, _path_test):
+	global path_dir
+	global path_test
+	path_dir = _path_dir
+	path_test = _path_test
 
 """
 Replace_choice
@@ -120,9 +123,3 @@ Replace_choice
 	3 - replace_mesma_quantidade_elementos 
 
 """
-
-path_dir = file.get_link("terminal") # Pega o diretorio digitado no terminal
-print(path_dir)
-rtdm.replace_choice(3)
-generate_xpath_file_random(path_dir, 5)
-#file_dir()
