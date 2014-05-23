@@ -32,55 +32,29 @@ def create(file_log, filename_regex, file_xpath):
 	_create_single(page_regex, "ponto", 1)
 	#_create_single(page_regex, "interrogacao", 2)
 
-	lca = fusion_xpath(file_log, xpaths)
-	print("O xpath escolhido pra extracao\n" + str(lca), file = file_log)
-	file_xpath.write(lca + "\n")
-	file_xpath.close()
-	file_regex.close()
-	return lca
-
-
-def fusion_xpath(file_log, xpaths):
-	print(xpaths)
+	print(xpaths, file = file_log)
 	xpaths = xpaths.items()
+	"""
+		As tres linhas a seguim serao tiradas
+		servem como comparação
+	"""
 	try:
 		xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
 		xpath_max_0 = max(xpaths, key = lambda x : x[0])
 		xpath_max_1 = max(xpaths, key = lambda x : x[1])
 		lca = xpath_max_1[0]
 		lca = xpath = re.sub("\[\d+\]","",lca)
-		print("xpath_max_len", xpath_max_len, file = file_log)
-		print("xpath_max_0(Key)", xpath_max_0, file = file_log)
-		print("xpath_max_1(Valor)", xpath_max_1, file = file_log)
-		return lca + "//*"
+		print("xpath_max_len" + str(xpath_max_len), file = file_log)
+		print("xpath_max_0(Key)" + str(xpath_max_0), file = file_log)
+		print("xpath_max_1(Valor)" + str(xpath_max_1), file = file_log)
+		file_xpath.write(lca + "\n")
+		file_xpath.close()
+		file_regex.close()
 	except:
 		#print("Com as paginas informadas nao foi possivel gerar o xpath", file = file_log)
-		return ""
-"""
-def define_lca(file_xpath, page_target):
-	file_xpath = open(file_xpath)
-	page_target = open(page_target)
-	tree = lxml_parser(page_target)
-	txt = file_xpath.readlines()
-	xpath = txt[0]
-	tags = tree.xpath(xpath[:-1])
-	result = []
-	if(tags != []):
-		freq = {}
-		for tag in tags:
-			if(tag.text  and re.search("\w",tag.text)):
-				xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
-				result.append(tag)
-				if(freq.get(xpath_tag)):
-					freq[xpath_tag] = freq[xpath_tag] + 1
-				else:
-					freq[xpath_tag] = 1
-
-	lca = max(freq.items(), key = lambda x : x[1])[0]
-	file_xpath.close()
-	page_target.close()
+		return "xpath_erro"
 	return lca + "//*"
-"""
+
 
 def remove_space(data):
 	data = re.sub("^ ","",data)

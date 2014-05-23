@@ -49,7 +49,6 @@ def file_file(file_log, file1,file2):
 	print("\nMinimo de operacoes necessarias para similiridade:\t>>> %d <<< " % (operacoes), file = file_log )
 
 	print("Fim!", file = file_log)
-	file_log.close()
 
 	return operacoes, path_log + file.get_name_from_files(file1, file2, ".regex")
 
@@ -88,7 +87,6 @@ def generate_xpath_file_random(path_dir, quant_elem):
 	file_general_xpath.close()
 
 def exec_rtdm():
-	print(path_pages, path_test)
 	rtdm.replace_choice(3)
 	generate_xpath_file_random(path_pages, 5)
 
