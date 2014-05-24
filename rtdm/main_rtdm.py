@@ -52,7 +52,7 @@ def file_file(file_log, file1,file2):
 
 	return operacoes, path_log + file.get_name_from_files(file1, file2, ".regex")
 
-def generate_xpath_file_random(path_dir, quant_elem):
+def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 	picks = file.list_random_pages(path_dir)
 	group = 0
 	path_general_xpath = path_test + "general_xpath.txt" 
@@ -72,7 +72,8 @@ def generate_xpath_file_random(path_dir, quant_elem):
 			try:
 				operacoes, page2 = file_file(file_log, page1, page2)
 			except:
-				print(page1, page2)
+				print(page1, page2, file = file_erro)
+				print(sys.exc_info()[0])
 				break;
 			if(min_operation <= operacoes and operacoes <= max_operation ):
 				lca = xpath.create(file_log, page2, file_xpath)
@@ -91,9 +92,9 @@ def generate_xpath_file_random(path_dir, quant_elem):
 
 	file_general_xpath.close()
 
-def exec_rtdm():
+def exec_rtdm(file_erro):
 	rtdm.replace_choice(3)
-	generate_xpath_file_random(path_pages, 5)
+	generate_xpath_file_random(path_pages, 5, file_erro)
 
 def prepare_vars(_path_pages, _path_test, _path_log):
 	global path_pages
@@ -102,7 +103,6 @@ def prepare_vars(_path_pages, _path_test, _path_log):
 	path_pages = _path_pages
 	path_test = _path_test
 	path_log = _path_log
-
 """
 Replace_choice
 	1 - replace_no_no
