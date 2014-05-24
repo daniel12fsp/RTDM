@@ -69,7 +69,11 @@ def generate_xpath_file_random(path_dir, quant_elem):
 			page1 = picks.pop(0)
 			aux = page2
 			file_log = file.create_file_dir_mod(path_log, page1, page2, ".log")
-			operacoes, page2 = file_file(file_log, page1, page2)
+			try:
+				operacoes, page2 = file_file(file_log, page1, page2)
+			except:
+				print(page1, page2)
+				break;
 			if(min_operation <= operacoes and operacoes <= max_operation ):
 				lca = xpath.create(file_log, page2, file_xpath)
 				pages_cmp_valid.append(page1)
@@ -80,6 +84,7 @@ def generate_xpath_file_random(path_dir, quant_elem):
 			if(valid_page > quant_elem):
 				break
 
+		print(pages_cmp_valid)
 		print(pages_cmp_valid, file = file_general_xpath)
 		print(lca, file = file_general_xpath)
 		print("----------------", file = file_general_xpath)
