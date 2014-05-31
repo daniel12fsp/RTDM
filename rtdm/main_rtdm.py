@@ -11,6 +11,7 @@ import file
 import xpath
 import sys
 import os
+import gc
 
 max_operation = float("inf") # +infinito
 min_operation = 000
@@ -56,15 +57,16 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 	picks = file.list_random_pages(path_dir)
 	group = 0
 	path_general_xpath = path_test + "general_xpath.txt" 
-	file_general_xpath = open(path_general_xpath, "w")
+	file_general_xpath = open(path_general_xpath, "w", 0)
 	while(len(picks) >= 2):
+		gc.collect()
 		page2 = picks.pop(0)
-		valid_page = 1
 		pages_cmp_valid = [page2]
 		select_pages = [page2]
 		file_xpath = path_dir + "extraction.xpath"
 		group += 1
 		lca = ""
+		valid_page = 2
 		while(len(picks) > 0):
 			page1 = picks.pop(0)
 			aux = page2
@@ -72,7 +74,7 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 			try:
 				operacoes, page2 = file_file(file_log, page1, page2)
 			except:
-				print(page1, page2, file = file_erro)
+				print("Erro:",page1, page2, file = file_erro)
 				print(sys.exc_info()[0])
 				break;
 			if(min_operation <= operacoes and operacoes <= max_operation ):
@@ -84,8 +86,6 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 			file_log.close()
 			if(valid_page > quant_elem):
 				break
-
-		print(pages_cmp_valid)
 		print(pages_cmp_valid, file = file_general_xpath)
 		print(lca, file = file_general_xpath)
 		print("----------------", file = file_general_xpath)

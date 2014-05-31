@@ -30,7 +30,7 @@ def create(file_log, filename_regex, file_xpath):
 			
 
 	_create_single(page_regex, "ponto", 1)
-	#_create_single(page_regex, "interrogacao", 2)
+	_create_single(page_regex, "interrogacao", 1)
 
 	print(xpaths, file = file_log)
 	xpaths = xpaths.items()
@@ -62,7 +62,7 @@ def remove_space(data):
 	return data
 	
 
-def extraction(file_log, lca, page_target, id_file, file_json):
+def extraction(lca, page_target, id_file, file_json):
 	page_target = open(page_target)
 	tree = lxml_parser(page_target)
 	page_target.close()
