@@ -1,9 +1,12 @@
 #!/bin/bash
 <<COMMENT
+    Parametros
 	$1 - Quantidade de iteracoes
 	$2 - Pasta aonde vai ocorrer a extracao
 	$3 - O nome da pasta
 COMMENT
+
+
 
 if [[ -z "$3" ]]
 	then
@@ -11,7 +14,6 @@ if [[ -z "$3" ]]
 	else
 		bateria="teste"
 	fi
-
 
 output_general="$3../output_general.txt"
 

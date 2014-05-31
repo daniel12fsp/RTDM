@@ -27,7 +27,7 @@ def out_json(filename):
 		return """{"id": "%s", "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True))
 
 
-folder = '/home/ervili/rtdm/wrappers-git/Pages/newegg_tvs/'
+folder = '/home/ervili/Neemu/ColetaUFAM/ColetaNova/newegg_tvs/'
 os.listdir(folder)
 
 jsao = open(folder + "gabarito.json","w")
