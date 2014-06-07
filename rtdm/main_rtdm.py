@@ -1,5 +1,5 @@
-#!/usr/bin/python2
-# -*- coding: utf8 -*-
+##!/usr/bin/env python
+#-*- coding:utf-8 -*-
 
 from __future__ import print_function
 import rtdm
@@ -63,7 +63,6 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 		page2 = picks.pop(0)
 		pages_cmp_valid = [page2]
 		select_pages = [page2]
-		file_xpath = path_dir + "extraction.xpath"
 		group += 1
 		lca = ""
 		valid_page = 2
@@ -78,7 +77,9 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 				print(sys.exc_info()[0])
 				break;
 			if(min_operation <= operacoes and operacoes <= max_operation ):
-				lca = xpath.create(file_log, page2, file_xpath)
+				print(page1, file = file_general_xpath)
+				print(page2, file = file_general_xpath)
+				lca = xpath.create(file_log, page2, file_general_xpath)
 				pages_cmp_valid.append(page1)
 				valid_page += 1
 			else:
@@ -86,6 +87,7 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 			file_log.close()
 			if(valid_page > quant_elem):
 				break
+		print("Resultado Final", file = file_general_xpath)
 		print(pages_cmp_valid, file = file_general_xpath)
 		print(lca, file = file_general_xpath)
 		print("----------------", file = file_general_xpath)
@@ -93,6 +95,13 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 	file_general_xpath.close()
 
 def exec_rtdm(file_erro):
+"""
+Replace_choice
+	1 - replace_no_no
+	2 - replace_nos_t2
+	3 - replace_mesma_quantidade_elementos 
+
+"""
 	rtdm.replace_choice(3)
 	generate_xpath_file_random(path_pages, 5, file_erro)
 
@@ -103,10 +112,3 @@ def prepare_vars(_path_pages, _path_test, _path_log):
 	path_pages = _path_pages
 	path_test = _path_test
 	path_log = _path_log
-"""
-Replace_choice
-	1 - replace_no_no
-	2 - replace_nos_t2
-	3 - replace_mesma_quantidade_elementos 
-
-"""

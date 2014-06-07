@@ -13,10 +13,10 @@ import xml.sax.saxutils as saxutils
 def lxml_parser(file_tree):
 	return etree.parse(file_tree, parser=etree.HTMLParser(encoding="UTF-8"))
 
-def create(file_log, filename_regex, file_xpath):
+def create(file_log, filename_regex, file_general_xpath):
+
 	file_regex = open(filename_regex)
 	page_regex = open(filename_regex).read()
-	file_xpath = open(file_xpath, "w")
 	tree = lxml_parser(file_regex)
 	xpaths = {}
 	def _create_single(page_regex, wildcard, peso):
@@ -34,11 +34,12 @@ def create(file_log, filename_regex, file_xpath):
 
 	print(xpaths, file = file_log)
 	xpaths = xpaths.items()
-	"""
-		As tres linhas a seguim serao tiradas
-		servem como comparação
-	"""
+
 	try:
+		"""
+			As tres linhas a seguim serao tiradas
+			servem como comparação
+		"""
 		xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
 		xpath_max_0 = max(xpaths, key = lambda x : x[0])
 		xpath_max_1 = max(xpaths, key = lambda x : x[1])
@@ -47,11 +48,21 @@ def create(file_log, filename_regex, file_xpath):
 		print("xpath_max_len" + str(xpath_max_len), file = file_log)
 		print("xpath_max_0(Key)" + str(xpath_max_0), file = file_log)
 		print("xpath_max_1(Valor)" + str(xpath_max_1), file = file_log)
-		file_xpath.write(lca + "\n")
-		file_xpath.close()
+		"""
+		Operacao custosa retire em futuro proximo
+		"""
+		ordem = list(xpaths)
+		ordem.sort(key = lambda x: x[1], reverse = True)
+		print("len ordem", len(ordem))
+		for item in ordem:
+			print(item, file = file_general_xpath)
+
+		print("#################", file = file_general_xpath)
+
 		file_regex.close()
 	except:
-		#print("Com as paginas informadas nao foi possivel gerar o xpath", file = file_log)
+		print("except")
+		print("Com as paginas informadas nao foi possivel gerar o xpath", file = file_log)
 		return "xpath_erro"
 	return lca + "//*"
 
