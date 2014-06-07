@@ -89,19 +89,19 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 				break
 		print("Resultado Final", file = file_general_xpath)
 		print(pages_cmp_valid, file = file_general_xpath)
-		print(lca, file = file_general_xpath)
+		print("\t\t>>>"+lca+"<<<", file = file_general_xpath)
 		print("----------------", file = file_general_xpath)
 
 	file_general_xpath.close()
 
 def exec_rtdm(file_erro):
-"""
-Replace_choice
-	1 - replace_no_no
-	2 - replace_nos_t2
-	3 - replace_mesma_quantidade_elementos 
+	"""
+	Replace_choice
+		1 - replace_no_no
+		2 - replace_nos_t2
+		3 - replace_mesma_quantidade_elementos 
 
-"""
+	"""
 	rtdm.replace_choice(3)
 	generate_xpath_file_random(path_pages, 5, file_erro)
 

@@ -53,15 +53,14 @@ def create(file_log, filename_regex, file_general_xpath):
 		"""
 		ordem = list(xpaths)
 		ordem.sort(key = lambda x: x[1], reverse = True)
-		print("len ordem", len(ordem))
-		for item in ordem:
-			print(item, file = file_general_xpath)
+		for (xp, qtd) in ordem:
+			xp = re.sub("\[\d+\]","",xp)
+			print(xp, qtd, file = file_general_xpath)
 
 		print("#################", file = file_general_xpath)
 
 		file_regex.close()
 	except:
-		print("except")
 		print("Com as paginas informadas nao foi possivel gerar o xpath", file = file_log)
 		return "xpath_erro"
 	return lca + "//*"
