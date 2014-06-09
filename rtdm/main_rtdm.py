@@ -16,7 +16,7 @@ import gc
 max_operation = float("inf") # +infinito
 min_operation = 000
 
-def file_file(file_log, file1,file2):
+def file_file( file_log, file1, file2, file_general_xpath):
 	"""
 			Function: file_file
 				Compara dois arquivos html
@@ -33,6 +33,7 @@ def file_file(file_log, file1,file2):
 
 	print("Calculando a classe de equivalencia", end="", file = file_log )
 	k = get_classe_equivalencia(tree1, tree2)
+	print("len classe de equivalencia", len(k),file = file_general_xpath )
 	print("[Ok]", file = file_log )
 
 	print("Comecando a executar o RTDM!", end="", file = file_log )
@@ -71,7 +72,7 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 			aux = page2
 			file_log = file.create_file_dir_mod(path_log, page1, page2, ".log")
 			try:
-				operacoes, page2 = file_file(file_log, page1, page2)
+				operacoes, page2 = file_file(file_log, page1, page2, file_general_xpath )
 			except:
 				print("Erro:",page1, page2, file = file_erro)
 				print(sys.exc_info()[0])
@@ -79,6 +80,7 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 			if(min_operation <= operacoes and operacoes <= max_operation ):
 				print(page1, file = file_general_xpath)
 				print(page2, file = file_general_xpath)
+				print( "Operacoes <%d>" % (operacoes), file = file_general_xpath)
 				lca = xpath.create(file_log, page2, file_general_xpath)
 				pages_cmp_valid.append(page1)
 				valid_page += 1
