@@ -46,8 +46,11 @@ def preprare_tree(arq):
 			2 - Retira os elementos indesejados veja a funcao remove_tags
 			3 - A arvore eh inicializada no campo body
 	"""
-	tree = BeautifulSoup(open(arq, mode="rb"))
-	return remove_tags(tree).body
+	if(arq != None):
+		tree = BeautifulSoup(open(arq, mode="rb"))
+		return remove_tags(tree).body
+	else:
+		return None
 	
 def files_to_trees(file_tree1, file_tree2):
 	"""
