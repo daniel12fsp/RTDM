@@ -5,52 +5,81 @@ from identical_sub_trees import get_classe_equivalencia
 from glob import glob
 import file
 import tree_lib as tree
+import re
+import os
 
 class Cluster(object):
 
 	"""Cluster Class definition"""
 
-	def __init__(self, page1):
+	def __init__(self, i, path ,page1):
+		i = str(i)
+		try:
+			os.mkdir(path + i)
+		except:
+			pass
 		self.pages = [page1]
-		tree1, _ = tree.files_to_trees(page1, None)
-		eq = len(get_classe_equivalencia(tree1, None))
+		self.path = path + i
+		tam = cal_qtd_tags(page1)
 		tree1 = None
-		self.medias = [eq]
+		self.medias = [tam]
+		self.soma = tam 
 		self.meio = 0
 	
 	def add(self, page, class_eq):
+		result = re.search(".*/(.*?)$",page)
+		result = result.group(1)
+		os.rename(page, self.path +"/" + result)
+
 		self.pages.append(page)
 		self.medias.append(class_eq)
+		self.soma += class_eq
+		self.meio = 0
+
+	def entra_grupo(self, qtd_page):
+		meio = self.medias[ self.meio ] 
+		lim = 100
+		return (qtd_page > lim - meio  and qtd_page < lim + meio)
 
 
 	def __repr__(self):
-		print(self.pages)
+		print([i for i in self.pages])
 		print(self.medias)
-		print(meio)
+		print(self.meio)
+		return ""
 
-def cal_classe_equiv(cluster, page):
+def cal_classe_equiv(page):
 	tree1, _ = tree.files_to_trees(page, None)
 	class_eq = get_classe_equivalencia(tree1, None)
-	meio = cluster.medias[ cluster.meio ] 
 	tree1 = None
-	tree2 = None
-	lim = 100
-	return len(class_eq), (class_eq == meio or class_eq == lim + meio or class_eq == lim - meio)
-	
+	return len(class_eq)
+
+
+def cal_qtd_tags(page):
+	page = open(page)
+	result = re.findall('<.*?>', page.read(),re.DOTALL)
+	page.close()
+	return len(result)
+
 # Algoritmo de Clustering
 
 _, paths = file.get_path()
+clusters = []
+
 for path in paths:
-	pages = glob(path.strip() + "*.html")
-	c = Cluster(pages.pop())
-	clusters = [c]
+	path = path.strip()
+	pages = glob( path + "*.html")
+	c = Cluster(len(clusters), path, pages.pop())
+	clusters.append(c)
 	for page in pages:
+		print(page)
 		agrupado = False
+		qtd = cal_qtd_tags(page)
 		for cluster in clusters:
-			qtd , mesma_class = cal_classe_equiv(cluster, page)
-			if(mesma_class):
+			if(cluster.entra_grupo(qtd)):
 				agrupado = True
 				cluster.add(page, qtd)
 				break
-			if(agrupado == False):
-				clusters.append(Cluster(page))
+		if(agrupado == False):
+			clusters.append(path, Cluster(len(clusters), path, page))
+

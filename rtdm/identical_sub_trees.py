@@ -42,15 +42,20 @@ def get_classe_equivalencia(t1, t2):
 		return h, k, next_class
 
 	post1 = tree.post_order(t1)
-	post2 = tree.post_order(t2)
+	if(t2 != None):
+		post2 = tree.post_order(t2)
+
 	h, k, next_class = add_class(post1, h, k, next_class)
-	h, k, next_class = add_class(post2, h, k, next_class)
+
+	if(t2 != None):
+		h, k, next_class = add_class(post2, h, k, next_class)
 	return k
 
 def compara_lista(node1, node2):
 	if(len(node1)!=len(node2)):
 		return False
 	else:
+		#TODO melhorar execucao do for
 		for i in range(0, len(node1)):
 			if( not tree.equal(node1[i], node2[i])):
 				return False
