@@ -11,7 +11,7 @@ import glob
 
 def list_random_pages(path_dir):
 
-	pages = glob.glob(path_dir + "*.html")
+	pages = glob.glob(path_dir + "*html*")
 	random.shuffle(pages)
 	return pages
 

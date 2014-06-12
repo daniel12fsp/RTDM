@@ -48,7 +48,7 @@ def preprare_tree(arq):
 			3 - A arvore eh inicializada no campo body
 	"""
 	if(arq != None):
-		tree = BeautifulSoup(open(arq, mode="rb"), "lxml")
+		tree = BeautifulSoup(open(arq, mode="rb"))
 		return remove_tags(tree).body
 	else:
 		return None
@@ -66,7 +66,6 @@ def files_to_trees(file_tree1, file_tree2):
 
 
 def str_to_tree(str_tree1, str_tree2):
-	# Houve modificao ta retornando nao body com tem que ser, pois eh um teste!
 	tree1 = preprare_tree()
 	tree2 = BeautifulSoup(str_tree2).body
 	remove_tag(tree1)
@@ -78,19 +77,7 @@ def str_to_tree(str_tree1, str_tree2):
 def get_children(tree):
 	return	tree.find_all(recursive=False)
 
-def post_order1(tree):
-		post = []
-		for child in tree.find_all(recursive=False):
-				post.extend(post_order1(child))
-				post.append(child)
-		return post
-
 def post_order(tree):
-	post = []
-	for child in tree.find_all(recursive=False, text=False):
-			post.extend(post_order(child))
-			post.append(child)
-	return post
 	post = []
 	for child in tree.children:
 		if child.name is not None:

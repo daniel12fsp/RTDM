@@ -6,6 +6,7 @@ import file
 #from glob import glob
 
 path_logs, folders =  file.get_path()
+mkpath(path_logs)
 file_erro = open(path_logs + "erro.txt", "w", 0)
 
 for folder in folders:
