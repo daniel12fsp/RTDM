@@ -11,7 +11,7 @@ import glob
 
 def list_random_pages(path_dir):
 
-	pages = glob.glob(path_dir + "*.html")
+	pages = glob.glob(path_dir + "*html*")
 	random.shuffle(pages)
 	return pages
 
@@ -37,16 +37,17 @@ def take_files_same_extension(diretory, extension):
 
 
 
-def get_link(modo):
+def get_path():
 	"""
 		Pega as informações de um arquivo que serve de entrada ou do terminal
 	"""
-	try:
-		if(modo == "terminal"):
-			return sys.argv[1]
-	except:
-		filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
-		return open(filename, "r").read()[:-1]
+	filename = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
+	path_file_folders = os.path.dirname(os.path.realpath(__file__)) + "/../links_rtdm.txt"
+	file_folders = open(path_file_folders, "r")
+	path_logs = file_folders.readline().strip()
+	folders = file_folders.readlines()
+
+	return path_logs, folders
 
 
 def get_path_dir_from_file(name_file):

@@ -17,6 +17,7 @@ Funcoes
 
 from bs4 import BeautifulSoup
 import identical_sub_trees
+import bs4
 
 def remove_tags(tree):
 	"""
@@ -46,8 +47,11 @@ def preprare_tree(arq):
 			2 - Retira os elementos indesejados veja a funcao remove_tags
 			3 - A arvore eh inicializada no campo body
 	"""
-	tree = BeautifulSoup(open(arq, mode="rb"))
-	return remove_tags(tree).body
+	if(arq != None):
+		tree = BeautifulSoup(open(arq, mode="rb"))
+		return remove_tags(tree).body
+	else:
+		return None
 	
 def files_to_trees(file_tree1, file_tree2):
 	"""
@@ -62,7 +66,6 @@ def files_to_trees(file_tree1, file_tree2):
 
 
 def str_to_tree(str_tree1, str_tree2):
-	# Houve modificao ta retornando nao body com tem que ser, pois eh um teste!
 	tree1 = preprare_tree()
 	tree2 = BeautifulSoup(str_tree2).body
 	remove_tag(tree1)
@@ -76,14 +79,11 @@ def get_children(tree):
 
 def post_order(tree):
 	post = []
-	try:
-		for child in tree.children:
-			if child.name is not None:
-				post += post_order(child)
-				post += [child]
-		return post
-	except:
-		return post
+	for child in tree.children:
+		if child.name is not None:
+			post.extend(post_order(child))
+			post.append(child)
+	return post
 
 def length(tree):
 	try:
