@@ -2,6 +2,7 @@
 #-*- coding:utf-8 -*-
 
 from __future__ import print_function
+from __future__ import division
 import rtdm
 import tree_lib as tree
 import os
@@ -23,7 +24,6 @@ def file_file( file_log, file1, file2, file_general_xpath):
 				retorna a similaridades dentre eles
 	"""
 
-	
 	print("Criando arquivo de log - [Ok]", end="", file = file_log )
 	print("\nT1:%s \nT2:%s" % (file1,file2), file = file_log )
 	print("Carregando as arvores(arquivos para arvores)", end="", file = file_log )
@@ -66,7 +66,7 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 		select_pages = [page2]
 		group += 1
 		lca = ""
-		valid_page = 2
+		valid_page = 2  
 		while(len(picks) > 0):
 			page1 = picks.pop(0)
 			aux = page2
@@ -81,6 +81,10 @@ def generate_xpath_file_random(path_dir, quant_elem, file_erro):
 				print(page1, file = file_general_xpath)
 				print(page2, file = file_general_xpath)
 				print( "Operacoes <%d>" % (operacoes), file = file_general_xpath)
+				tree1, tree2 = tree.files_to_trees(page1, page2)
+				print("Len T1: %d \t Len T2: %d" % (tree.length(tree1),tree.length(tree2)),file = file_general_xpath)
+				porcentagem_relativa = (((operacoes)/(tree.length(tree1)))*100)
+				print("Poncentagem Relativa: %2.2f" % (porcentagem_relativa),file = file_general_xpath)
 				lca = xpath.create(file_log, page2, file_general_xpath)
 				pages_cmp_valid.append(page1)
 				valid_page += 1

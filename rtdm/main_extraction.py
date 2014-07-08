@@ -9,7 +9,8 @@ import glob
 
 def extraction_xpath_dir(path_dir):
 	file_json = open(os.path.dirname(os.path.realpath(__file__)) + "data.json","w")
-	path_xpath = os.path.dirname(os.path.realpath(__file__)) + "/../xpath.txt"
+	#path_xpath = os.path.dirname(os.path.realpath(__file__)) + "/../xpath.txt"
+	path_xpath = os.path.dirname(os.path.realpath(__file__)) + "/extraction.xpath"
 	file_xpath = open(path_xpath)
 	lca = file_xpath.read()
 	file_xpath.close()
