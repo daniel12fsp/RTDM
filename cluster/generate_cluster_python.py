@@ -4,7 +4,7 @@ A execucao deste modulo ocorre no interpretador python padrao(python, nao pypy) 
 questoes de compatibilidade com biblioteca scipy.
 
 """
-
+import numpy as np
 
 """
 data  = [
@@ -32,3 +32,7 @@ print(cluster)
 tree  = sch.ClusterNode(cluster)
 
 """
+
+matrix = np.loadtxt('data.txt')
+matrix = matrix.astype(np.uint, copy=False)
+print(matrix)
