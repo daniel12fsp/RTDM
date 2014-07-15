@@ -125,8 +125,8 @@ def RTDM(t1, t2):
 	#log.write("\n"+str(mape))
 	return operacoes, mape
 
-def calc_similaridade(page_fixa, page2):
-	tree1, tree2 = tree.str_to_tree(page_fixa, page2)
+def calc_similaridade(page1, page2):
+	tree1, tree2 = tree.files_to_trees(page1, page2)
 	k = get_classe_equivalencia(tree1, tree2)
 	replace_choice(3)
 	prepareRTDM(k, None)

@@ -15,6 +15,12 @@ def list_random_pages(path_dir):
 	random.shuffle(pages)
 	return pages
 
+
+def list_sorted_pages(path_dir):
+
+	pages = glob.glob(path_dir + "*html*")
+	return sorted(pages)
+
 def take_one_file(diretory, extension):
 	"""
 		Retorna uma string com nome de algum arquivo da extensão de parametro no mesmo diretorio	
