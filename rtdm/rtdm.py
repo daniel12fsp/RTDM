@@ -1,6 +1,6 @@
 #!/usr/bin/python2
 # -*- coding: utf8 -*-
-
+from __future__ import print_function
 from utils import get_elem, exist_elem
 import tree_lib as tree
 from mapping import mapping_matrix, get_map_identical_subtree
@@ -190,22 +190,31 @@ def _RTDM(father, t1, t2):
 				#a = sys.maxint
 				operacao = operacao + "~"
 				s += num_op 
+				a = d = s
 
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
-			"""
-			Caso queira ver a operacao escolhido entre dois elementos
+	
+	"""
+			#Caso queira ver a operacao escolhido entre dois elementos
+			'''
 
- 			log.write("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
+ 			print("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
 
  					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
-			"""
-	"""
-	Caso queira ver a matriz construida
+			'''
+	#Caso queira ver a matriz construida
+	print("t1 =", c1[0].get("id"), c1[0].name)
+	print("t2 =", c2[0].get("id"), c2[0].name)
+	print( c1[0].prettify().encode('utf-8'))
+	print("\n"+"#"*40)
+	print( c2[0].prettify().encode('utf-8'))
 	for x in range(0, m):
-		log.write("\n")
-		for y in range(0, m):
-				log.write("{m:d}{o:1s} ".format(x, m=M[x][y], o=O[x][y]))
+		print()
+		for y in range(0, n):
+				print("{m:3d}{o:5s} ".format(x, m=M[x][y], o=O[x][y][:2]), end=" ")
+	print("\n"+"-"*40)
+
 	"""
 
 
