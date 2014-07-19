@@ -6,6 +6,7 @@ import tree_lib as tree
 from mapping import mapping_matrix, get_map_identical_subtree
 from mapping_class import Mapping
 from identical_sub_trees import get_classe_equivalencia
+from hashlib  import md5# para teste
 
 def delete(t1, t2):
 	i  = 0
@@ -195,28 +196,47 @@ def _RTDM(father, t1, t2):
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
 	
-	"""
-			#Caso queira ver a operacao escolhido entre dois elementos
+	"""As parte comentada sao informacoes uteis para debug"""
 			'''
+			#Caso queira ver a operacao escolhido entre dois elementos - comeco
+			print de cada celula da matriz
 
  			print("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
 
  					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
+			#Caso queira ver a operacao escolhido entre dois elementos - fim
 			'''
-	#Caso queira ver a matriz construida
-	print("t1 =", c1[0].get("id"), c1[0].name)
-	print("t2 =", c2[0].get("id"), c2[0].name)
-	print( c1[0].prettify().encode('utf-8'))
-	print("\n"+"#"*40)
-	print( c2[0].prettify().encode('utf-8'))
+	#MD5 - comeco
+	x =  md5(c1[0].prettify().encode('utf-8')).hexdigest()
+	y =  md5(c2[0].prettify().encode('utf-8')).hexdigest()
+	
+	if(x > y):
+		print(x, y, M[m-1][n-1])
+	else:
+		print(y, x, M[m-1][n-1])
+	#MD5 - fim
+	
+	"""
+	#imprimir o codigo fonte das subarvores que fazem parte da matriz - comeco
+	print(x)
+	print(c1[0].prettify().encode('utf-8'))
+	print(y)
+	print(c2[0].prettify().encode('utf-8'))
+	#imprimir o codigo fonte das subarvores que fazem parte da matriz - fim
+	"""
+	"""
+	#Caso queira ver a matriz construida - comeco
+	print("t1 =", c1[0].name, c1[0].get("id"), x)
+	print("t2 =", c2[0].name, c2[0].get("id"), y)
+	print(M[i][j])
+
 	for x in range(0, m):
 		print()
 		for y in range(0, n):
 				print("{m:3d}{o:5s} ".format(x, m=M[x][y], o=O[x][y][:2]), end=" ")
 	print("\n"+"-"*40)
-
+	#Caso queira ver a matriz construida - fim
 	"""
-
 
 	matrix =  mapping_matrix(M, O, father, c1, c2)
 	return M[m-1][n-1], O[m-1][n-1],M, matrix

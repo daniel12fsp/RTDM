@@ -1,23 +1,10 @@
 #!/usr/bin/python2
 # -*- coding: utf8 -*-
 
-"""
-	Modulo responsavel por manipular os nos das arvores
-
-Funcoes
-
-	remove_tag
-	get_children
-	length
-	is_leaf
-	print_children
-	decodificar2utf8()
-	post_order
-"""
-
 from bs4 import BeautifulSoup
 import identical_sub_trees
 import bs4
+from hashlib  import md5# para teste
 
 def remove_tags(tree):
 	"""
@@ -35,6 +22,7 @@ def remove_tags(tree):
 
 	return tree
 
+
 def preprare_tree(arq):
 	"""
 		Parametro:
@@ -49,6 +37,9 @@ def preprare_tree(arq):
 	"""
 	if(arq != None):
 		tree = BeautifulSoup(open(arq, mode="rb"))
+		"""
+			Modificado para teste, por favor retire.....
+		"""
 		return remove_tags(tree).body
 	else:
 		return None
@@ -62,7 +53,14 @@ def files_to_trees(file_tree1, file_tree2):
 			a arvore1 apontando para noh body
 			a arvore2 apontando para noh body
 	"""
-	return preprare_tree(file_tree1), preprare_tree(file_tree2)
+	return preprare_tree(file_tree1), preprare_tree(file_tree2) # Retorna a arvore do body
+	id_ = "pane0"
+	a = preprare_tree(file_tree1).find(id=id_) # Retorna a arvore pelo id
+	b = preprare_tree(file_tree2).find(id=id_)
+
+#	a = preprare_tree(file_tree1).find(id=id_).find_all(recursive=False)[5]
+#	b = preprare_tree(file_tree2).find(id=id_).find_all(recursive=False)[5]
+	return a,b
 
 
 def str_to_tree(str_tree1, str_tree2):
