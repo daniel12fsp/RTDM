@@ -3,6 +3,9 @@ import numpy as np
 import file
 import rtdm
 import sys
+import concurrent.futures
+from itertools import product
+
 """
 
 A execucao deste modulo ocorre no interpretador python alternativo(pypy, nao python) por
@@ -16,17 +19,33 @@ a = np.array( [ ( 1, 1, 1, 1),
 
 """
 
-path = "/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/wrappers_sites/algumas_paginas_simples/1/"
+def calc_rtdm(i, j, pages):
+	op = rtdm.calc_similaridade(pages[i], pages[j])
+	return i, j, op
+
+
+path = "/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/wrappers_sites/algumas_paginas_simples/"
+
 pages = file.list_sorted_pages(path)
-#print(" ."*len(pages))
-for i in range(0, len(pages)):
-	print(pages[i])
-	matrix[i][i] = 0
-	#for j in range(i + 1, len(pages)):
-	print "",
-	for j in range(0, len(pages)):
-		#print ".",
-		#sys.stdout.flush()
-		matrix[i][j] = rtdm.calc_similaridade(pages[i], pages[j])
+indice = range(len(pages))
+matrix = np.zeros(shape=(len(pages),len(pages)), dtype=np.uint)
+#par_pags = filter(lambda x: x[0] < x[1]  ,product(pages, pages)) # [(pag1,pag2)...]
+par_pags = product(indice, indice) # [(pag1,pag2)...]
+"""
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+    future_result = [ executor.submit(calc_rtdm, i, j, pages) for (i, j) in par_pags]
+"""
+
+from joblib import Parallel, delayed
+resultados = Parallel(n_jobs=-1, backend="multiprocessing")(delayed(calc_rtdm)(i, j, pages) for (i, j) in par_pags)
+
+for r in resultados:
+	i, j, op = r
+	matrix[i][j] = op
+
+
+
+
 
 np.savetxt(path + 'data.txt', matrix)

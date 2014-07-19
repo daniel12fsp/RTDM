@@ -72,7 +72,9 @@ def replace_nos_t2(t1, t2):
 
 		Retorna o valor de elementos iguais nas posicoes equivalentes nas arvores
 """
-def replace_mesma_quantidade_elementos(t1, t2):
+#TODO mudar o nome da funcao
+"""
+def replace(t1, t2):
 	i  = 0
 	c1 = tree.get_children(t1)
 	c2 = tree.get_children(t2)
@@ -83,7 +85,22 @@ def replace_mesma_quantidade_elementos(t1, t2):
 	while(i < len(c1) and i < len(c2)):
 		node1 = get_elem(c1, i)
 		node2 = get_elem(c2, i)
-		custo_replace += replace_mesma_quantidade_elementos(node1, node2)
+		custo_replace += replace(node1, node2)
+		i += 1
+	return custo_replace
+"""
+def replace(t1, t2):
+	i  = 0
+	c1 = tree.get_children(t1)
+	c2 = tree.get_children(t2)
+	custo_replace = 0
+	if(not tree.equal(t1,t2)):
+		custo_replace += 1
+
+	while(i < len(c1) and i < len(c2)):
+		node1 = get_elem(c1, i)
+		node2 = get_elem(c2, i)
+		custo_replace += replace(node1, node2)
 		i += 1
 	return custo_replace
 
@@ -97,6 +114,7 @@ def replace_mesma_quantidade_elementos(t1, t2):
 """
 def replace_choice(option):
 	#print("A opcao de replace foi: %s" % (option))
+	return None
 	global replace
 	if(option==1):
 		replace = replace_no_no
@@ -192,12 +210,12 @@ def _RTDM(father, t1, t2):
 				operacao = operacao + "~"
 				s += num_op 
 				a = d = s
-
+			
 			M[i][j] = min(d, a, s) 
 			O[i][j] = menor_operacao(d, a, s) if (operacao== None) else operacao
-	
-	"""As parte comentada sao informacoes uteis para debug"""
 			'''
+			"""As parte comentada sao informacoes uteis para debug"""
+			"""
 			#Caso queira ver a operacao escolhido entre dois elementos - comeco
 			print de cada celula da matriz
 
@@ -205,10 +223,10 @@ def _RTDM(father, t1, t2):
 
  					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
 			#Caso queira ver a operacao escolhido entre dois elementos - fim
-			'''
+			"""
 	#MD5 - comeco
-	x =  md5(c1[0].prettify().encode('utf-8')).hexdigest()
-	y =  md5(c2[0].prettify().encode('utf-8')).hexdigest()
+	x =  tree.md5_node(c1[0])
+	y =  tree.md5_node(c2[0])
 	
 	if(x > y):
 		print(x, y, M[m-1][n-1])
@@ -237,6 +255,7 @@ def _RTDM(father, t1, t2):
 	print("\n"+"-"*40)
 	#Caso queira ver a matriz construida - fim
 	"""
+	'''
 
 	matrix =  mapping_matrix(M, O, father, c1, c2)
 	return M[m-1][n-1], O[m-1][n-1],M, matrix

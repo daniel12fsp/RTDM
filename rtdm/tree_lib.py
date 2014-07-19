@@ -22,6 +22,23 @@ def remove_tags(tree):
 
 	return tree
 
+def md5_node(tree):
+	return	md5(tree.prettify().encode('utf-8')).hexdigest()
+
+def search_md5_node(tree, m):
+	"""
+		Nao use essa funcao
+
+		Funcao para testes somente
+	"""
+
+	for n in tree.find_all():
+		if(md5_node(n) == m):
+			return n
+
+	return "Nao achou"
+			
+
 
 def preprare_tree(arq):
 	"""
