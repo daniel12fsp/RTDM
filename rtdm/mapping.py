@@ -60,23 +60,26 @@ def mapping_to_tree(father):
 	return tree
 
 def get_map_identical_subtree(father, node1, node2):
-	children1 = node1.find_all(recursive=False)
-	if(type(node2) == Tag):
-		children2 = node2.find_all(recursive=False)
-	else:
-		children2 = []
-
-	for i in range(0, len(children1)):
-		child1 = children1[i]
-		if(len(children2)>i):
-			child2 = children2[i]
+	if(father != None):
+		children1 = node1.find_all(recursive=False)
+		if(type(node2) == Tag):
+			children2 = node2.find_all(recursive=False)
 		else:
-			child2 = "0"
-		one = Mapping.search_tuple(father, child1, child2)
-		father.append_child(one)
-		c1 = child1.find_all(recursive=False)
-		if(c1):
-			get_map_identical_subtree( one, child1, child2)
+			children2 = []
+
+		for i in range(0, len(children1)):
+			child1 = children1[i]
+			if(len(children2)>i):
+				child2 = children2[i]
+			else:
+				child2 = "0"
+			one = Mapping.search_tuple(father, child1, child2)
+			father.append_child(one)
+			c1 = child1.find_all(recursive=False)
+			if(c1):
+				get_map_identical_subtree( one, child1, child2)
+	else:
+		return None
 
 def regex_tag(string,curinga = "\W*"):
 	return "<"+string+">"+curinga+"</"+string+">"

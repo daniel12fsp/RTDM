@@ -3,8 +3,8 @@ import numpy as np
 import file
 import rtdm
 import sys
-import concurrent.futures
 from itertools import product
+from time import gmtime, strftime
 
 """
 
@@ -24,7 +24,9 @@ def calc_rtdm(i, j, pages):
 	return i, j, op
 
 
-path = "/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/wrappers_sites/algumas_paginas_simples/"
+#path = "/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/wrappers_sites/algumas_paginas_simples/"
+path = "/home/azureuser/algumas_paginas_simples/"
+
 
 pages = file.list_sorted_pages(path)
 indice = range(len(pages))
@@ -36,6 +38,8 @@ par_pags = product(indice, indice) # [(pag1,pag2)...]
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
     future_result = [ executor.submit(calc_rtdm, i, j, pages) for (i, j) in par_pags]
 """
+name = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+print(name)
 
 from joblib import Parallel, delayed
 resultados = Parallel(n_jobs=-1, backend="multiprocessing")(delayed(calc_rtdm)(i, j, pages) for (i, j) in par_pags)
@@ -46,6 +50,6 @@ for r in resultados:
 
 
 
-
-
-np.savetxt(path + 'data.txt', matrix)
+name = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+print(name)
+np.savetxt(path + "matriz_" + name + ".txt", matrix)
