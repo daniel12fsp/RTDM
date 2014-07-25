@@ -24,8 +24,8 @@ def calc_rtdm(i, j, pages):
 	return i, j, op
 
 
-#path = "/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/wrappers_sites/algumas_paginas_simples/"
-path = "/home/azureuser/algumas_paginas_simples/"
+path = "/media/doc/home/doc/2013/academico/project/Implementacao/paginas_html/ColetaUFAM/ColetaNova/wrappers_sites/algumas_paginas_simples/"
+#path = "/home/azureuser/algumas_paginas_simples/"
 
 
 pages = file.list_sorted_pages(path)

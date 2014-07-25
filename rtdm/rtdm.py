@@ -28,9 +28,9 @@ def op_ins_del_rep(t1, t2):
 
 		node1 = get_elem(c1, i)
 		node2 = get_elem(c2, i)
-		td, ti, tr = op_ins_del_rep(node1, node2)
-		cd += td
+		ti, td, tr = op_ins_del_rep(node1, node2)
 		ci += ti
+		cd += td
 		cr += tr
 		i += 1
 
@@ -81,7 +81,7 @@ def _RTDM(father, t1, t2, tree_regex):
 	n = len(c2)
 
 	M = np.zeros(shape=(len(c1), len(c2)), dtype=np.uint)
-	O = [["" for x in range(n)] for x in range(m)]
+	O = np.zeros(shape=(len(c1), len(c2)), dtype='|S4')
 
 	O[0][0]="s"
 
@@ -141,13 +141,15 @@ def _RTDM(father, t1, t2, tree_regex):
 			"""As parte comentada sao informacoes uteis para debug"""
 			"""
 			#Caso queira ver a operacao escolhido entre dois elementos - comeco
-			print de cada celula da matriz
+			#print de cada celula da matriz
 
  			print("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
 
  					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
-			#Caso queira ver a operacao escolhido entre dois elementos - fim
 			"""
+	
+			#Caso queira ver a operacao escolhido entre dois elementos - fim
+
 	#MD5 - comeco
 	x =  tree.md5_node(c1[0])
 	y =  tree.md5_node(c2[0])
@@ -158,19 +160,18 @@ def _RTDM(father, t1, t2, tree_regex):
 		print(y, x, M[m-1][n-1])
 	#MD5 - fim
 	
-	"""
 	#imprimir o codigo fonte das subarvores que fazem parte da matriz - comeco
 	print(x)
 	print(c1[0].prettify().encode('utf-8'))
 	print(y)
 	print(c2[0].prettify().encode('utf-8'))
 	#imprimir o codigo fonte das subarvores que fazem parte da matriz - fim
-	"""
-	"""
+
 	#Caso queira ver a matriz construida - comeco
 	print("t1 =", c1[0].name, c1[0].get("id"), x)
 	print("t2 =", c2[0].name, c2[0].get("id"), y)
 	print(M[i][j])
+	'''
 
 	for x in range(0, m):
 		print()
@@ -178,8 +179,7 @@ def _RTDM(father, t1, t2, tree_regex):
 				print("{m:3d}{o:5s} ".format(x, m=M[x][y], o=O[x][y][:2]), end=" ")
 	print("\n"+"-"*40)
 	#Caso queira ver a matriz construida - fim
-	"""
-	'''
+
 	if(tree_regex):
 		matrix =  mapping_matrix(M, O, father, c1, c2)
 	else:
