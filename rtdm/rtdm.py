@@ -15,12 +15,10 @@ def op_ins_del_rep(t1, t2):
 	c1 = tree.get_children(t1)
 	c2 = tree.get_children(t2)
 	#Custos
-	cd = 0
-	ci = 0
-	cr = 0
+	cd = ci = cr = 0
 	if(not tree.equal(t1,t2)):
-		cd += tree.length(t1)
 		ci += tree.length(t2)
+		cd += tree.length(t1)
 		cr += 1
 		return ci, cd, cr
 
@@ -34,13 +32,13 @@ def op_ins_del_rep(t1, t2):
 		cr += tr
 		i += 1
 
-	if(len(c1)>0):
-		for j in range(i, len(c1)):
-			cd += tree.length(get_elem(c1, j))
-
 	if(i<len(c2)):
 		for j in range(i, len(c2)):
 			ci += tree.length(get_elem(c2, j))
+
+	if(len(c1)>0):
+		for j in range(i, len(c1)):
+			cd += tree.length(get_elem(c1, j))
 
 	return ci, cd, cr
 
@@ -80,8 +78,8 @@ def _RTDM(father, t1, t2, tree_regex):
 	m = len(c1)
 	n = len(c2)
 
-	M = np.zeros(shape=(len(c1), len(c2)), dtype=np.uint)
-	O = np.zeros(shape=(len(c1), len(c2)), dtype='|S4')
+	M = [[0 for x in range(n)] for x in range(m)]
+	O = [["" for x in range(n)] for x in range(m)]
 
 	O[0][0]="s"
 
@@ -104,7 +102,7 @@ def _RTDM(father, t1, t2, tree_regex):
 			
 			aux_mape = None
 			operacao = None
-			td, ti, tr = op_ins_del_rep(c1[i], c2[j])
+			ti, td, tr = op_ins_del_rep(c1[i], c2[j])
 			d = M[i-1][j] + td
 			a = M[i][j-1] + ti
 			r = M[i-1][j-1]
@@ -137,48 +135,6 @@ def _RTDM(father, t1, t2, tree_regex):
 				O[i][j] = menor_operacao(d, a, r) 
 			else:
 				O[i][j] = operacao
-			'''
-			"""As parte comentada sao informacoes uteis para debug"""
-			"""
-			#Caso queira ver a operacao escolhido entre dois elementos - comeco
-			#print de cada celula da matriz
-
- 			print("\n\tM[%d][%d](%s x %s)\t\n \t\t\tR: i:%d,d:%d,s:%d \n\t\t\tA: i:%d,d:%d,s:%d" % 
-
- 					(i, j, c1[i].name, c2[j].name, a - M[i][j-1], d - M[i-1][j], s - M[i-1][j-1], a, d, s))
-			"""
-	
-			#Caso queira ver a operacao escolhido entre dois elementos - fim
-
-	#MD5 - comeco
-	x =  tree.md5_node(c1[0])
-	y =  tree.md5_node(c2[0])
-	
-	if(x > y):
-		print(x, y, M[m-1][n-1])
-	else:
-		print(y, x, M[m-1][n-1])
-	#MD5 - fim
-	
-	#imprimir o codigo fonte das subarvores que fazem parte da matriz - comeco
-	print(x)
-	print(c1[0].prettify().encode('utf-8'))
-	print(y)
-	print(c2[0].prettify().encode('utf-8'))
-	#imprimir o codigo fonte das subarvores que fazem parte da matriz - fim
-
-	#Caso queira ver a matriz construida - comeco
-	print("t1 =", c1[0].name, c1[0].get("id"), x)
-	print("t2 =", c2[0].name, c2[0].get("id"), y)
-	print(M[i][j])
-	'''
-
-	for x in range(0, m):
-		print()
-		for y in range(0, n):
-				print("{m:3d}{o:5s} ".format(x, m=M[x][y], o=O[x][y][:2]), end=" ")
-	print("\n"+"-"*40)
-	#Caso queira ver a matriz construida - fim
 
 	if(tree_regex):
 		matrix =  mapping_matrix(M, O, father, c1, c2)
