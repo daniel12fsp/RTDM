@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/pytelemson3
 # -*- coding: utf8 -*-
 
 """
@@ -11,52 +11,74 @@ Funcoes
 
 """
 import tree_lib as tree
+import bisect
+
+class Elem_Disjuntos():
+
+	def __init__(self):
+		self.conjunto = []
+		self.tags = []
+			
+
+	def append(self, value):
+		if(not self.search(value)):
+			bisect.insort(self.conjunto, value.name)
+		self.tags.append(value)
+
+	def search(self, wanted):
+		position = bisect.bisect(self.conjunto, wanted.name)
+		return position - 1 != -1 and self.tags[position - 1 ] == wanted.name
+
+
+def add_class(t, elems, k, next_class):
+	for one in t:
+		"""
+			Tem que ser um conjunto
+		"""
+		if(not elems.search(one)):
+		#if(not one.name in [i.name for i  in elems]):
+			elems.append(one)
+			k[id(one)] = next_class
+			next_class += 1
+			continue
+
+		k1 = [one]+tree.post_order(one)
+		for node in elems:
+			identicalNodes = False
+			k2 = [node] + tree.post_order(node)
+			if(compara_lista(k1, k2)):
+				identicalNodes = True
+				elems.append(one)
+				k[id(one)] = k[id(node)]
+				break
+
+		if(not(identicalNodes)):
+			elems.append(one)
+			k[id(one)] = next_class
+			next_class += 1
+	return next_class
 
 def get_classe_equivalencia(t1, t2):
-	h = []
+	elems = Elem_Disjuntos()
 	k = dict()
 	next_class = 0
-
-	def add_class(t, h, k, next_class):
-		for one in t:
-			if(not one.name in [i.name for i  in h]):
-				h += [one]
-				k[id(one)] = next_class
-				next_class += 1
-				continue
-
-			k1 = [one]+tree.post_order(one)
-			for node in h:
-				identicalNodes = False
-				k2 = [node]+tree.post_order(node)
-				if(compara_lista(k1, k2)):
-					identicalNodes = True
-					h += [node]
-					k[id(one)] = k[id(node)]
-					break
-
-			if(not(identicalNodes)):
-				h += [one]
-				k[id(one)] = next_class
-				next_class += 1
-		return h, k, next_class
-
 	post1 = tree.post_order(t1)
 	if(t2 != None):
 		post2 = tree.post_order(t2)
 
-	h, k, next_class = add_class(post1, h, k, next_class)
+	next_class = add_class(post1, elems, k, next_class)
 
 	if(t2 != None):
-		h, k, next_class = add_class(post2, h, k, next_class)
+		add_class(post2, elems, k, next_class)
+
 	return k
 
 def compara_lista(node1, node2):
 	if(len(node1)!=len(node2)):
 		return False
 	else:
-		#TODO melhorar execucao do for
-		for i in range(0, len(node1)):
+		#TODO melelemsorar execucao do for
+		for i in xrange(0, len(node1)):
 			if( not tree.equal(node1[i], node2[i])):
 				return False
 	return True

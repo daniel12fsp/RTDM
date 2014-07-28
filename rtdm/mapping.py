@@ -6,7 +6,8 @@ import re
 from tree_lib import is_wildcard
 from mapping_class import Mapping
 
-
+"""
+	Provavelmente sera retira esta parte
 def op_s(i,j):
 	return i-1,j-1
 
@@ -15,28 +16,34 @@ def op_i(i,j):
 
 def op_d(i,j):
 	return i-1,j
+"""
 
 def mapping_matrix(M, O, father, ci, cj):
 	
-	i = len(M)-1
-	j = len(M[0])-1
+	i = len(M) - 1
+	j = len(M[0]) - 1
 	mape = []
 	fila = []
 	tmp = None
 
 	while(i>=0 and j>0):
+
 		if("s" in O[i][j] or "~" in O[i][j]):
 			left = ci[i]
 			right = cj[j]
-			i, j = op_s(i, j)
+			i = i-1
+			j = j-1
+
 		elif("d" in O[i][j]):
 			left = ci[i]
 			right = "0"
-			i, j = op_d(i, j)
+			i = i-1
+
 		elif("i" in O[i][j]):
 			left = "0"
 			right = cj[j]
-			i, j = op_i(i, j)
+			j = j-1
+
 		one = Mapping.search_tuple(father, left, right)
 		father.push_child(one)
 		mape.insert(0, one)
@@ -67,7 +74,7 @@ def get_map_identical_subtree(father, node1, node2):
 		else:
 			children2 = []
 
-		for i in range(0, len(children1)):
+		for i in xrange(0, len(children1)):
 			child1 = children1[i]
 			if(len(children2)>i):
 				child2 = children2[i]

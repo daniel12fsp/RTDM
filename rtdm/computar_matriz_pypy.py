@@ -29,7 +29,7 @@ path = sys.argv[1]
 print(path)
 
 pages = file.list_sorted_pages(path)
-indice = range(len(pages))
+indice = xrange(len(pages))
 matrix = np.zeros(shape=(len(pages),len(pages)), dtype=np.uint)
 par_pags = filter(lambda x: x[0] < x[1]  ,product(indice, indice)) # [(pag1,pag2)...]
 #par_pags = product(indice, indice) # [(pag1,pag2)...]

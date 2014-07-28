@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import identical_sub_trees
 import bs4
 from hashlib  import md5# para teste
+import operator
 
 def remove_tags(tree):
 	"""
@@ -19,7 +20,6 @@ def remove_tags(tree):
 	[x.extract() for x in tree.findAll('link')]
 	[x.extract() for x in tree.findAll('meta')]
 	[x.extract() for x in tree.findAll('noscript')]
-
 	return tree
 
 def md5_node(tree):
@@ -53,7 +53,7 @@ def preprare_tree(arq):
 			3 - A arvore eh inicializada no campo body
 	"""
 	if(arq != None):
-		tree = BeautifulSoup(open(arq, mode="rb"))
+		tree = BeautifulSoup(open(arq, mode="rb"), "lxml")
 		"""
 			Modificado para teste, por favor retire.....
 		"""
@@ -92,6 +92,7 @@ def str_to_tree(str_tree1, str_tree2):
 def get_children(tree):
 	return	tree.find_all(recursive=False)
 
+
 def post_order(tree):
 	post = []
 	for child in tree.children:
@@ -100,9 +101,11 @@ def post_order(tree):
 			post.append(child)
 	return post
 
+
+
 def length(tree):
 	try:
-		return 1+sum(1 for _ in tree.find_all(True))
+		return 1 + len(tree.find_all(True))
 	except:
 		return 0
 

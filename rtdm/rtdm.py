@@ -33,11 +33,11 @@ def op_ins_del_rep(t1, t2):
 		i += 1
 
 	if(i<len(c2)):
-		for j in range(i, len(c2)):
+		for j in xrange(i, len(c2)):
 			ci += tree.length(get_elem(c2, j))
 
 	if(len(c1)>0):
-		for j in range(i, len(c1)):
+		for j in xrange(i, len(c1)):
 			cd += tree.length(get_elem(c1, j))
 
 	return ci, cd, cr
@@ -78,16 +78,19 @@ def _RTDM(father, t1, t2, tree_regex):
 	m = len(c1)
 	n = len(c2)
 
-	M = [[0 for x in range(n)] for x in range(m)]
-	O = [["" for x in range(n)] for x in range(m)]
+	"""
+		Aqui deve ser possivel otimizar essas duas linhas !
+	"""
+	M = [[0 for x in xrange(n)] for x in xrange(m)]
+	O = [["" for x in xrange(n)] for x in xrange(m)]
 
 	O[0][0]="s"
 
-	for i in range(1, m):
+	for i in xrange(1, m):
 		M[i][0] = M[i-1][0]+tree.length(c1[i])
 		O[i][0] = "d"
 
-	for j in range(1, n):
+	for j in xrange(1, n):
 		M[0][j] = M[0][j-1]+tree.length(c2[j])
 		O[0][j] = "i"
 
@@ -97,8 +100,8 @@ def _RTDM(father, t1, t2, tree_regex):
 	if(tree_regex):
 		father = Mapping.search_tuple(father, c1[0], c2[0])
 
-	for i in range(1, m):
-		for j in range(1, n):
+	for i in xrange(1, m):
+		for j in xrange(1, n):
 			
 			aux_mape = None
 			operacao = None
