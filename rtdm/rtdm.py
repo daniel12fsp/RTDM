@@ -64,8 +64,58 @@ def RTDM(t1, t2, tree_regex=False):
 	#log.write("\n"+str(mape))
 	return operacoes, mape
 
-def calc_similaridade(page1, page2):
-	tree1, tree2 = tree.files_to_trees(page1, page2)
+def dist_rtdm(filename1, filename2):
+	tree1, tree2 = tree.files_to_trees(filename1, filename2)
+	k = get_classe_equivalencia(tree1, tree2)
+	prepareRTDM(k, None)
+	operacoes, _ = RTDM(tree1, tree2)
+	return operacoes
+
+def _dist_rtdm():
+	c1 = [t1]+t1.find_all(recursive=False)
+	c2 = [t2]+t2.find_all(recursive=False)
+
+	m = len(c1)
+	n = len(c2)
+
+	M = np.matrix(base = (m, n))
+
+	for i in xrange(1, m):
+		M[i][0] = M[i-1][0]+tree.length(c1[i])
+
+	for j in xrange(1, n):
+		M[0][j] = M[0][j-1]+tree.length(c2[j])
+
+	i = j = 0
+
+	for i in xrange(1, m):
+		for j in xrange(1, n):
+			
+			ti, td, tr = op_ins_del_rep(c1[i], c2[j])
+			d = M[i-1][j] + td
+			a = M[i][j-1] + ti
+			r = M[i-1][j-1]
+			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
+				M[i][j] = r
+				continue
+			elif(not tree.equal(c1[i],c2[j])):
+				r += tr
+
+				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
+					r += ti
+				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
+					r += td
+			else:
+				num_op = _RTDM(father, c1[i], c2[j], tree_regex)
+				r += num_op 
+				a = d = r
+			
+			M[i][j] = min(d, a, r) 
+
+	return M[m-1][n-1]
+	
+def calc_similaridade(filename1, filename2):
+	tree1, tree2 = tree.files_to_trees(filename1, filename2)
 	k = get_classe_equivalencia(tree1, tree2)
 	prepareRTDM(k, None)
 	operacoes, _ = RTDM(tree1, tree2)

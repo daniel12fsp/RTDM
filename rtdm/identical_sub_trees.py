@@ -43,7 +43,7 @@ def add_class(t, elems, k, next_class):
 			continue
 
 		k1 = [one]+tree.post_order(one)
-		for node in elems:
+		for node in elems.tags:
 			identicalNodes = False
 			k2 = [node] + tree.post_order(node)
 			if(compara_lista(k1, k2)):
