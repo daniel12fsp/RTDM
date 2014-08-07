@@ -89,7 +89,8 @@ def _dist_rtdm(t1, t2):
 		left = line[0]
 		for j in xrange(1, n):
 			up = line[j]
-			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
+
+			if( c1[i] == c2[j]):
 				#print("oi")
 				left = diagonal	
 				line[j] = left
