@@ -82,14 +82,10 @@ def _dist_rtdm(t1, t2):
 	line = np.zeros((n), dtype=np.int)
 	col  = np.zeros((m), dtype=np.int)
 
-	M = [[0 for x in xrange(n)] for x in xrange(m)]
-		
 	for i in xrange(1, m):
-		M[i][0] = M[i-1][0]+tree.length(c1[i])
 		col[i] = col[i-1]+tree.length(c1[i])
 
 	for j in xrange(1, n):
-		M[0][j] = M[0][j-1]+tree.length(c2[j])
 		line[j] = line[ j - 1] + tree.length(c2[j])
 	left = line[n - 1]
 	for i in xrange(1, m):
@@ -117,7 +113,6 @@ def _dist_rtdm(t1, t2):
 
 			left = min(d, a, r)
 			line[j] = left
-			M[i][j] = left
 			diagonal = up
 	return left
 	
