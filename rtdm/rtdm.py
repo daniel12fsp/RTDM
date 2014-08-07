@@ -68,37 +68,40 @@ def dist_rtdm(filename1, filename2):
 	tree1, tree2 = tree.files_to_trees(filename1, filename2)
 	k = get_classe_equivalencia(tree1, tree2)
 	prepareRTDM(k, None)
-	operacoes, _ = RTDM(tree1, tree2)
+	operacoes = _dist_rtdm(tree1, tree2)
 	return operacoes
 
-def _dist_rtdm():
-	c1 = [t1]+t1.find_all(recursive=False)
-	c2 = [t2]+t2.find_all(recursive=False)
-
+def _dist_rtdm(t1, t2):
+#	print("-")
+	c1 = [t1] + t1.find_all(recursive=False)
+	c2 = [t2] + t2.find_all(recursive=False)
+	
 	m = len(c1)
 	n = len(c2)
 
-	M = np.matrix(base = (m, n))
+	line = np.zeros((n), dtype=np.int)
+	col  = np.zeros((m), dtype=np.int)
 
+	M = [[0 for x in xrange(n)] for x in xrange(m)]
+		
 	for i in xrange(1, m):
 		M[i][0] = M[i-1][0]+tree.length(c1[i])
+		col[i] = col[i-1]+tree.length(c1[i])
 
 	for j in xrange(1, n):
 		M[0][j] = M[0][j-1]+tree.length(c2[j])
-
-	i = j = 0
-
+		line[j] = line[ j - 1] + tree.length(c2[j])
+	left = line[n - 1]
 	for i in xrange(1, m):
+		diagonal = col[i - 1]
+		left = col[i]
 		for j in xrange(1, n):
-			
 			ti, td, tr = op_ins_del_rep(c1[i], c2[j])
-			d = M[i-1][j] + td
-			a = M[i][j-1] + ti
-			r = M[i-1][j-1]
-			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
-				M[i][j] = r
-				continue
-			elif(not tree.equal(c1[i],c2[j])):
+			up = line[j]
+			d = up + td
+			a = left + ti
+			r = diagonal
+			if(not tree.equal(c1[i],c2[j])):
 				r += tr
 
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
@@ -106,13 +109,17 @@ def _dist_rtdm():
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
 					r += td
 			else:
-				num_op = _RTDM(father, c1[i], c2[j], tree_regex)
-				r += num_op 
-				a = d = r
-			
-			M[i][j] = min(d, a, r) 
+				left = diagonal + _dist_rtdm(c1[i], c2[j])	
+				line[j] = left
+				M[i][j] = left
+				diagonal = up
+				continue
 
-	return M[m-1][n-1]
+			left = min(d, a, r)
+			line[j] = left
+			M[i][j] = left
+			diagonal = up
+	return left
 	
 def calc_similaridade(filename1, filename2):
 	tree1, tree2 = tree.files_to_trees(filename1, filename2)
@@ -122,6 +129,7 @@ def calc_similaridade(filename1, filename2):
 	return operacoes
 	
 def _RTDM(father, t1, t2, tree_regex):
+#	print("-")
 	c1 = [t1]+t1.find_all(recursive=False)
 	c2 = [t2]+t2.find_all(recursive=False)
 
@@ -152,7 +160,6 @@ def _RTDM(father, t1, t2, tree_regex):
 
 	for i in xrange(1, m):
 		for j in xrange(1, n):
-			
 			aux_mape = None
 			operacao = None
 			ti, td, tr = op_ins_del_rep(c1[i], c2[j])
@@ -161,6 +168,7 @@ def _RTDM(father, t1, t2, tree_regex):
 			r = M[i-1][j-1]
 			aux = [] 
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
+				print("aslhdl")
 				M[i][j] = r
 				O[i][j] = "s"#O[i-1][j-1]
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
@@ -182,13 +190,13 @@ def _RTDM(father, t1, t2, tree_regex):
 				r += num_op 
 				a = d = r
 			
-			M[i][j] = min(d, a, r) 
-
+			M[i][j] = min(d, a, r)
+			print(M[i][j], d, a, r, td, ti, tr,  M[i-1][j],M[i][j-1],M[i-1][j-1]
+   )
 			if (operacao== None):
 				O[i][j] = menor_operacao(d, a, r) 
 			else:
 				O[i][j] = operacao
-
 	if(tree_regex):
 		matrix =  mapping_matrix(M, O, father, c1, c2)
 	else:

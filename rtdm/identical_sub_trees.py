@@ -32,11 +32,7 @@ class Elem_Disjuntos():
 
 def add_class(t, elems, k, next_class):
 	for one in t:
-		"""
-			Tem que ser um conjunto
-		"""
 		if(not elems.search(one)):
-		#if(not one.name in [i.name for i  in elems]):
 			elems.append(one)
 			k[id(one)] = next_class
 			next_class += 1
@@ -63,14 +59,9 @@ def get_classe_equivalencia(t1, t2):
 	k = dict()
 	next_class = 0
 	post1 = tree.post_order(t1)
-	if(t2 != None):
-		post2 = tree.post_order(t2)
-
+	post2 = tree.post_order(t2)
 	next_class = add_class(post1, elems, k, next_class)
-
-	if(t2 != None):
-		add_class(post2, elems, k, next_class)
-
+	add_class(post2, elems, k, next_class)
 	return k
 
 def compara_lista(node1, node2):
