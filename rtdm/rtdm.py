@@ -72,7 +72,6 @@ def dist_rtdm(filename1, filename2):
 	return operacoes
 
 def _dist_rtdm(t1, t2):
-#	print("-")
 	c1 = [t1] + t1.find_all(recursive=False)
 	c2 = [t2] + t2.find_all(recursive=False)
 	
@@ -80,41 +79,45 @@ def _dist_rtdm(t1, t2):
 	n = len(c2)
 
 	line = np.zeros((n), dtype=np.int)
-	col  = np.zeros((m), dtype=np.int)
-
-	for i in xrange(1, m):
-		col[i] = col[i-1]+tree.length(c1[i])
 
 	for j in xrange(1, n):
 		line[j] = line[ j - 1] + tree.length(c2[j])
-	left = line[n - 1]
-	for i in xrange(1, m):
-		diagonal = col[i - 1]
-		left = col[i]
-		for j in xrange(1, n):
-			ti, td, tr = op_ins_del_rep(c1[i], c2[j])
-			up = line[j]
-			d = up + td
-			a = left + ti
-			r = diagonal
-			if(not tree.equal(c1[i],c2[j])):
-				r += tr
 
+	for i in xrange(1, m):
+		diagonal = line[0]
+		line[0] +=  tree.length(c1[i])
+		left = line[0]
+		for j in xrange(1, n):
+			up = line[j]
+			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
+				#print("oi")
+				left = diagonal	
+				line[j] = left
+				diagonal = up
+				continue
+	
+			elif(tree.equal(c1[i],c2[j])):
+				left = diagonal + _dist_rtdm(c1[i], c2[j])	
+				line[j] = left
+				diagonal = up
+				continue
+			else:
+				ti, td, tr = op_ins_del_rep(c1[i], c2[j])
+				d = up + td
+				a = left + ti
+				r = diagonal
+				r += tr
 				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
 					r += ti
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
 					r += td
-			else:
-				left = diagonal + _dist_rtdm(c1[i], c2[j])	
-				line[j] = left
-				M[i][j] = left
-				diagonal = up
-				continue
+
 
 			left = min(d, a, r)
 			line[j] = left
 			diagonal = up
-	return left
+
+	return line[n - 1]
 	
 def calc_similaridade(filename1, filename2):
 	tree1, tree2 = tree.files_to_trees(filename1, filename2)

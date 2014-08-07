@@ -16,18 +16,16 @@ import bisect
 class Elem_Disjuntos():
 
 	def __init__(self):
-		self.conjunto = []
+		self.conjunto = {}
 		self.tags = []
 			
 
 	def append(self, value):
-		if(not self.search(value)):
-			bisect.insort(self.conjunto, value.name)
+		self.conjunto[value.name] = True
 		self.tags.append(value)
 
 	def search(self, wanted):
-		position = bisect.bisect(self.conjunto, wanted.name)
-		return position - 1 != -1 and self.tags[position - 1 ] == wanted.name
+		return self.conjunto.get(wanted.name, False) 
 
 
 def add_class(t, elems, k, next_class):

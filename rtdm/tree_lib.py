@@ -94,11 +94,13 @@ def get_children(tree):
 
 
 def post_order(tree):
+	#TODO melhorar
 	post = []
 	for child in tree.children:
 		if child.name is not None:
 			post.extend(post_order(child))
 			post.append(child)
+			child.name
 	return post
 
 
