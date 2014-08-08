@@ -44,6 +44,7 @@ class Mapping():
 		except:
 		    return NodeMapping(parent, left, right)
 
+
 	def search_tuple(*kargs):
 		"""
 			Procura a existencia do no e retorna este se nao cria um novo no
@@ -120,17 +121,11 @@ class NodeMapping(Mapping):
 
 		left = self.left
 		right = self.right
+		#TODO Quantidade da tag
 		"""
-		try:
-			print(is_wildcard(left),is_leaf(left), left.name)
-			print(is_wildcard(right), is_leaf(right), right.name)
-			print(right.string == left.string, right.name == left.name)
-		except:
-			pass
-
+		quant_left = re.search("\d*", left.name)
+		quant_right = re.search("\d*", right.name)
 		"""
-
-
 		if(left == "0" or right == "0"):
 			tag_name = "interrogacao"
 
@@ -146,5 +141,5 @@ class NodeMapping(Mapping):
 			return right
 		else:
 			tag_name = get_curinga(left, right)
-
+		#TODO - Colocar quantidade de elemento
 		return Tag(name = tag_name)

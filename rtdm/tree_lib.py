@@ -71,14 +71,6 @@ def files_to_trees(file_tree1, file_tree2):
 			a arvore2 apontando para noh body
 	"""
 	return preprare_tree(file_tree1), preprare_tree(file_tree2) # Retorna a arvore do body
-	id_ = "pane0"
-	a = preprare_tree(file_tree1).find(id=id_) # Retorna a arvore pelo id
-	b = preprare_tree(file_tree2).find(id=id_)
-
-#	a = preprare_tree(file_tree1).find(id=id_).find_all(recursive=False)[5]
-#	b = preprare_tree(file_tree2).find(id=id_).find_all(recursive=False)[5]
-	return a,b
-
 
 def str_to_tree(str_tree1, str_tree2):
 	tree1 = preprare_tree()
