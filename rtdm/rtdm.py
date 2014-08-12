@@ -7,7 +7,7 @@ from mapping import mapping_matrix, get_map_identical_subtree
 from mapping_class import Mapping
 from identical_sub_trees import get_classe_equivalencia
 import numpy as np
-
+import gc
 #from hashlib  import md5# para teste
 
 def op_ins_del_rep(t1, t2):
@@ -122,6 +122,7 @@ def calc_similaridade(filename1, filename2):
 	k = get_classe_equivalencia(tree1, tree2)
 	prepareRTDM(k, None)
 	operacoes, _ , _ = _RTDM(None, tree1, tree2)
+#	gc.collect()
 	return operacoes
 	
 def _RTDM(father, t1, t2):
