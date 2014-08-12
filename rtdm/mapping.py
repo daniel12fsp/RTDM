@@ -17,7 +17,10 @@ def op_d(i,j):
 	return i-1,j
 
 def mapping_matrix(M, O, father, ci, cj):
-	return None	
+	#TODO
+	"""
+		Realmente precisa de M, posso passar tamanho pelo O
+	"""
 	i = len(M)-1
 	j = len(M[0])-1
 	mape = []

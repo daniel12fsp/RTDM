@@ -49,15 +49,7 @@ def prepareRTDM(k_parament, log_parament):
 	global log
 	log = log_parament
 
-def menor_operacao(d,i,s):
-	res = ""
-	if(d >= i) and (s >= i):
-		res += "i"
-	if(i >= d) and (s >= d):
-		res += "d"
-	if(i >= s) and (d>= s):
-		res += "s"
-	return res
+
 
 
 def dist_rtdm(filename1, filename2):
@@ -116,7 +108,18 @@ def _dist_rtdm(t1, t2):
 			diagonal = up
 
 	return line[n - 1]
-	
+
+def menor_operacao(d,i,s):
+	res = ""
+	if(d >= i) and (s >= i):
+		res += "i"
+	if(i >= d) and (s >= d):
+		res += "d"
+	if(i >= s) and (d>= s):
+		res += "s"
+	print(res)
+	return res
+
 def calc_similaridade(filename1, filename2):
 	tree1, tree2 = tree.files_to_trees(filename1, filename2)
 	k = get_classe_equivalencia(tree1, tree2)
@@ -152,9 +155,13 @@ def _RTDM(father, t1, t2):
 	i = j = 0
 	
 	father = Mapping.search_tuple(father, c1[0], c2[0])
-	matrix = None
+	#matrix = None
+	print("m",m, "n",n)
+	print(range(1, m))
 	for i in xrange(1, m):
+		print("i", i)
 		for j in xrange(1, n):
+			print("j", j)
 			aux_mape = None
 			operacao = None
 			ti, td, tr = op_ins_del_rep(c1[i], c2[j])
@@ -164,7 +171,7 @@ def _RTDM(father, t1, t2):
 			aux = [] 
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
 				M[i][j] = r
-				O[i][j] = "s"#O[i-1][j-1]
+				O[i][j] = "s"
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
 					new_father = Mapping.search_tuple(father, c1[i], c2[j])
 					get_map_identical_subtree(new_father, c1[i], c2[j])
@@ -181,12 +188,13 @@ def _RTDM(father, t1, t2):
 				operacao = operacao + "~"
 				r += num_op 
 				a = d = r
-			
+
 			M[i][j] = min(d, a, r)
 			if (operacao== None):
 				O[i][j] = menor_operacao(d, a, r) 
 			else:
 				O[i][j] = operacao
-		matrix =  mapping_matrix(M, O, father, c1, c2)
 
+	matrix =  mapping_matrix(M, O, father, c1, c2)
 	return M[m-1][n-1], O[m-1][n-1], matrix
+
