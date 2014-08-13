@@ -51,14 +51,12 @@ def save_regex(file1, file2, operacoes):
 	path_regex = file.get_path_file(file1, file2, ".regex")
 	file_regex = open(path_regex, "w")
 	file_regex.write(generate_template(operacoes))
+	file_regex.close()
 	return path_regex
 
 def generate_template(ls):
 	tree = mapping_to_tree(ls)
 	#tree = promocao_curingas(tree.html.prettify())
-
-
-
 	return tree.html.prettify()
 
 def mapping_to_tree(father):

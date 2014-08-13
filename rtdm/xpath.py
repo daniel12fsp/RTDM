@@ -13,41 +13,44 @@ import xml.sax.saxutils as saxutils
 def lxml_parser(file_tree):
 	return etree.parse(file_tree, parser=etree.HTMLParser(encoding="UTF-8"))
 
-def create(file_log, filename_regex, file_general_xpath):
+def create(regex):
 
-	file_regex = open(filename_regex)
-	page_regex = open(filename_regex).read()
-	tree = lxml_parser(file_regex)
+	page_regex = open(regex)
+	tree = lxml_parser(page_regex)
 	xpaths = {}
-	def _create_single(page_regex, wildcard, peso):
-		for elem in tree.xpath("//"+wildcard):
+	def _create_single(page_regex, wildcard):
+		for elem in tree.xpath("//" + wildcard):
 			xpath = tree.getpath(elem.getparent())
-			#xpath = tree.getpath(elem.getparent()) + "//*"
-			xpath = re.sub("\[\d+\]$","",xpath)
-			if(xpaths.__contains__(xpath) == False):
+			#TODO
+			"""
+				Criar os padroes de forma estatica
+			"""
+			xpath = re.sub("\[\d+\]","", xpath)
+			if(xpaths.get(xpath) == None):
 				xpaths[xpath] = 0
-			xpaths[xpath] = xpaths[xpath] + 1*peso
+			xpaths[xpath] = xpaths[xpath] + int(elem.text) + 1
 			
 
-	_create_single(page_regex, "ponto", 1)
-	_create_single(page_regex, "interrogacao", 1)
+	_create_single(page_regex, "ponto")
+	_create_single(page_regex, "interrogacao")
 
-	print(xpaths, file = file_log)
+	print(xpaths)
+
 	xpaths = xpaths.items()
 
 	try:
 		"""
 			As tres linhas a seguim serao tiradas
-			servem como comparação
+			servem como comparacao
 		"""
 		xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
 		xpath_max_0 = max(xpaths, key = lambda x : x[0])
 		xpath_max_1 = max(xpaths, key = lambda x : x[1])
 		lca = xpath_max_1[0]
 		lca = xpath = re.sub("\[\d+\]","",lca)
-		print("xpath_max_len" + str(xpath_max_len), file = file_log)
-		print("xpath_max_0(Key)" + str(xpath_max_0), file = file_log)
-		print("xpath_max_1(Valor)" + str(xpath_max_1), file = file_log)
+		print("xpath_max_len" + str(xpath_max_len))
+		print("xpath_max_0(Key)" + str(xpath_max_0))
+		print("xpath_max_1(Valor)" + str(xpath_max_1))
 		"""
 		Operacao custosa retire em futuro proximo
 		"""
@@ -55,23 +58,25 @@ def create(file_log, filename_regex, file_general_xpath):
 		ordem.sort(key = lambda x: x[1], reverse = True)
 		for (xp, qtd) in ordem:
 			xp = re.sub("\[\d+\]","",xp)
-			print(xp, qtd, file = file_general_xpath)
+			print(xp, qtd)
 
-		print("#################", file = file_general_xpath)
+		print("#################")
 
 		file_regex.close()
 	except:
-		print("Com as paginas informadas nao foi possivel gerar o xpath", file = file_log)
+		print("Com as paginas informadas nao foi possivel gerar o xpath")
 		return "xpath_erro"
+
 	return lca + "//*"
 
+	page_regex.close()
 
 def remove_space(data):
 	data = re.sub("^ ","",data)
 	data = re.sub(" $","",data)
 	return data
 	
-
+#Modificar
 def extraction(lca, page_target, id_file, file_json):
 	page_target = open(page_target)
 	tree = lxml_parser(page_target)

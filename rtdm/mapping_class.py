@@ -150,8 +150,7 @@ class NodeMapping(Mapping):
 			return right
 		else:
 			tag_name = get_curinga(left, right)
-		#TODO - Colocar quantidade de elemento
-		new_tag = Tag(name = tag_name)
 
+		new_tag = Tag(name = tag_name)
 		new_tag.string = quant
 		return new_tag
