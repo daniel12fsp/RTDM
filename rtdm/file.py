@@ -8,6 +8,11 @@ import sys
 import random
 import glob
 
+#TODO
+"""
+Fazer um merge com o modulo utils so tem duas funcoes!
+"""
+
 def list_random_pages(path_dir):
 
 	pages = glob.glob(path_dir + "*.html*")

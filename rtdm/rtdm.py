@@ -3,7 +3,7 @@
 from __future__ import print_function
 from utils import get_elem, exist_elem
 import tree_lib as tree
-from mapping import mapping_matrix, get_map_identical_subtree
+from mapping import mapping_matrix, get_map_identical_subtree, save_regex
 from mapping_class import Mapping
 from identical_sub_trees import get_classe_equivalencia
 import numpy as np
@@ -117,16 +117,14 @@ def menor_operacao(d,i,s):
 		res += "d"
 	if(i >= s) and (d>= s):
 		res += "s"
-	print(res)
 	return res
 
-def calc_similaridade(filename1, filename2):
+def create_regex(filename1, filename2):
 	tree1, tree2 = tree.files_to_trees(filename1, filename2)
 	k = get_classe_equivalencia(tree1, tree2)
 	prepareRTDM(k, None)
-	operacoes, _ , _ = _RTDM(None, tree1, tree2)
-#	gc.collect()
-	return operacoes
+	_, _, operacoes = _RTDM(None, tree1, tree2)	
+	return save_regex(filename1, filename2, operacoes)
 	
 def _RTDM(father, t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
@@ -156,12 +154,8 @@ def _RTDM(father, t1, t2):
 	
 	father = Mapping.search_tuple(father, c1[0], c2[0])
 	#matrix = None
-	print("m",m, "n",n)
-	print(range(1, m))
 	for i in xrange(1, m):
-		print("i", i)
 		for j in xrange(1, n):
-			print("j", j)
 			aux_mape = None
 			operacao = None
 			ti, td, tr = op_ins_del_rep(c1[i], c2[j])

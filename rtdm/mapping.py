@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup, Tag
 import re
 from tree_lib import is_wildcard
 from mapping_class import Mapping
+import file
 
 
 def op_s(i,j):
@@ -46,9 +47,18 @@ def mapping_matrix(M, O, father, ci, cj):
 
 	return father
 
+def save_regex(file1, file2, operacoes):
+	path_regex = file.get_path_file(file1, file2, ".regex")
+	file_regex = open(path_regex, "w")
+	file_regex.write(generate_template(operacoes))
+	return path_regex
+
 def generate_template(ls):
 	tree = mapping_to_tree(ls)
 	#tree = promocao_curingas(tree.html.prettify())
+
+
+
 	return tree.html.prettify()
 
 def mapping_to_tree(father):
