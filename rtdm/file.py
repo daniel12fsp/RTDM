@@ -91,6 +91,18 @@ def get_name_file(name_file):
 		return ''
 
 
+def get_name_file_with_extension(name_file):
+	"""
+		Retorna o nome do arquivo. retira-se a extensão
+		Ex.:
+		nome do arquivo = "teste.pyc"
+		get_name_file(teste.pys)	 == "teste"
+	"""
+	try:
+		return re.findall(".*/(.*)",name_file)[0]
+	except:
+		print("Provavelmente a variavel 'name_file' nao esta no formato unix de path(/)")
+		return ''
 
 def create_file(filename, extension):
 	return  get_path_dir_from_file(filename) + get_name_file(filename) + extension
