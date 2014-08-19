@@ -3,11 +3,11 @@
 from __future__ import print_function
 from utils import get_elem, exist_elem
 import tree_lib as tree
-from mapping import mapping_matrix, get_map_identical_subtree
+from mapping import mapping_matrix, get_map_identical_subtree, save_regex
 from mapping_class import Mapping
 from identical_sub_trees import get_classe_equivalencia
 import numpy as np
-
+import gc
 #from hashlib  import md5# para teste
 
 def op_ins_del_rep(t1, t2):
@@ -49,6 +49,66 @@ def prepareRTDM(k_parament, log_parament):
 	global log
 	log = log_parament
 
+
+
+
+def dist_rtdm(filename1, filename2):
+	tree1, tree2 = tree.files_to_trees(filename1, filename2)
+	#k = get_classe_equivalencia(tree1, tree2)
+	#prepareRTDM(k, None)
+	operacoes = _dist_rtdm(tree1, tree2)
+	return operacoes
+
+def _dist_rtdm(t1, t2):
+	c1 = [t1] + t1.find_all(recursive=False)
+	c2 = [t2] + t2.find_all(recursive=False)
+	
+	m = len(c1)
+	n = len(c2)
+
+	line = np.zeros((n), dtype=np.int)
+
+	for j in xrange(1, n):
+		line[j] = line[ j - 1] + tree.length(c2[j])
+
+	for i in xrange(1, m):
+		diagonal = line[0]
+		line[0] +=  tree.length(c1[i])
+		left = line[0]
+		for j in xrange(1, n):
+			up = line[j]
+			"""
+			#Pre-processamento
+			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])]):
+				#print("oi")
+				left = diagonal	
+				line[j] = left
+				diagonal = up
+				continue
+	
+			el
+			"""
+			if(tree.equal(c1[i],c2[j])):
+				left = diagonal + _dist_rtdm(c1[i], c2[j])	
+				line[j] = left
+				diagonal = up
+				continue
+			else:
+				ti, td, tr = op_ins_del_rep(c1[i], c2[j])
+				d = up + td
+				a = left + ti
+				r = diagonal
+				r += tr
+				if tree.is_leaf(c1[i]) and not tree.is_leaf(c2[j]):
+					r += ti
+				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
+					r += td
+			left = min(d, a, r)
+			line[j] = left
+			diagonal = up
+
+	return line[n - 1]
+
 def menor_operacao(d,i,s):
 	res = ""
 	if(d >= i) and (s >= i):
@@ -59,19 +119,14 @@ def menor_operacao(d,i,s):
 		res += "s"
 	return res
 
-def RTDM(t1, t2, tree_regex=False):	
-	operacoes,_,_,mape = _RTDM(None, t1, t2, tree_regex)
-	#log.write("\n"+str(mape))
-	return operacoes, mape
-
-def calc_similaridade(page1, page2):
-	tree1, tree2 = tree.files_to_trees(page1, page2)
+def create_regex(filename1, filename2):
+	tree1, tree2 = tree.files_to_trees(filename1, filename2)
 	k = get_classe_equivalencia(tree1, tree2)
 	prepareRTDM(k, None)
-	operacoes, _ = RTDM(tree1, tree2)
-	return operacoes
+	_, _, operacoes = _RTDM(None, tree1, tree2)	
+	return save_regex(filename1, filename2, operacoes)
 	
-def _RTDM(father, t1, t2, tree_regex):
+def _RTDM(father, t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
 	c2 = [t2]+t2.find_all(recursive=False)
 
@@ -97,12 +152,10 @@ def _RTDM(father, t1, t2, tree_regex):
 	aux = []
 	i = j = 0
 	
-	if(tree_regex):
-		father = Mapping.search_tuple(father, c1[0], c2[0])
-
+	father = Mapping.search_tuple(father, c1[0], c2[0])
+	#matrix = None
 	for i in xrange(1, m):
 		for j in xrange(1, n):
-			
 			aux_mape = None
 			operacao = None
 			ti, td, tr = op_ins_del_rep(c1[i], c2[j])
@@ -112,11 +165,9 @@ def _RTDM(father, t1, t2, tree_regex):
 			aux = [] 
 			if(tree.is_any_wildcard(c1[i],c2[j]) or k[id(c1[i])]==k[id(c2[j])] ):
 				M[i][j] = r
-				O[i][j] = "s"#O[i-1][j-1]
+				O[i][j] = "s"
 				if(not tree.is_leaf(c1[i]) or not tree.is_leaf(c2[j])):
-					new_father = None
-					if(tree_regex):
-						new_father = Mapping.search_tuple(father, c1[i], c2[j])
+					new_father = Mapping.search_tuple(father, c1[i], c2[j])
 					get_map_identical_subtree(new_father, c1[i], c2[j])
 				continue
 			elif(not tree.equal(c1[i],c2[j])):
@@ -127,21 +178,17 @@ def _RTDM(father, t1, t2, tree_regex):
 				elif tree.is_leaf(c2[j]) and not tree.is_leaf(c1[i]):
 					r += td
 			else:
-				num_op, operacao, _, _ = _RTDM(father, c1[i], c2[j], tree_regex)
+				num_op, operacao, _ = _RTDM(father, c1[i], c2[j])
 				operacao = operacao + "~"
 				r += num_op 
 				a = d = r
-			
-			M[i][j] = min(d, a, r) 
 
+			M[i][j] = min(d, a, r)
 			if (operacao== None):
 				O[i][j] = menor_operacao(d, a, r) 
 			else:
 				O[i][j] = operacao
 
-	if(tree_regex):
-		matrix =  mapping_matrix(M, O, father, c1, c2)
-	else:
-		matrix = None
+	matrix =  mapping_matrix(M, O, father, c1, c2)
+	return M[m-1][n-1], O[m-1][n-1], matrix
 
-	return M[m-1][n-1], O[m-1][n-1],M, matrix

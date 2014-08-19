@@ -5,9 +5,9 @@ from bs4 import BeautifulSoup, Tag
 import re
 from tree_lib import is_wildcard
 from mapping_class import Mapping
+import file
 
-"""
-	Provavelmente sera retira esta parte
+
 def op_s(i,j):
 	return i-1,j-1
 
@@ -16,43 +16,49 @@ def op_i(i,j):
 
 def op_d(i,j):
 	return i-1,j
-"""
 
 def mapping_matrix(M, O, father, ci, cj):
-	
-	i = len(M) - 1
-	j = len(M[0]) - 1
+	#TODO
+	"""
+		Realmente precisa de M, posso passar tamanho pelo O
+	"""
+	i = len(M)-1
+	j = len(M[0])-1
 	mape = []
 	fila = []
 	tmp = None
 
 	while(i>=0 and j>0):
-
 		if("s" in O[i][j] or "~" in O[i][j]):
 			left = ci[i]
 			right = cj[j]
-			i = i-1
-			j = j-1
-
+			i, j = op_s(i, j)
 		elif("d" in O[i][j]):
 			left = ci[i]
 			right = "0"
-			i = i-1
-
+			i, j = op_d(i, j)
 		elif("i" in O[i][j]):
 			left = "0"
 			right = cj[j]
-			j = j-1
-
+			i, j = op_i(i, j)
 		one = Mapping.search_tuple(father, left, right)
 		father.push_child(one)
 		mape.insert(0, one)
 
 	return father
 
+def save_regex(file1, file2, operacoes):
+	path_regex = file.get_path_file(file1, file2, ".regex")
+	file_regex = open(path_regex, "w")
+	file_regex.write(generate_template(operacoes))
+	return path_regex
+
 def generate_template(ls):
 	tree = mapping_to_tree(ls)
 	#tree = promocao_curingas(tree.html.prettify())
+
+
+
 	return tree.html.prettify()
 
 def mapping_to_tree(father):
@@ -74,7 +80,7 @@ def get_map_identical_subtree(father, node1, node2):
 		else:
 			children2 = []
 
-		for i in xrange(0, len(children1)):
+		for i in range(0, len(children1)):
 			child1 = children1[i]
 			if(len(children2)>i):
 				child2 = children2[i]

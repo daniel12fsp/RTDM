@@ -16,34 +16,28 @@ import bisect
 class Elem_Disjuntos():
 
 	def __init__(self):
-		self.conjunto = []
+		self.conjunto = {}
 		self.tags = []
 			
 
 	def append(self, value):
-		if(not self.search(value)):
-			bisect.insort(self.conjunto, value.name)
+		self.conjunto[value.name] = True
 		self.tags.append(value)
 
 	def search(self, wanted):
-		position = bisect.bisect(self.conjunto, wanted.name)
-		return position - 1 != -1 and self.tags[position - 1 ] == wanted.name
+		return self.conjunto.get(wanted.name, False) 
 
 
 def add_class(t, elems, k, next_class):
 	for one in t:
-		"""
-			Tem que ser um conjunto
-		"""
 		if(not elems.search(one)):
-		#if(not one.name in [i.name for i  in elems]):
 			elems.append(one)
 			k[id(one)] = next_class
 			next_class += 1
 			continue
 
 		k1 = [one]+tree.post_order(one)
-		for node in elems:
+		for node in elems.tags:
 			identicalNodes = False
 			k2 = [node] + tree.post_order(node)
 			if(compara_lista(k1, k2)):
@@ -63,14 +57,9 @@ def get_classe_equivalencia(t1, t2):
 	k = dict()
 	next_class = 0
 	post1 = tree.post_order(t1)
-	if(t2 != None):
-		post2 = tree.post_order(t2)
-
+	post2 = tree.post_order(t2)
 	next_class = add_class(post1, elems, k, next_class)
-
-	if(t2 != None):
-		add_class(post2, elems, k, next_class)
-
+	add_class(post2, elems, k, next_class)
 	return k
 
 def compara_lista(node1, node2):

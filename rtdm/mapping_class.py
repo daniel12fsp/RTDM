@@ -44,6 +44,7 @@ class Mapping():
 		except:
 		    return NodeMapping(parent, left, right)
 
+
 	def search_tuple(*kargs):
 		"""
 			Procura a existencia do no e retorna este se nao cria um novo no
@@ -59,7 +60,14 @@ class Mapping():
 	search_tuple = staticmethod(search_tuple)
 	search_tuple_diff = staticmethod(search_tuple_diff)
 
-
+def quant_in_tag(tag):
+	try:
+		try:
+			return  int(tag.string)
+		except AttributeError:
+			return int(tag)
+	except:
+		return 0
 
 class NodeMapping(Mapping):
 	"""
@@ -120,16 +128,12 @@ class NodeMapping(Mapping):
 
 		left = self.left
 		right = self.right
-		"""
-		try:
-			print(is_wildcard(left),is_leaf(left), left.name)
-			print(is_wildcard(right), is_leaf(right), right.name)
-			print(right.string == left.string, right.name == left.name)
-		except:
-			pass
 
-		"""
-
+		quant = ""
+		if is_wildcard(left) or is_wildcard(right) or \
+				left == "0" or right == "0" or \
+					(is_leaf(left) and  is_leaf(right) and not equal(left, right)):
+			quant = str(quant_in_tag(right) + quant_in_tag(left)+ 1)
 
 		if(left == "0" or right == "0"):
 			tag_name = "interrogacao"
@@ -138,7 +142,7 @@ class NodeMapping(Mapping):
 			if(is_leaf(left) and is_leaf(right) and not equal(left, right)):
 				tag_name = "ponto"
 			else:
-				tag_name = left.name
+				tag_name = left.name 
 		elif(is_wildcard(left) and not is_wildcard(right)):
 			return left
 		
@@ -146,5 +150,8 @@ class NodeMapping(Mapping):
 			return right
 		else:
 			tag_name = get_curinga(left, right)
+		#TODO - Colocar quantidade de elemento
+		new_tag = Tag(name = tag_name)
 
-		return Tag(name = tag_name)
+		new_tag.string = quant
+		return new_tag

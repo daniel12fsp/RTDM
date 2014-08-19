@@ -4,8 +4,8 @@ import file
 import rtdm
 import sys
 from itertools import product
+from multiprocessing import Pool
 from time import gmtime, strftime
-from joblib import Parallel, delayed
 
 """
 
@@ -20,30 +20,34 @@ a = np.array( [ ( 1, 1, 1, 1),
 
 """
 
-def calc_rtdm(i, j, pages):
-	op = rtdm.calc_similaridade(pages[i], pages[j])
-	return i, j, op
-
 
 path = sys.argv[1]
-print(path)
+print("iniciou", path)
 
 pages = file.list_sorted_pages(path)
 indice = xrange(len(pages))
-matrix = np.zeros(shape=(len(pages),len(pages)), dtype=np.uint)
+
 par_pags = filter(lambda x: x[0] < x[1]  ,product(indice, indice)) # [(pag1,pag2)...]
-#par_pags = product(indice, indice) # [(pag1,pag2)...]
 
-name = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-print(name)
+def calc_rtdm(*arg):
+	arg = arg[0]
+	i = arg[0]
+	j = arg[1]
+	op = int(rtdm.dist_rtdm(pages[i], pages[j]))
+	#op = int(rtdm.calc_similaridade(pages[i], pages[j]))
+	print(i, j)
+	return	i, j, op
 
-resultados = Parallel(n_jobs=-1, backend="multiprocessing")(delayed(calc_rtdm)(i, j, pages) for (i, j) in par_pags)
+p = Pool(maxtasksperchild = 1 )
+future = p.map(calc_rtdm, ( (i, j) for (i, j) in par_pags) )
 
-for r in resultados:
-	i, j, op = r
+
+matrix = np.zeros(shape=(len(pages),len(pages)), dtype=np.int)
+for i, j, op in future:
 	matrix[i][j] = op
 
+print("acabou", path)
+time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+shop =  path.split("/")[-2]
 
-name = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-print(name)
-np.savetxt(path + "matriz_" + name + ".txt", matrix)
+np.savetxt(path + "matriz_" + shop + time + ".txt", matrix, fmt='%d')
