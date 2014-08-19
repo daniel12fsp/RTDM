@@ -11,7 +11,7 @@ import xml.sax.saxutils as saxutils
 
 
 def lxml_parser(file_tree):
-	return etree.parse(file_tree, parser=etree.HTMLParser(encoding="UTF-8"))
+	return etree.parse(file_tree, parser=etree.HTMLParser(encoding="utf8"))
 
 def create(regex):
 
@@ -61,19 +61,20 @@ def create(regex):
 			print(xp, qtd)
 
 		print("#################")
-
-		file_regex.close()
+		page_regex.close()
 	except:
 		print("Com as paginas informadas nao foi possivel gerar o xpath")
 		return "xpath_erro"
 
 	return lca + "//*"
 
-	page_regex.close()
 
-def remove_space(data):
-	data = re.sub("^ ","",data)
-	data = re.sub(" $","",data)
+def remove_espacos_acentos(data):
+	data = re.sub("(\t|\r|\n)","",data)
+	data = re.sub("^ *","",data)
+	data = re.sub(" *$","",data)
+	data = unidecode(unicode(data)).lower()
+	data = saxutils.unescape(data)
 	return data
 	
 #Modificar
@@ -83,19 +84,18 @@ def extraction(lca, page_target, id_file, file_json):
 	page_target.close()
 	attrs = {}
 	#lca_path = lca[:-4]
-	try:
-		for tag in tree.xpath(lca):
-			xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
-			if(tag.text):
-				value = re.sub("\s{2,}", "", tag.text)
-				value = unidecode(str(value)).lower()
-				value = saxutils.unescape(value)
-				if(tag.getprevious() == None):
-					key = remove_space(value)
-				else:
-					attrs[key] = [remove_space(value)]
-		
-		file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
-	except:
-		print(lca)
-		print("Erro", page_target, "Error")
+	for tag in tree.xpath(lca):
+		xpath_tag = re.sub("\[\d+\]","", tree.getpath(tag.getparent()))
+		if(tag.text):
+			value = re.sub("\s{2,}", "", tag.text)
+			if(tag.getprevious() == None):
+				key = remove_espacos_acentos(value)
+				tmp = ""
+				path_now = tree.getpath(tag.getparent())
+				for sib in tree.xpath(path_now + "//text()")[1:]:
+					if(sib!=tag.text):
+						tmp += remove_espacos_acentos(sib)
+				attrs[key] = [tmp]
+	
+	file_json.write("""{"id": %s, "atributos": %s}\n""" % (id_file,json.dumps(attrs, sort_keys=True)))
+	#print("Erro", page_target, "Error")
