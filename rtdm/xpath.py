@@ -34,31 +34,37 @@ def create(regex):
 	_create_single(page_regex, "ponto")
 	_create_single(page_regex, "interrogacao")
 
-	print(xpaths)
+	#print(xpaths)
 
 	xpaths = xpaths.items()
 
 	try:
+		
 		"""
 			As tres linhas a seguim serao tiradas
 			servem como comparacao
 		"""
-		xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
-		xpath_max_0 = max(xpaths, key = lambda x : x[0])
 		xpath_max_1 = max(xpaths, key = lambda x : x[1])
 		lca = xpath_max_1[0]
 		lca = xpath = re.sub("\[\d+\]","",lca)
+		print(lca + "//*")
+		'''
+		xpath_max_len = max(xpaths, key = lambda x : len(x[0]))
+		xpath_max_0 = max(xpaths, key = lambda x : x[0])
+
 		print("xpath_max_len" + str(xpath_max_len))
 		print("xpath_max_0(Key)" + str(xpath_max_0))
 		print("xpath_max_1(Valor)" + str(xpath_max_1))
+		'''
 		"""
 		Operacao custosa retire em futuro proximo
-		"""
+		
 		ordem = list(xpaths)
 		ordem.sort(key = lambda x: x[1], reverse = True)
 		for (xp, qtd) in ordem:
 			xp = re.sub("\[\d+\]","",xp)
 			print(xp, qtd)
+		"""
 
 		print("#################")
 		page_regex.close()

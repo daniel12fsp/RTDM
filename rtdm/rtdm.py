@@ -123,8 +123,8 @@ def create_regex(filename1, filename2):
 	tree1, tree2 = tree.files_to_trees(filename1, filename2)
 	k = get_classe_equivalencia(tree1, tree2)
 	prepareRTDM(k, None)
-	_, _, operacoes = _RTDM(None, tree1, tree2)	
-	return save_regex(filename1, filename2, operacoes)
+	operacoes, _, matrix = _RTDM(None, tree1, tree2)	
+	return operacoes, save_regex(filename1, filename2, matrix)
 	
 def _RTDM(father, t1, t2):
 	c1 = [t1]+t1.find_all(recursive=False)
